@@ -5,6 +5,14 @@ find . -type f \( \
   -name "*.sh" -o \
   -name "*.j2" -o \
   -name "*.txt" \
+  -name "*.py" \
+  -name "*.ini" \
+  -name "*.md" \
+  -name "*.html" \
+  -name "*.css" \
+  -name "*.js" \
+  -name "*.csv" \
+  -name "*.gitignore" \
 \) ! -name "context.txt" \
    ! -path "./.git/*" \
    ! -path "./node_modules/*" \
