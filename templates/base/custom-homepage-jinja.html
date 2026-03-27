@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DataPublication.nrw – Landesweites Forschungsdatenrepositorium für NRW</title>
+  <meta
+    name="description"
+    content="DataPublication.nrw – geplanter landesweiter Dienst zur qualitätsgesicherten Publikation von Forschungsdaten für Hochschulen in Nordrhein-Westfalen."
+  />
+
+  <link rel="icon" type="image/svg+xml" href="/at/webcontent/pagedata/dp-logo.svg" />
+  <link rel="alternate icon" href="/at/webcontent/pagedata/dp-logo.png" />
+
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --bg-alt: #ffffff;
+      --primary: #006b7f;
+      --primary-light: #00a3c4;
+      --accent: #22a86a;
+      --text: #1e2833;
+      --muted: #5c6977;
+      --border: #dde3ec;
+      --max-width: 1220px;
+      --radius-lg: 16px;
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
+    }
+
+    @font-face {
+      font-family: "Exo 2";
+      src: url("/at/webcontent/pagedata/fonts/exo_2/static/Exo2-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Exo 2";
+      src: url("/at/webcontent/pagedata/fonts/exo_2/static/Exo2-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("/at/webcontent/pagedata/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("/at/webcontent/pagedata/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #edf6ff 0, #f5f7fa 35%, #f5f7fa 100%);
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus-visible {
+      text-decoration: underline;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      font-size: 0.95rem;
+      color: var(--primary);
+      font-family: "Exo 2", sans-serif;
+    }
+
+    .brand img {
+      width: 30px;
+      height: auto;
+      display: block;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    nav a {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a:focus-visible {
+      background: #edf4fa;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .nav-cta {
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+      padding-inline: 1rem;
+    }
+
+    .nav-cta:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 999px;
+      margin: 3px 0;
+    }
+
+    main { flex: 1; }
+
+    .section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    .section-narrow { max-width: 820px; }
+
+    .section-heading {
+      font-family: "Exo 2", sans-serif;
+      font-size: 1.9rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-kicker {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 640px;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 2.5rem;
+      align-items: center;
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: #e7f5ff;
+      color: var(--primary);
+      font-size: 0.8rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-title {
+      font-family: "Exo 2", sans-serif;
+      font-size: clamp(2.1rem, 3vw, 2.8rem);
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 1.25rem;
+      max-width: 38rem;
+      line-height: 1.55;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hero-meta-label {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 0.65rem 1.3rem;
+      font-size: 0.9rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: white;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus-visible {
+      filter: brightness(1.05);
+      text-decoration: none;
+    }
+
+    .btn-ghost {
+      background: rgba(255, 255, 255, 0.6);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-ghost:hover,
+    .btn-ghost:focus-visible {
+      background: white;
+      text-decoration: none;
+    }
+
+    .hero-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.8rem;
+      line-height: 1.45;
+    }
+
+    .hero-card,
+    .partner-card,
+    .timeline,
+    .callout,
+    .funding-partners,
+    .consortium,
+    .image-wrapper {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-card {
+      padding: 1.7rem 1.7rem 1.4rem;
+    }
+
+    .hero-card h2,
+    .partner-card h3 {
+      font-family: "Exo 2", sans-serif;
+      margin-top: 0;
+    }
+
+    .hero-card p,
+    .partner-card p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .hero-card ul,
+    .partner-list,
+    .callout-list {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.8rem;
+      align-items: stretch;
+    }
+
+    .feature-card {
+      background: var(--bg-alt);
+      border-radius: 14px;
+      padding: 1.1rem 1rem 1rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 24px rgba(15, 45, 75, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.9rem;
+    }
+
+    .feature-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-weight: 600;
+    }
+
+    .feature-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      background: #edf7ff;
+    }
+
+    .feature-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .image-section {
+      margin-top: 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .image-wrapper {
+      padding: 1.25rem;
+    }
+
+    .dp-svg {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .image-caption {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .partner-card {
+      padding: 1.4rem 1.4rem 1.1rem;
+    }
+
+    .partner-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.92rem;
+    }
+
+    .partner-list li + li {
+      margin-top: 0.55rem;
+    }
+
+    .timeline {
+      margin-top: 1.8rem;
+      padding: 1.5rem 1.3rem 1.3rem;
+      font-size: 0.9rem;
+    }
+
+    .timeline-items {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.3rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-top: 1.3rem;
+    }
+
+    .timeline-dot,
+    .timeline-dot-yellow,
+    .timeline-dot-grey {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-shadow: 0 0 0 2px #ffffff;
+    }
+
+    .timeline-dot { background: var(--accent); }
+    .timeline-dot-yellow { background: #f2c94c; }
+    .timeline-dot-grey { background: #c4c4c4; }
+
+    .timeline-item h4 {
+      margin: 0 0 0.2rem 0;
+      font-size: 0.86rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
+    .timeline-item strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 0.92rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem 1.2rem;
+      font-size: 0.95rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .callout-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.95rem;
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .funding-partners,
+    .consortium {
+      padding: 2.5rem 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .funding-inner,
+    .consortium-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .funding-title,
+    .consortium-title {
+      font-family: "Exo 2", sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .funding-intro,
+    .consortium-intro {
+      color: var(--muted);
+      max-width: 720px;
+      font-size: 0.98rem;
+      text-align: center;
+      margin: 0 auto 2rem;
+      line-height: 1.45;
+    }
+
+    .funding-logos,
+    .consortium-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+    }
+
+    .funding-logo img,
+    .consortium-logo img {
+      height: 55px;
+      width: auto;
+      opacity: 0.95;
+      transition: 0.25s ease;
+    }
+
+    .funding-logo img:hover,
+    .consortium-logo img:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: #ffffff;
+      margin-top: 2rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .image-section {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .timeline-items {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .nav-toggle { display: block; }
+
+      nav {
+        position: absolute;
+        inset: calc(100% - 1px) 0 auto;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border);
+        transform-origin: top;
+        transform: scaleY(0);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      nav.open {
+        transform: scaleY(1);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.75rem 1.5rem 1rem;
+      }
+
+      .hero {
+        padding-top: 1.5rem;
+      }
+
+      .feature-grid,
+      .timeline-items {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <img src="/at/webcontent/pagedata/dp-logo.svg" alt="" aria-hidden="true" />
+        <span>DataPublication.nrw</span>
+      </div>
+
+      <button class="nav-toggle" aria-label="Navigation ein-/ausblenden">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="#about">Vorhaben</a></li>
+          <li><a href="#features">Haupteigenschaften</a></li>
+          <li><a href="#timeline">Zeitplan</a></li>
+          <li><a href="#participate">Mitmachen</a></li>
+          <li><a href="#contact" class="nav-cta">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section hero" id="top">
+      <div>
+        <div class="hero-badge">
+          <span>Neu</span> Geplanter Landesdienst für Forschungsdaten
+        </div>
+
+        <h1 class="hero-title">Landesweites Forschungsdatenrepositorium für NRW</h1>
+
+        <p class="hero-sub">
+          DataPublication.nrw wird ein zentraler, qualitätsgesicherter Dienst zur Publikation von
+          Forschungsdaten, offen für alle öffentlich-rechtlichen Hochschulen in Nordrhein-Westfalen –
+          modular, vernetzt mit anderen Landesdiensten und mit klarer Qualitätssicherung.
+        </p>
+
+        <div class="hero-meta" aria-label="Rahmendaten zum Vorhaben">
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Status:</span>
+            Projektstart über die Digitalisierungsoffensive des Landes NRW am 01.01.2026
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Geplanter Start:</span>
+            Produktivbetrieb des Dienstes ab voraussichtlich 3. Quartal 2026
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Betreiber:</span>
+            Universität Bonn (Konsortialführung) &amp; RWTH Aachen
+          </div>
+        </div>
+
+        <div class="hero-cta-row">
+          <a href="#participate" class="btn btn-primary">Mehr zur Beteiligung</a>
+          <a href="#features" class="btn btn-ghost">Zu den Haupteigenschaften</a>
+        </div>
+
+        <p class="hero-note">
+          Diese Seite informiert über das geplante Vorhaben und bleibt bis zur Inbetriebnahme des
+          Dienstes online. Anschließend werden hier Informationen zum laufenden Betrieb und zum
+          Onboarding weiterer Hochschulen bereitgestellt.
+        </p>
+      </div>
+
+      <aside class="hero-card" aria-label="Kurzüberblick DataPublication.nrw">
+        <h2>Was ist DataPublication.nrw?</h2>
+        <p>
+          DataPublication.nrw ist ein landesweites Repositorium für die Publikation wissenschaftlicher
+          Forschungsdaten. Forschende werden ihre Daten FAIR-konform bereitstellen können – mit
+          DOI-Vergabe, kontrollierten Metadaten und formalen Qualitätsstandards.
+        </p>
+        <ul>
+          <li>Landesweiter Dienst für Forschungsdatenpublikation</li>
+          <li>Getragener Betrieb im Land NRW auf Basis von Open-Source-Software (Dataverse)</li>
+          <li>Enge Anbindung an bestehende Landesdienste wie Coscine.nrw und DataStorage.nrw</li>
+          <li>Individuelle Bereiche für teilnehmende Hochschulen</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-narrow">
+        <div class="section-kicker">Über das Vorhaben</div>
+        <h2 class="section-heading">Ein gemeinsames Repositorium für NRW</h2>
+        <p class="section-intro">
+          Die Publikation von Forschungsdaten nach den FAIR-Prinzipien wird zunehmend von Förderern,
+          Verlagen und Hochschulen erwartet. Insbesondere für kleinere und mittelgroße Hochschulen ist
+          der Aufbau eigener Repositorien jedoch mit hohem Aufwand verbunden. DataPublication.nrw soll
+          hier eine landesweite Lösung bieten: Ein gemeinsamer Dienst, der technische Infrastruktur,
+          Qualitätssicherung und zentrale Beratung bündelt – bei gleichzeitig hoher Sichtbarkeit der
+          einzelnen Hochschulen.
+        </p>
+      </div>
+
+      <div class="image-section" aria-label="Systemskizze und Partnerhochschulen">
+        <div class="image-wrapper">
+          <div class="dp-map" role="img" aria-label="Landeskarte DataPublication.nrw">
+            {{ inline_svg("../../output/generated/cache/img/DP.linked.svg", 'class="dp-svg"') }}
+          </div>
+          <div class="image-caption">
+            Die Konsortialpartner und teilnehmenden Hochschulen in Nordrhein-Westfalen.
+          </div>
+        </div>
+
+        <aside class="partner-card">
+          <h3>Partnerhochschulen &amp; Betrieb</h3>
+          <p>
+            DataPublication.nrw wird in einem Konsortium aufgebaut, das technische Infrastruktur,
+            Landesdienste und Community-Arbeit zusammenführt.
+          </p>
+          <ul class="partner-list">
+            <li>
+              <strong><a href="https://www.uni-bonn.de" target="_blank" rel="noopener">Universität Bonn</a></strong><br />
+              Konsortialführerin, Betrieb der Repositoriumssoftware und zentrale Qualitätssicherung.
+            </li>
+            <li>
+              <strong><a href="https://www.rwth-aachen.de" target="_blank" rel="noopener">RWTH Aachen University</a></strong><br />
+              Technische Entwicklung von Schnittstellen und Integration angrenzender Dienste.
+            </li>
+            <li>
+              <strong>Start mit mehreren Partnerhochschulen in NRW</strong><br />
+              Pilotpartner gestalten Workflows, Policies und Community-Formate in der Aufbauphase aktiv mit.
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-kicker">Haupteigenschaften</div>
+      <h2 class="section-heading">Was der Dienst leisten soll</h2>
+      <p class="section-intro">
+        Das Repositorium wird auf einfache Nutzung, formale Qualität, nachhaltige Auffindbarkeit und
+        landesweite Anschlussfähigkeit ausgelegt.
+      </p>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-label"><span class="feature-icon">1</span> FAIR-Publikation</div>
+          <p>Publikation mit DOI, strukturierten Metadaten und klaren Qualitätsstandards.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-label"><span class="feature-icon">2</span> Hochschulsichtbarkeit</div>
+          <p>Eigene Bereiche für Hochschulen mit individueller Startseite und institutioneller Präsenz.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-label"><span class="feature-icon">3</span> Landesdienste</div>
+          <p>Technische Anbindung an bestehende Dienste in NRW und standardisierte Workflows.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-label"><span class="feature-icon">4</span> Nachhaltiger Betrieb</div>
+          <p>Gemeinsame Infrastruktur statt isolierter Einzellösungen an vielen Standorten.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="section-kicker">Zeitplan</div>
+      <h2 class="section-heading">Aufbau und Einführung</h2>
+
+      <div class="timeline">
+        <div class="timeline-items">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <h4>Start</h4>
+            <strong>01.01.2026</strong>
+            <p>Beginn des Aufbaus von DataPublication.nrw im Rahmen der Landesinitiative.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot-yellow"></div>
+            <h4>Frühe Phase</h4>
+            <strong>Q1–Q2 2026</strong>
+            <p>Technischer Aufbau, Abstimmung mit Pilothochschulen und erste Governance-Strukturen.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot-grey"></div>
+            <h4>Pilotbetrieb</h4>
+            <strong>Q2–Q3 2026</strong>
+            <p>Testbetrieb, Qualitätsprüfung und Feinschliff der Workflows mit den Partnern.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot-grey"></div>
+            <h4>Produktivstart</h4>
+            <strong>vsl. Q3 2026</strong>
+            <p>Geplanter Beginn des regulären Dienstbetriebs für teilnehmende Hochschulen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="participate">
+      <div class="section-kicker">Mitmachen</div>
+      <h2 class="section-heading">Beteiligung weiterer Hochschulen</h2>
+
+      <div class="callout">
+        <div class="callout-header"><span>✉</span> Interesse am Einstieg?</div>
+        <p>
+          Weitere Hochschulen in Nordrhein-Westfalen können sich für die Beteiligung am Dienst und an
+          zukünftigen Onboarding-Prozessen melden.
+        </p>
+        <ul class="callout-list">
+          <li>Interesse an der Nutzung des Dienstes</li>
+          <li>Fragen zu Workflows, Policies und institutionellen Bereichen</li>
+          <li>Austausch zu Anforderungen aus Forschung, Bibliothek und IT</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section funding-partners">
+      <div class="funding-inner">
+        <div class="funding-title">Förderung</div>
+        <p class="funding-intro">
+          Das Vorhaben wird im Rahmen der Digitalisierungsoffensive Nordrhein-Westfalen unterstützt.
+        </p>
+        <div class="funding-logos">
+          <div class="funding-logo">
+            <img src="/at/webcontent/pagedata/dp-logo.svg" alt="Förderhinweis DataPublication.nrw" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section consortium">
+      <div class="consortium-inner">
+        <div class="consortium-title">Konsortium</div>
+        <p class="consortium-intro">
+          Der Aufbau erfolgt gemeinsam mit Partnern aus Betrieb, Entwicklung und Forschungsdatenmanagement.
+        </p>
+        <div class="consortium-logos">
+          <div class="consortium-logo">
+            <img src="/at/webcontent/pagedata/dp-logo.svg" alt="DataPublication.nrw" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="footer-inner">
+      <div>DataPublication.nrw – Informationsseite zum geplanten Landesdienst</div>
+      <div class="footer-links">
+        <a href="mailto:forschungsdaten@uni-bonn.de">Kontakt</a>
+        <a href="https://www.uni-bonn.de/de/impressum" target="_blank" rel="noopener">Impressum</a>
+        <a href="https://www.uni-bonn.de/de/datenschutz" target="_blank" rel="noopener">Datenschutz</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector("nav");
+
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("open");
+    });
+  }
+</script>
+</body>
+</html>

@@ -1,20 +1,13 @@
 __pycache__/
-tmp/
-homepagebuilder/
-homepage/
-csslibs/
 .ipynb_checkpoints/
 .idea/
-homepage_output/
-webcontent_bak/
 
+.venv/
+venv/
 
+output/
+.cache/
 
-
-
-# Ansible
-.vault-pass
-*.retry
-
-# Local clear-text secrets (if you use a mirror directory)
-local-secrets/
+context.txt
+find.txt
+*_backup_before_restructure_*.tar.gz

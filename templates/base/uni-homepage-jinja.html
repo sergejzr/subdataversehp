@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ uni_name or main_dataverse_info.name or "Dataverse" }}</title>
+  <meta
+    name="description"
+    content="{{ main_dataverse_info.first_sentence or main_dataverse_info.sanitized_description or main_dataverse_info.name }}"
+  />
+
+  <link rel="icon" type="image/svg+xml" href="/at/webcontent/pagedata/dp-logo.svg" />
+  <link rel="alternate icon" href="/at/webcontent/pagedata/dp-logo.png" />
+
+  {% if css %}
+  <link rel="stylesheet" href="{{ css }}" />
+  {% endif %}
+
+  <style>
+    :root {
+      --bg: #f4f7fa;
+      --surface: #ffffff;
+      --surface-2: #f9fbfd;
+      --text: #1f2933;
+      --muted: #66727f;
+      --primary: #006b7f;
+      --primary-light: #00a3c4;
+      --border: #dfe6ee;
+      --shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      --radius: 18px;
+      --max-width: 1240px;
+    }
+
+    @font-face {
+      font-family: "Exo 2";
+      src: url("/at/webcontent/pagedata/fonts/exo_2/static/Exo2-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Exo 2";
+      src: url("/at/webcontent/pagedata/fonts/exo_2/static/Exo2-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("/at/webcontent/pagedata/fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: "Roboto";
+      src: url("/at/webcontent/pagedata/fonts/Roboto/Roboto-Bold.ttf") format("truetype");
+      font-weight: 700;
+      font-style: normal;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Roboto", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover,
+    a:focus-visible {
+      text-decoration: underline;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .site-header__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      min-width: 0;
+    }
+
+    .brand__logo {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      flex: 0 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      padding: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .brand__text {
+      min-width: 0;
+    }
+
+    .brand__kicker {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .brand__title {
+      font-family: "Exo 2", sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.2;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 42vw;
+    }
+
+    .site-nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0;
+      padding: 0;
+      flex-wrap: wrap;
+    }
+
+    .site-nav a {
+      color: var(--muted);
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.92rem;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible {
+      background: #eef6fa;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .site-nav__cta {
+      border: 1px solid var(--primary);
+      color: var(--primary) !important;
+      font-weight: 600;
+    }
+
+    .site-nav__cta:hover,
+    .site-nav__cta:focus-visible {
+      background: var(--primary);
+      color: #fff !important;
+    }
+
+    .hero {
+      position: relative;
+      isolation: isolate;
+      min-height: 360px;
+      display: flex;
+      align-items: end;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.48)),
+        url('{{ background or "/homepage/img/backgrounds/collection_root.jpg" }}') center/cover no-repeat;
+      color: #fff;
+    }
+
+    .hero__inner {
+      max-width: var(--max-width);
+      width: 100%;
+      margin: 0 auto;
+      padding: 4rem 1.25rem 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(300px, 1.3fr);
+      gap: 1.5rem;
+      align-items: end;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      font-size: 0.82rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero__title {
+      margin: 0 0 0.8rem;
+      font-family: "Exo 2", sans-serif;
+      font-size: clamp(2rem, 3vw, 3rem);
+      line-height: 1.1;
+    }
+
+    .hero__lead {
+      margin: 0;
+      max-width: 48rem;
+      font-size: 1.03rem;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .hero__card {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      padding: 1rem 1.1rem;
+    }
+
+    .hero__card h2 {
+      margin: 0 0 0.65rem;
+      font-family: "Exo 2", sans-serif;
+      font-size: 1rem;
+    }
+
+    .hero__meta {
+      display: grid;
+      gap: 0.65rem;
+      font-size: 0.92rem;
+    }
+
+    .hero__meta div span {
+      display: block;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.8;
+      margin-bottom: 0.15rem;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 1.5rem;
+    }
+
+    .stack {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .card__body {
+      padding: 1.35rem;
+    }
+
+    .section-title {
+      margin: 0 0 1rem;
+      font-family: "Exo 2", sans-serif;
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .muted {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.85rem;
+    }
+
+    .stat {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+
+    .stat__value {
+      font-family: "Exo 2", sans-serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat__label {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.35;
+    }
+
+    .custom-text {
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .custom-text p:first-child {
+      margin-top: 0;
+    }
+
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .tile {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .tile__img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      background: #e9eef3;
+    }
+
+    .tile__body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      flex: 1;
+    }
+
+    .tile__title {
+      font-family: "Exo 2", sans-serif;
+      font-size: 1rem;
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .tile__meta {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.4;
+    }
+
+    .tile__text {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .tile__link {
+      margin-top: auto;
+      font-weight: 600;
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 1.5rem;
+      align-self: start;
+      position: sticky;
+      top: 88px;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .list li + li {
+      margin-top: 0.45rem;
+    }
+
+    .links {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .link-box {
+      display: block;
+      padding: 0.9rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface-2);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .link-box:hover,
+    .link-box:focus-visible {
+      border-color: var(--primary-light);
+      background: #eef9fc;
+      text-decoration: none;
+    }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+    }
+
+    .footer__inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1.2rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero__inner,
+      .page {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .stats,
+      .tiles {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .site-header__inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .site-nav ul {
+        gap: 0.5rem;
+      }
+
+      .brand__title {
+        max-width: unset;
+        white-space: normal;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="brand">
+        <img class="brand__logo" src="{{ logo or '/at/webcontent/pagedata/dp-logo.svg' }}" alt="" />
+        <div class="brand__text">
+          <div class="brand__kicker">DataPublication.nrw</div>
+          <div class="brand__title">{{ uni_name or main_dataverse_info.name or "Dataverse" }}</div>
+        </div>
+      </div>
+
+      <nav class="site-nav" aria-label="Navigation">
+        <ul>
+          <li><a href="#about">Überblick</a></li>
+          <li><a href="#collections">Bereiche</a></li>
+          <li><a href="#datasets">Datensätze</a></li>
+          {% if homepage %}
+          <li><a href="{{ homepage }}" target="_blank" rel="noopener">Hochschule</a></li>
+          {% endif %}
+          <li><a class="site-nav__cta" href="/dataverse/{{ uni_label or main_dataverse_info.alias }}">Zum Dataverse</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__inner">
+      <div>
+        <div class="hero__eyebrow">Institutioneller Bereich</div>
+        <h1 class="hero__title">{{ uni_name or main_dataverse_info.name or "Dataverse" }}</h1>
+        <p class="hero__lead">
+          {{ main_dataverse_info.first_sentence or main_dataverse_info.sanitized_description or "Willkommen im institutionellen Bereich von DataPublication.nrw." }}
+        </p>
+      </div>
+
+      <aside class="hero__card">
+        <h2>Kurzinfo</h2>
+        <div class="hero__meta">
+          <div>
+            <span>Alias</span>
+            {{ uni_label or main_dataverse_info.alias }}
+          </div>
+          {% if homepage %}
+          <div>
+            <span>Webseite</span>
+            <a href="{{ homepage }}" target="_blank" rel="noopener" style="color:#fff;">{{ homepage }}</a>
+          </div>
+          {% endif %}
+          <div>
+            <span>Dataverse</span>
+            <a href="/dataverse/{{ uni_label or main_dataverse_info.alias }}" style="color:#fff;">/dataverse/{{ uni_label or main_dataverse_info.alias }}</a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <main class="page">
+    <div class="stack">
+      <section class="card" id="about">
+        <div class="card__body">
+          <h2 class="section-title">Über diesen Bereich</h2>
+          <p class="muted">
+            {{ main_dataverse_info.sanitized_description or main_dataverse_info.description or "Dieser Bereich bündelt Datensätze und untergeordnete Sammlungen für die Institution." }}
+          </p>
+
+          {% if custom_text %}
+          <div class="custom-text">
+            {{ custom_text | safe }}
+          </div>
+          {% endif %}
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card__body">
+          <h2 class="section-title">Kennzahlen</h2>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat__value">{{ stat_info.published_dataverses or 0 }}</div>
+              <div class="stat__label">Veröffentlichte Dataverse-Bereiche</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">{{ stat_info.published_datasets or 0 }}</div>
+              <div class="stat__label">Veröffentlichte Datensätze</div>
+            </div>
+            <div class="stat">
+              <div class="stat__value">{{ stat_info.downloads_lastmonth or 0 }}</div>
+              <div class="stat__label">Downloads im letzten Zeitraum</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" id="collections">
+        <div class="card__body">
+          <h2 class="section-title">Untergeordnete Bereiche</h2>
+
+          {% if dataverse_items %}
+          <div class="tiles">
+            {% for item in dataverse_items %}
+            <article class="tile">
+              {% if item.hasbackground == "true" %}
+              <img class="tile__img" src="/homepage/img/backgrounds/collection_{{ item.alias }}.jpg" alt="{{ item.title }}" />
+              {% else %}
+              <img class="tile__img" src="/at/webcontent/pagedata/dp-logo.svg" alt="{{ item.title }}" />
+              {% endif %}
+              <div class="tile__body">
+                <h3 class="tile__title">{{ item.title }}</h3>
+                <div class="tile__meta">{{ item.alias }}</div>
+                <p class="tile__text">{{ item.first_sentence or item.sanitized_description or item.description }}</p>
+                <a class="tile__link" href="{{ item.href }}">Bereich öffnen</a>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="muted">Aktuell sind keine untergeordneten Bereiche verfügbar.</p>
+          {% endif %}
+        </div>
+      </section>
+
+      <section class="card" id="datasets">
+        <div class="card__body">
+          <h2 class="section-title">Datensätze</h2>
+
+          {% for section in dataset_sections %}
+            <h3 style="margin-top:1.25rem; margin-bottom:0.9rem; font-family:'Exo 2',sans-serif;">{{ section.title }}</h3>
+
+            {% if section.items %}
+            <div class="tiles">
+              {% for item in section.items %}
+              <article class="tile">
+                <img class="tile__img" src="{{ item.image_src }}" alt="{{ item.img_alt or item.title }}" />
+                <div class="tile__body">
+                  <h4 class="tile__title">{{ item.title }}</h4>
+                  <div class="tile__meta">
+                    {% if item.date %}{{ item.date }}{% endif %}
+                    {% if item.name_of_dataverse %} · {{ item.name_of_dataverse }}{% endif %}
+                  </div>
+                  <p class="tile__text">{{ item.description }}</p>
+                  {% if item.authors %}
+                  <div class="tile__meta">{{ item.authors }}</div>
+                  {% endif %}
+                  <a class="tile__link" href="{{ item.url }}" target="_blank" rel="noopener">Datensatz öffnen</a>
+                </div>
+              </article>
+              {% endfor %}
+            </div>
+            {% else %}
+            <p class="muted">Für diesen Abschnitt liegen aktuell keine Einträge vor.</p>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+
+    <aside class="sidebar">
+      <section class="card">
+        <div class="card__body">
+          <h2 class="section-title">Schnellzugriffe</h2>
+          <div class="links">
+            <a class="link-box" href="/dataverse/{{ uni_label or main_dataverse_info.alias }}">Dataverse öffnen</a>
+            {% if homepage %}
+            <a class="link-box" href="{{ homepage }}" target="_blank" rel="noopener">Zur Hochschulwebseite</a>
+            {% endif %}
+            <a class="link-box" href="/at/index.html">Zur NRW-Startseite</a>
+          </div>
+        </div>
+      </section>
+
+      {% if more_information %}
+      <section class="card">
+        <div class="card__body">
+          <h2 class="section-title">Weitere Informationen</h2>
+          {% for group in more_information %}
+            <ul class="list">
+              {% for link in group.links %}
+                <li><a href="{{ link.href }}" target="_blank" rel="noopener">{{ link.text }}</a></li>
+              {% endfor %}
+            </ul>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <div>{{ uni_name or main_dataverse_info.name or "Dataverse" }} · DataPublication.nrw</div>
+      <div>Generiert am {{ gen_date }}</div>
+    </div>
+  </footer>
+
+  {% if js %}
+  <script src="{{ js }}"></script>
+  {% endif %}
+</body>
+</html>
