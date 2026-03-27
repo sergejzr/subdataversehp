@@ -1,0 +1,324 @@
+/* ================================
+   FONT DEFINITION
+================================ */
+
+@font-face {
+    font-family: "Lelo";
+    src:
+        url("/fonts/Lelo/Lelo-Regular.woff2") format("woff2"),
+        url("/fonts/Lelo/Lelo-Regular.woff") format("woff");
+    font-style: normal;
+    font-weight: 400;
+}
+.caroussel_title
+{
+font-size: 20pt;
+font-weight: semi-bold;
+color: black;
+font-family: Lelo !important;
+}
+
+.stat-text {
+    color: white;
+    font-family: Lelo;
+    font-size: 17px;
+    text-align: center;
+}
+.login-prompt {
+    font-size: 18px !important;
+    font-family: Lelo !important;
+    font-color: rgb(26, 24, 27);
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.section-heading {
+    word-wrap: break-word;
+    box-sizing: border-box;
+    color: #1A181B !important;
+    font-family: Lelo !important;
+    font-size: 36pt;
+    font-weight: 500 !important;
+    line-height: 61px !important;
+    display: block;
+    padding-bottom: 30px;
+    padding-top: 70px;
+}
+
+.repository-title {
+    word-wrap: break-word;
+    color: #FFFFFF;
+	font-weight: bold;
+    font-family: Lelo !important;
+    font-size: 36pt;
+    text-transform: uppercase;
+    padding-bottom: 20px;
+}
+
+.glyphicon {
+    font-size: 20px;
+    /* color: black !important; */
+}
+.text-danger {
+	font-size: 12px !important;
+    color: #ea1713;
+}
+span.glyphicon-question-sign.tooltip-icon {
+    color: #14f5b3 !important;
+
+}
+
+span.glyphicon-question-sign.tooltip-icon:hover {
+    color: white !important;
+	 background-color: black !important;
+	border: solid 1px;
+	border-color:#14f5b3 !important;
+border: 1px solid #14f5b3; /* Blue border (stroke) */
+        border-radius: 50%; /* Makes it circular */
+        padding: 0px; /* Adds padding to give it space inside the circle */
+
+}
+
+.interactive-list {
+    word-wrap: break-word;
+    text-align: left;
+    font-family: 'Lelo';
+    cursor: pointer;
+    color: rgb(26, 24, 27);
+    font-size: 17px;
+}
+
+.btn-primary {
+    background-image: none;
+    border-color: #14f5b3;
+background-color:#14f5b3;
+	color:black;
+}
+
+
+        /* Style for the question mark icon */
+    .customNavigation .glyphicon-question-sign {
+        cursor: pointer; /* Changes the cursor to a pointer on hover */
+        color: #14f5b3; /* Default color */
+        background-color: #000000 !important; /* White background for the circle */
+       border: 1px solid #14f5b3; /* Blue border (stroke) */
+        border-radius: 50%; /* Makes it circular */
+        padding: 0px; /* Adds padding to give it space inside the circle */
+
+	}
+
+	    /* Hover effect for the question mark */
+    .customNavigation .glyphicon-question-sign:hover {
+        color: white; /* Changes the question mark to white */
+        border: 1px solid #14f5b3;; /* Blue border (stroke) */
+        border-radius: 50%; /* Makes it circular */
+        padding: 0px; /* Adds padding to give it space inside the circle */
+		/*background-color:white !important; *//* Default blue color */
+	}
+
+	.statistics-footer {
+    width: 100%;
+    position: relative;
+    left: 0;
+    background-color: #14f5b3 !important;
+    height: 300px;
+	color:black !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.stat-text {
+    color: black !important;
+    font-family: Roboto-Regular;
+    font-size: 17px;
+    text-align: center;
+}
+.stat-number {
+    color: black !important;
+}
+
+
+.navbar-default
+{
+	background-color: #fff; ! Important;
+
+    border-color: #14f5b3 !important;
+border-bottom:solid 1px;
+    /* border: none !Important; */
+	/* background-image: none; */
+}
+form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #c71616;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #000000;
+}
+
+#search-row-panel {
+    border: 1px solid #14f5b3;
+    border-radius: 4px;
+    padding: 15px 0;
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: "Lelo";
+    font-weight: 500;
+    line-height: 1.1;
+    color: black;
+}
+/* ================================
+   GLOBAL STYLES
+================================ */
+
+body {
+    background-color: white !important;
+    box-sizing: border-box;
+    font-family: "Lelo", sans-serif !important;
+}
+
+a.dataverseHeaderName
+{
+    color:green !important;
+}
+/* ================================
+   CUSTOM HEADER
+================================ */
+
+#custom-header {
+    width: 100%;
+    min-height: 30px;
+    background-color: #14f5b3;
+    color: white;
+    text-align: center;
+}
+
+
+/* ================================
+   LINKS
+================================ */
+
+a {
+    color: #333333;
+    border-color: #9e2d75;
+}
+
+
+/* ================================
+   NAVBAR
+================================ */
+
+.navbar-nav > li > a:hover {
+    color: #333333;
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li a {
+    line-height: 18px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    color: #000000;
+    font-weight: bold;
+    border: 0px none;
+}
+.icon-dataset {
+    font-size: 7.5em;
+    line-height: 1.1;
+    color: #000000 !important;
+}
+.bg-citation {
+    background: #14f5b3;
+    border: 0;
+}
+/* ================================
+   BUTTON BASE STYLE
+================================ */
+
+button.btn-default,
+a.btn-default {
+    text-shadow: none;
+    word-wrap: break-word !important;
+    line-height: 1.42857143 !important;
+    font-weight: 400 !important;
+    font-size: 15px !important;
+    text-align: left !important;
+    box-sizing: border-box !important;
+    font-family: "Lelo", sans-serif !important;
+    border: 1px solid !important;
+	border-color: white !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    background: #14f5b3 !important;
+    padding: 12px 20px;
+    color: #000000 !important;
+    justify-content: center !important;
+    border-radius: 0 !important;
+}
+
+
+/* ================================
+   BUTTON HOVER
+================================ */
+
+button.btn-default:hover,
+a.btn-default:hover {
+    border-color: #14f5b3 !important;
+    background-color: white !important;
+    color: #000000 !important;
+}
+
+
+/* ================================
+   SPECIAL BUTTONS
+================================ */
+
+.btn-contact:hover,
+.btn-share:hover {
+    background-color: #14f5b3;
+    color: #000000;
+}
+.btn-contact, .btn-share {
+border: 1px solid;
+border-color:  #14f5b3;
+    border-radius: 0px ! Important;
+    text-decoration: none ! Important;
+}
+
+body
+{
+	/*background-color: var(--stone-25) !important;*/
+	background-color:white !important;
+	box-sizing: border-box;
+	font-family: Lelo !important;
+}
+
+.repository-action-button {
+    border: 2px solid;
+    border-color: white;
+    color: white;
+    padding: 2px 14px;
+    background-color: rgba(26, 24, 27, 0.3);
+    font-family: Lelo !important;
+    font-size: 19px;
+}
+
+/* ================================
+   INPUT GROUP / TOOLTIP BUTTONS
+================================ */
+
+a.btn-default,
+.bootstrap-button-tooltip,
+.input-group-btn > button {
+    padding: 9px 9px;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 4px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 4px !important;
+}
+

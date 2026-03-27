@@ -1,0 +1,581 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head id="j_idt5">
+            <title>Root</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/theme.css.xhtml?ln=primefaces-bootstrap&amp;v=11.0.0" />
+    <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/primeicons/primeicons.css.xhtml?ln=primefaces&amp;v=11.0.0" />
+    <script src="/jakarta.faces.resource/omnifaces.js.xhtml?ln=omnifaces&amp;v=1768296887881"></script>
+    <script src="/jakarta.faces.resource/jquery/jquery.js.xhtml?ln=primefaces&amp;v=11.0.0"></script>
+    <script src="/jakarta.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&amp;v=11.0.0"></script>
+    <script src="/jakarta.faces.resource/core.js.xhtml?ln=primefaces&amp;v=11.0.0"></script>
+    <script src="/jakarta.faces.resource/components.js.xhtml?ln=primefaces&amp;v=11.0.0">
+<!-- BIelefeld Template Here-->
+    </script>
+    <link rel="stylesheet" href="/jakarta.faces.resource/components.css.xhtml?ln=primefaces&amp;v=11.0.0" />
+    <script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='en';PrimeFaces.settings.viewId='/dataverse_homepage.xhtml';PrimeFaces.settings.contextPath='';PrimeFaces.settings.cookiesSecure=false;}</script>
+        <link rel="apple-touch-icon" sizes="180x180" href="/jakarta.faces.resource/images/fav/apple-touch-icon.png.xhtml" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/jakarta.faces.resource/images/fav/favicon-16x16.png.xhtml" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/jakarta.faces.resource/images/fav/favicon-32x32.png.xhtml" />
+        <link rel="manifest" href="/jakarta.faces.resource/images/fav/site.webmanifest.xhtml" />
+        <link rel="mask-icon" href="/jakarta.faces.resource/images/fav/safari-pinned-tab.svg.xhtml" color="#da532c" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <link type="image/png" rel="image_src" href="/jakarta.faces.resource/images/dataverseproject.png.xhtml" />
+        <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/bs/css/bootstrap.min.css.xhtml?version=6.8" />
+        <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/bs/css/bootstrap-theme.min.css.xhtml?version=6.8" />
+        <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/css/ie-compat.css.xhtml?version=6.8" />
+        <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/css/owl.carousel.css.xhtml?version=6.8" />
+        <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/css/fontcustom.css.xhtml?version=6.8" />
+        <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/css/socicon.css.xhtml?version=6.8" />
+        <link type="text/css" rel="stylesheet" href="/jakarta.faces.resource/css/structure.css.xhtml?version=6.8" />
+            <style>
+                /* Custom CSS */
+                @import url("/csslibs/custom-stylesheet.css");
+
+            </style>
+</head><body>
+	<a href="#content" class="sr-only">Skip to main content</a>
+    <!-- Load web component along with Polymer shim in case browser support not there yet. -->
+<!--<script src="some.js"></script>-->
+
+
+     <!-- Some important message can go here-->
+
+    <div id="custom-header">
+
+
+    </div>
+<script>
+    window["dvalias"]="{{ main_dataverse_info.alias }}";
+</script>
+<script type="text/javascript" src="/jslibs/hrz/announcement.js"></script>
+<script type="text/javascript" src="/jslibs/hrz/gui.js"></script>
+<script type="text/javascript" src="/jslibs/hrz/libs.js"></script>
+<script type="text/javascript" src="/jslibs/hrz/metadatalibs.js"></script>
+<script type="text/javascript" src="/at/webcontent/js/unis_overview.js"></script>
+
+
+    <nav id="dataverse-header-block"><div id="navbarFixed" class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar" aria-pressed="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/"><img class="header_logo" src="/imglibs/dataverse_logo.svg" alt="Datapublication.nrw homepage" class="navbar-brand custom-logo" />
+                    </a><!--
+                    <a href="{{uni_ctx.homepage}}"><img class="header_logo" src="{{uni_ctx.logo}}" alt="{{ main_dataverse_info.name}} Home" class="navbar-brand custom-logo" />
+                    </a>-->
+                </div>
+                <div class="collapse navbar-collapse" id="topNavBar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right"><li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Add Data <b class="caret"></b></a>
+                            <ul class="dropdown-menu"><li><a href="/dataset.xhtml?ownerId=1">New Dataset</a></li>
+                            </ul></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Search <b class="caret"></b></a>
+                            <ul class="dropdown-menu navbar-search">
+                                <li>
+                                    <form class="form-inline" role="search">
+                                        <label id="searchNavLabel" class="sr-only" for="navbarsearch">Search</label>
+                                        <div class="input-group">
+                                            <input id="navbarsearch" type="text" class="form-control" size="28" value="" placeholder="Search all dataverses..." />
+                                            <span class="input-group-btn">
+                                                <button type="submit" title="Find" class="btn btn-default bootstrap-button-tooltip" aria-labelledby="searchNavLabel" onclick="window.location='/dataverse/root?q=' + document.getElementById('navbarsearch').value;return false;">
+                                                    <span class="glyphicon glyphicon-search no-text"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="https://confluence.team.uni-bonn.de/display/HRZSFDPUB/User+Guide" rel="noopener" target="_blank">User Guide</a>
+                        </li><li><a href="mailto:forschungsdaten@uni-bonn.de?subject=BonndataSupportRequest" rel="noopener" target="_blank">Support</a></li>
+
+                            <li id="user_loggedin_item"><a href="/loginpage.xhtml?redirectPage=%2Fdataverse_homepage.xhtml">
+                                    Log In
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div></div>
+
+        <noscript>
+            <div id="noscript-alert" class="bg-danger">
+                <div class="alert container text-danger no-margin-bottom">Please enable JavaScript in your browser. It is required to use most of the features of Dataverse.
+                </div>
+            </div>
+        </noscript>
+<form id="j_idt101" name="j_idt101" method="post" action="/" class="form-inline" enctype="application/x-www-form-urlencoded" data-partialsubmit="true">
+<input type="hidden" name="j_idt101" value="j_idt101" />
+<input type="hidden" name="jakarta.faces.ViewState" id="j_id1:jakarta.faces.ViewState:1" value="3687993809124781788:7738030580381339308" autocomplete="off" />
+</form><div id="messagePanel">
+            <div class="container messagePanel">
+            </div></div>
+    </nav>
+        <div class="container" id="content" role="main">
+
+<link type="text/css" rel="stylesheet" href="/homepage/css/homepage.css">
+<script src="/homepage/js/homepage.js" async=""></script>
+<script src="/homepage/js/lozad.min.js" async="false"></script>
+<script src="https://cdn.jsdelivr.net/npm/lozad@1.14.0/dist/lozad.min.js"></script>
+
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+
+    const observer = lozad();
+    document.body.iobserver=observer;
+    observer.observe();
+
+    // Select elements by name
+const elements = document.getElementsByName("dataverseItem");
+
+// Array to hold attribute values (optional, only if you need to store them)
+let attributeValues = [];
+
+// Loop through elements
+for (let element of elements) {
+    let dvAlias = element.getAttribute("dataverse-alias");
+    let hasBackground = element.getAttribute("hasbackground");
+    if(hasBackground&&hasBackground=="true")
+    {
+    const img = new Image();
+    var url="/homepage/img/backgrounds/collection_" + dvAlias + "_low.jpg";
+    img.src = url;
+
+    // Optional: Add onload and onerror event handlers
+    img.onload = () => console.log(`Image loaded successfully: ${url}`);
+    //img.onerror = () => console.error(`Failed to load image: ${url}`);
+
+    }
+}
+
+});
+</script>
+
+<!--
+Generated: {{ gen_date }}
+-->
+<div class="repository-header-container">
+
+    <div id="repository-header" class="repository-header-background lozad" data-background-image="/homepage/img/backgrounds/collection_root.jpg"  >
+        <div class="repository-header-overlay"></div>
+        <div class="repository-header-content">
+            <div class="repository-info-block">
+                <nav class="header-breadcrumbs"></nav>
+
+                <div id="repository-title" class="repository-title">
+                    Welcome to {{ main_dataverse_info.name }}
+                </div>
+
+<div id="repository-description" class="repository-description">
+                     {{ main_dataverse_info.first_sentence }}
+                </div>
+
+                <div class="divider-space"></div>
+                <div>
+                <a id="header_browse_collection_href" href="/dataverse/{{ main_dataverse_info.alias }}?q=">
+                    <button type="button" id="header_browse_collection_button" class="repository-action-button"
+                            title="Browse {{ main_dataverse_info.name}}">
+                        <span>View all datasets</span> <span class="pi-eye pi" style="padding-left:4px;font-size:12pt" />
+
+                    </button>
+                </a>
+                <a name="header_add_dataset_href" href="/dataset.xhtml?ownerId={{ main_dataverse_info.id }}">
+                    <button type="button"  class="repository-action-button"
+                            name="add_dataverse_button" title="Add your dataset to {{ main_dataverse_info.name}}">
+                       <span name="add_dataverse_link_text" >Add your dataset to {{ main_dataverse_info.name}}</span> <span class="pi-plus pi" style="padding-right:4px;font-size:12pt"/>
+                    </button>
+                </a>
+                <div style="display: flex;    justify-content: space-between;    margin-top: 10px; width:100%">
+                    <input id="searchall2" type="text" class="form-control" style="display: flex; flex:1;margin:5px;max-width:90%" size="24" value=""
+                               placeholder="Search all in all {{ main_dataverse_info.name}} datasets...">
+                        <span class="input-group-btn" style="min-width: 10%;">
+                                                <button type="submit" title=""
+                                                        class="btn btn-default bootstrap-button-tooltip"
+                                                        aria-labelledby="searchNavLabel"
+                                                        onclick="window.location='/dataverse/{{main_dataverse_info.alias}}?q=' + document.getElementById('searchall2').value;return false;"
+                                                        data-original-title="Find">
+                                                    <span class="glyphicon glyphicon-search no-text"></span>
+                                                </button>
+                                            </span>
+                    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="header-spacing">.</div>
+
+<div class="row main-overview-section">
+    <div class="content-centered">
+        <div id="dataversePresentationU" style="width:90%">
+
+ <!--START-->
+
+<div style="display:hidden">
+    {% for item in dataverse_items %}
+        <div id="dataversedescription_{{item.id}}" style="display:none">{{item.first_sentence}}</div>
+    {% endfor %}
+</div>
+<style>
+    /* Common styles for both buttons */
+    .navigationarrow {
+        display: inline-block;
+
+        background-size: contain;
+        background-repeat: no-repeat;
+        transition: background-image 0.3s ease;
+    }
+
+    /* Style for the previous button */
+    .prev1 {
+
+    }
+
+    .prev1:hover {
+ background-color:#929084
+    }
+
+    /* Style for the next button */
+    .next1 {
+
+    }
+
+    .next1:hover {
+ background-color:#929084
+    }
+
+         /* Style for the question mark icon */
+    .customNavigation .glyphicon-question-sign {
+        cursor: pointer; /* Changes the cursor to a pointer on hover */
+        color: rgb(7, 82, 154); /* Default blue color */
+        background-color: white; /* White background for the circle */
+        transition: all 0.3s ease; /* Smooth transition on hover */
+      border: 2px solid white; /* Blue border (stroke) */
+        border-radius: 50%; /* Makes it circular */
+        padding: 1px; /* Adds padding to give it space inside the circle */
+
+	}
+
+    /* Hover effect for the question mark */
+    .customNavigation .glyphicon-question-sign:hover {
+         /*color: white;*/ /* Changes the question mark to white */
+      border: 2px solid rgb(7, 82, 154); /* Blue border (stroke) */
+        border-radius: 50%; /* Makes it circular */
+        padding: 1px; /* Adds padding to give it space inside the circle */
+
+	}
+</style>
+<div id="carouselBlocksWrapperMainPage" style="display:none" class="repository-carousel">
+
+
+    <div class="col-md-3" style="width:100%;padding-top:15px">
+    <div class="customNavigation" style="display: flex; justify-content: space-between; align-items: center;">
+
+        <!-- Left Button -->
+        <a class="btn prev1 navigationarrow" style="color:black;display:none" title="Previous">
+            <span class="glyphicon glyphicon-chevron-left" style="margin-right: 0px; color: rgb(7, 82, 154);"></span>
+        </a>
+
+        <!-- Title and Icon in the center -->
+        <div style="display: flex; align-items: center; justify-content: center; flex-grow: 1; text-align: center;">
+            <span style="font-size: 20pt; color: black; font-family: Exo2-Medium;">
+                Designated collections within {{ main_dataverse_info.name }}
+            </span>
+            <span data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-question-sign" data-original-title="{{ main_dataverse_info.name}} is a general-purpose repository for datasets in various research subjects. It also includes sub-collections designated for datasets in specific research subjects." style="margin-left: 5px;"></span>
+        </div>
+
+        <!-- Right Button -->
+        <a class="btn next1 navigationarrow" style="color:black;display:none" title="Next">
+            <span class="glyphicon glyphicon-chevron-right" style="margin-right: 0px; color: rgb(7, 82, 154);"></span>
+        </a>
+    </div>
+</div>
+
+
+        <div id="featuredDataversesList" class="owl-carousel owl-theme col-md-8" style="margin-top:15px;opacity: 1; display: block; width:100%;">
+            {% for item in dataverse_items %}
+{% if not loop.first %}
+
+            <div id="repository-header2" class="item"  style="background-color:#f1f3f7;vertical-align: middle; " >
+
+              <a href="/dataverse/{{ item.alias }}?q=" class="">  <img src="{{ item.img_src }}" style="" class="grid-item-thumbnail"
+                                 title="{{ item.name_of_dataverse }}"/>
+
+                  <span class="show">{{ item.name_of_dataverse }} </span> <span class="pi-eye pi" style="padding-left:4px;font-size:12pt"></a>
+                <div>
+                <a name="header_add_dataset_href" href="/dataset.xhtml?ownerId={{item.id}}">
+                    <button type="button" class=" button-small"
+                            name="add_dataverse_button" title="Add your Dataset to {{ item.name_of_dataverse}}">
+                       <span name="add_dataverse_link_text" >Add Dataset</span> <span class="pi-plus pi" style="padding-right:4px;font-size:8pt">
+                    </button>
+                </a>
+</div>
+
+    </div>
+
+            {% endif %}
+            {% endfor %}
+     <script>
+         if(!window["dropdownData"])
+                {
+                window["dropdownData"]=[]
+                }
+// Create a variable to temporarily store the first item
+let firstItem = null;
+
+// Loop through all items
+{% for item in dataverse_items %}
+var dvlabel="{{ item.name_of_dataverse }}";
+{% if loop.first %}
+dvlabel+=" (University of Bonn)"
+    // Store the first item in a temporary variable
+    firstItem = {
+        label: "To: {{ item.name_of_dataverse }}",
+        link: "{{ item.alias }}",
+        iconUrl: "{{ item.img_src }}"
+    };
+{% else %}
+
+{% endif %}
+    // Push all other items directly to the dropdownData array
+    window["dropdownData"].push({
+        label: "To: "+dvlabel,
+        link: "/dataset.xhtml?ownerId={{ item.id }}",
+        iconUrl: "{{ item.img_src }}"
+    });
+{% endfor %}
+
+// After the loop, push the first item to the end of the dropdownData array
+if (firstItem) {
+    //window["dropdownData"].push(firstItem);
+}
+
+    </script>
+        </div>
+
+    </div>
+</div>
+
+<!-- END -->
+
+        </div>
+    </div>
+</div>
+
+<div class="row main-overview-section">
+    <div class="content-centered">
+        <div id="dataversePresentation" style="max-width:1100px;width:80%">
+            <!-- Content -->
+            <div class="col-md-8 repository-description-wrapper">
+                <span class="section-heading">Welcome to {{ main_dataverse_info.name }}</span>
+                <h1 id="hero-title" style="display:none">{{ main_dataverse_info.name }}</h1>
+                <div class="main-description" id="main-description">{{ main_dataverse_info.sanitized_description }}
+                </div>
+
+                <div class="form-group information-box" style="padding-top:30px">
+                    <div>
+                        <div class="login-prompt" id="loginActionRequest">
+                            Please <a href="/shib.xhtml"> Log In</a> to be able to add datasets to {{ main_dataverse_info.name }}
+                            collections.
+                        </div>
+                        <a id="mainRepoAddLink" href="/dataset.xhtml?ownerId={{ main_dataverse_info.id }}">
+                            <button type="button" name="add_dataverse_button" class="btn btn-default  btn-block">Add
+                                your Dataset
+                                to {{ main_dataverse_info.name }}
+                            </button>
+                        </a>
+                    </div>
+                    <div class="search-or-divider">Or</div>
+                    <br/>
+                    <div class="input-group">
+                        <input id="searchall" type="text" class="form-control" size="28" value=""
+                               placeholder="Search all in all {{ main_dataverse_info.name }} datasets...">
+                        <span class="input-group-btn">
+                                                <button type="submit" title="" style="height:34px;width:34px"
+                                                        class="btn btn-default bootstrap-button-tooltip"
+                                                        aria-labelledby="searchNavLabel"
+                                                        onclick="window.location='/dataverse/{{main_dataverse_info.alias}}?q=' + document.getElementById('searchall').value;return false;"
+                                                        data-original-title="Find">
+                                                    <span class="glyphicon glyphicon-search no-text"></span>
+                                                </button>
+                                            </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-md-4">
+                <div style="padding-left:10px">
+                    <h3>More Information:</h3>
+                    <ul class="informative-list interactive-list">
+    {% for info in more_information %}
+    <li>
+        <span class="icon-span"><img class="navigate-icon" src="{{ info.icon }}"></span>
+        <div class="link-div">
+            <ul>
+            {% for link in info.links %}
+            <li><a href="{{ link.href }}">{{ link.text }}</a></li>
+            {% endfor %}
+              </ul>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row main-overview-section">
+    <div class="content-centered">
+        <div  style="max-width:1000px;width:80%">
+{% for section in dataset_sections %}
+{% if section["items"]|length > 0 %}
+<span class="section-heading">{{section.title}}</span>
+<div class="featured-items-grid">
+    {% for item in section["items"] %}
+    <div class="grid-item">
+        <div class="overview-image-container">
+
+            <div class="grid-item-label" title="{{ item.full_name_of_dataverse | default('bonndata') }}">
+                <a href="{{ item.dataverse_url }}" class="grid-item-link"
+                   title="{{ item.full_name_of_dataverse | default('bonndata') }}">
+                    {{ item.name_of_dataverse | default('bonndata') }}
+                </a>
+            </div>
+
+            <div class="thumbnail-wrapper">
+                <img src="{{ item.image_src }}" class="grid-item-thumbnail" alt="{{ item.title }}">
+            </div>
+            <div class="grid-item-background" style="background-image: url('{{ item.background_image }}');"></div>
+        </div>
+        <div class="grid-item-content">
+            <a href="{{ item.url }}" class="grid-item-title">
+                <h3 title="{{ item.full_title }}">{{ item.title }}</h3>
+            </a>
+            <p class="grid-item-author" title="{{ item.full_authors }}">By {{ item.authors }}</p>
+            <p class="grid-item-description" title="{{ item.full_description }}">{{ item.description }}</p>
+            <div class="grid-item-footer">
+                <p class="grid-item-date">{{ item.date }}</p>
+                <p>
+                    {% if item.stats.viewsUnique > 0 and item.stats.viewsUnique > item.stats.downloadsUnique %}
+                    <i class="pi pi-eye" title="Views last month" style="font-size: 1.5rem">{{ item.stats.viewsUnique }}</i>
+                    {% endif %}
+                    {% if item.stats.downloadsUnique > 0 %}
+                <i class="pi pi-arrow-circle-down" title="Downloads last month" style="font-size: 1.5rem;padding-left:5px">{{ item.stats.downloadsUnique }}</i>
+                {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endfor %}
+
+</div></div></div>
+
+<div class="statistics-wrapper">
+
+    <div id="stat-overview" class="statistics-footer">
+
+        <div class="footer-repository-header-content">
+            <div class="statistics-content">
+                <div class="stat-block">
+                    <div class="stat-number lnumber">{{stat_info.published_dataverses}}</div>
+                    <div class="stat-text">Collections</div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-number lnumber">{{stat_info.published_datasets}}</div>
+                    <div class="stat-text">Published datasets</div>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-number lnumber">{{stat_info.downloads_lastmonth}}</div>
+                    <div class="stat-text">Unique downloads in last 30 days</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+    <footer>
+        <div id="dvfooter">
+            <div class="container">
+                <div class="row"><div class="col-sm-8 small">
+                        <p>Copyright &#169; 2026 Rheinische Friedrich-Wilhelms-Universität Bonn | <a href="/terms/bonndata_terms_of_use.pdf">Terms of Use</a>  |  <a href="https://www.uni-bonn.de/en/data-protection-policy" rel="noopener" target="_blank">Privacy Policy</a>
+                        </p></div>
+                    <div class="col-sm-4 text-right">
+                        <div class="poweredbylogo">
+                            <span>Powered by</span>
+                            <a href="https://dataverse.org/" title="The Dataverse Project" target="_blank" rel="noopener"><img src="/resources/images/dataverse_project_logo.svg" width="118" height="40"  alt="The Dataverse Project logo" /></a><span class="version">v. 6.8 build 1994-92d1ec8</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <script src="/jakarta.faces.resource/js/dv_rebind_bootstrap_ui.js.xhtml?version=6.7.1"></script>
+        <script src="/jakarta.faces.resource/bs/js/bootstrap.min.js.xhtml?version=6.7.1"></script>
+        <script defer="defer" src="/jakarta.faces.resource/js/ie-compat.js.xhtml?version=6.7.1"></script>
+        <script defer="defer" src="/jakarta.faces.resource/js/owl.carousel.js.xhtml?version=6.7.1"></script>
+        <script defer="defer" src="/jakarta.faces.resource/js/jquery.matchHeight.js.xhtml?version=6.7.1"></script>
+        <script src="/jakarta.faces.resource/js/jquery.sharrre.js.xhtml?version=6.7.1"></script>
+        <script src="/jakarta.faces.resource/js/clipboard.min.js.xhtml?version=6.7.1"></script>
+            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<style>
+#feedbackTab {position:fixed; bottom:0; right:50px;}
+#feedbackTab a.btn-feedback {border-bottom-right-radius:0; border-bottom-left-radius:0;}
+.btn-feedback {background-color:#C55B28; border-color:#C55B28; color:#fff;}
+.btn-feedback:hover, .btn-feedback:focus,
+.btn-feedback:active, .btn-feedback.active {background-color:#b05124; border-color: #9b471f; color:#fff;}
+
+
+        #custom-footer {
+            /*position: fixed;
+            top: 0;*/
+            width: 100%;
+            z-index: 10000;
+            background-color: #07529a;
+            color: white;
+            padding-top:30px;
+        }
+  .looseRow
+  {
+  padding-top:30px;
+  }
+</style>
+<a href="sitemap.xml">Sitemap</a>
+<!--
+<div id="feedbackTab">
+      <a class="btn btn-feedback bootstrap-button-tooltip" href="mailto:forschungsdaten@uni-bonn.de" role="button" target="_blank" rel="noopener"  aria-label="Help improve BonnData!" data-original-title="Help improve BonnData!">
+        Feedback
+    </a>
+</div>
+
+<div id="custom-footer">
+
+</div>
+-->
+
+    </footer>
+</body>
+</html>
