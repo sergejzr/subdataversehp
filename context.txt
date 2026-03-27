@@ -28,7 +28,7 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV="${REPO_DIR}/venv"
 OUTPUT_DIR="${REPO_DIR}/homepage_output"
-OUTPUT_HTML="${OUTPUT_DIR}/index.html"
+OUTPUT_HTML="${OUTPUT_DIR}/at/index.html"
 
 cd "${REPO_DIR}"
 
@@ -44,6 +44,7 @@ fi
 
 rm -rf "${OUTPUT_DIR}"
 mkdir -p "${OUTPUT_DIR}"
+mkdir -p "${REPO_DIR}/homepagebuilder"
 
 "${VENV}/bin/python" renderjinja.py \
   --output_html "${OUTPUT_HTML}" \
