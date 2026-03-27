@@ -605,9 +605,9 @@
           {% for section in dataset_sections %}
             <h3 style="margin-top:1.25rem; margin-bottom:0.9rem; font-family:'Exo 2',sans-serif;">{{ section.title }}</h3>
 
-            {% if section.items %}
+            {% if section["items"] %}
             <div class="tiles">
-              {% for item in section.items %}
+              {% for item in section["items"] %}
               <article class="tile">
                 <img class="tile__img" src="{{ item.image_src }}" alt="{{ item.img_alt or item.title }}" />
                 <div class="tile__body">
