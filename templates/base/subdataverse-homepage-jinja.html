@@ -12,8 +12,11 @@
     <script src="/jakarta.faces.resource/jquery/jquery-plugins.js.xhtml?ln=primefaces&amp;v=11.0.0"></script>
     <script src="/jakarta.faces.resource/core.js.xhtml?ln=primefaces&amp;v=11.0.0"></script>
     <script src="/jakarta.faces.resource/components.js.xhtml?ln=primefaces&amp;v=11.0.0">
-<!-- BIelefeld Template Here-->
+
     </script>
+
+
+     <!-- LLets try. -->
     <link rel="stylesheet" href="/jakarta.faces.resource/components.css.xhtml?ln=primefaces&amp;v=11.0.0" />
     <script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='en';PrimeFaces.settings.viewId='/dataverse_homepage.xhtml';PrimeFaces.settings.contextPath='';PrimeFaces.settings.cookiesSecure=false;}</script>
         <link rel="apple-touch-icon" sizes="180x180" href="/jakarta.faces.resource/images/fav/apple-touch-icon.png.xhtml" />
@@ -35,8 +38,7 @@
                 /* Custom CSS */
                 @import url("/csslibs/custom-stylesheet.css");
 
-            </style>
-</head><body>
+            </style></head><body>
 	<a href="#content" class="sr-only">Skip to main content</a>
     <!-- Load web component along with Polymer shim in case browser support not there yet. -->
 <!--<script src="some.js"></script>-->
@@ -130,7 +132,7 @@
 <script>
  document.addEventListener('DOMContentLoaded', () => {
 
-    const observer = lozad();
+   const observer = lozad();
     document.body.iobserver=observer;
     observer.observe();
 
@@ -164,8 +166,8 @@ for (let element of elements) {
 Generated: {{ gen_date }}
 -->
 <div class="repository-header-container">
-
-    <div id="repository-header" class="repository-header-background lozad" data-background-image="/homepage/img/backgrounds/collection_root.jpg"  >
+<!-- TODO: here background setzen -->
+    <div id="repository-header" class="repository-header-background lozad" data-background-image="{{uni_ctx.background}}"  >
         <div class="repository-header-overlay"></div>
         <div class="repository-header-content">
             <div class="repository-info-block">
@@ -254,26 +256,7 @@ Generated: {{ gen_date }}
  background-color:#929084
     }
 
-         /* Style for the question mark icon */
-    .customNavigation .glyphicon-question-sign {
-        cursor: pointer; /* Changes the cursor to a pointer on hover */
-        color: rgb(7, 82, 154); /* Default blue color */
-        background-color: white; /* White background for the circle */
-        transition: all 0.3s ease; /* Smooth transition on hover */
-      border: 2px solid white; /* Blue border (stroke) */
-        border-radius: 50%; /* Makes it circular */
-        padding: 1px; /* Adds padding to give it space inside the circle */
 
-	}
-
-    /* Hover effect for the question mark */
-    .customNavigation .glyphicon-question-sign:hover {
-         /*color: white;*/ /* Changes the question mark to white */
-      border: 2px solid rgb(7, 82, 154); /* Blue border (stroke) */
-        border-radius: 50%; /* Makes it circular */
-        padding: 1px; /* Adds padding to give it space inside the circle */
-
-	}
 </style>
 <div id="carouselBlocksWrapperMainPage" style="display:none" class="repository-carousel">
 
@@ -286,13 +269,20 @@ Generated: {{ gen_date }}
             <span class="glyphicon glyphicon-chevron-left" style="margin-right: 0px; color: rgb(7, 82, 154);"></span>
         </a>
 
-        <!-- Title and Icon in the center -->
-        <div style="display: flex; align-items: center; justify-content: center; flex-grow: 1; text-align: center;">
-            <span style="font-size: 20pt; color: black; font-family: Exo2-Medium;">
-                Designated collections within {{ main_dataverse_info.name }}
-            </span>
-            <span data-toggle="tooltip" data-placement="top" class="glyphicon glyphicon-question-sign" data-original-title="{{ main_dataverse_info.name}} is a general-purpose repository for datasets in various research subjects. It also includes sub-collections designated for datasets in specific research subjects." style="margin-left: 5px;"></span>
-        </div>
+{% if dataverse_items|length > 1 %}
+    <!-- Title and Icon in the center -->
+    <div style="display: flex; align-items: center; justify-content: center; flex-grow: 1; text-align: center;">
+        <span class="caroussel_title">
+            Designated collections within {{ main_dataverse_info.name }}
+        </span>
+        <span data-toggle="tooltip"
+              data-placement="top"
+              class="glyphicon glyphicon-question-sign"
+              data-original-title="{{ main_dataverse_info.name }} is a general-purpose repository for datasets in various research subjects. It also includes sub-collections designated for datasets in specific research subjects."
+              style="margin-left: 5px;">
+        </span>
+    </div>
+{% endif %}
 
         <!-- Right Button -->
         <a class="btn next1 navigationarrow" style="color:black;display:none" title="Next">

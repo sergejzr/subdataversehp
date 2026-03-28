@@ -66,14 +66,14 @@ def read_unis_csv(config_dir: Path) -> pd.DataFrame:
 
 def pick_uni_template(base_templates_dir: Path, universities_dir: Path, label: str) -> tuple[str, list[Path]]:
     override_dir = universities_dir / label
-    override_tpl = override_dir / "uni-homepage-jinja.html"
-    default_tpl = base_templates_dir / "uni-homepage-jinja.html"
+    override_tpl = override_dir / "subdataverse-homepage-jinja.html"
+    default_tpl = base_templates_dir / "subdataverse-homepage-jinja.html"
 
     if override_tpl.exists():
-        return "uni-homepage-jinja.html", [override_dir]
+        return "subdataverse-homepage-jinja.html", [override_dir]
 
     if default_tpl.exists():
-        return "uni-homepage-jinja.html", []
+        return "subdataverse-homepage-jinja.html", []
 
     raise FileNotFoundError(f"Missing default uni template: {default_tpl}")
 

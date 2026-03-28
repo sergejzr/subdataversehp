@@ -23,7 +23,7 @@ mkdir -p "${OUTPUT_DIR}/at"
 "${VENV}/bin/python" "${REPO_DIR}/src/homepage_builder/renderjinja.py" \
   --output_html "${OUTPUT_HTML}" \
   --jinja_template_dir "${REPO_DIR}/templates/base" \
-  --jinja_file "custom-homepage-jinja.html" \
+  --jinja_file "main-dataverse-homepage-jinja.html" \
   --server_name localhost
 
 
@@ -34,4 +34,4 @@ if [ ! -f "${OUTPUT_HTML}" ]; then
   exit 1
 fi
 
-curl -X PUT -d "${OUTPUT_HTML}" http://localhost:8080/api/admin/settings/:HomePageCustomizationFile
+#curl -X PUT -d "${OUTPUT_HTML}" http://localhost:8080/api/admin/settings/:HomePageCustomizationFile
