@@ -26,7 +26,12 @@ mkdir -p "${OUTPUT_DIR}/at"
   --jinja_file "custom-homepage-jinja.html" \
   --server_name localhost
 
+
+
+
 if [ ! -f "${OUTPUT_HTML}" ]; then
   echo "Homepage generation failed: ${OUTPUT_HTML} was not created." >&2
   exit 1
 fi
+
+curl -X PUT -d "${OUTPUT_HTML}" http://localhost:8080/api/admin/settings/:HomePageCustomizationFile
