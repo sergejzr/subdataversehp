@@ -38,6 +38,51 @@
                 /* Custom CSS */
                 @import url("/csslibs/custom-stylesheet.css");
 
+                .dp-login-links {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    margin-top: 10px;
+                }
+
+                .dp-login-link {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                    padding: 10px 14px;
+                    border: 1px solid #d5dbe3;
+                    border-radius: 4px;
+                    background: #f8f9fb;
+                    color: #07529a;
+                    text-decoration: none;
+                    font-weight: 600;
+                }
+
+                .dp-login-link:hover,
+                .dp-login-link:focus {
+                    text-decoration: none;
+                    background: #eef4fa;
+                    color: #053b6e;
+                }
+
+                .dp-login-link-primary {
+                    background: #07529a;
+                    border-color: #07529a;
+                    color: #ffffff;
+                }
+
+                .dp-login-link-primary:hover,
+                .dp-login-link-primary:focus {
+                    background: #06467f;
+                    border-color: #06467f;
+                    color: #ffffff;
+                }
+
+                .dp-login-help {
+                    margin-top: 8px;
+                    font-size: 0.95em;
+                    color: #555;
+                }
             </style></head><body>
 	<a href="#content" class="sr-only">Skip to main content</a>
     <!-- Load web component along with Polymer shim in case browser support not there yet. -->
@@ -375,9 +420,26 @@ if (firstItem) {
                 <div class="form-group information-box" style="padding-top:30px">
                     <div>
                         <div class="login-prompt" id="loginActionRequest">
-                            Please <a href="/shib.xhtml"> Log In</a> to be able to add datasets to {{ main_dataverse_info.name }}
-                            collections.
+                            Please log in to be able to add datasets to {{ main_dataverse_info.name }} collections.
                         </div>
+
+                        <div class="dp-login-links">
+                            {% if shib_direct_login_url %}
+                            <a class="dp-login-link dp-login-link-primary" href="{{ shib_direct_login_url }}">
+                                Log in via {{ uni_name or main_dataverse_info.name }}
+                            </a>
+                            {% endif %}
+
+                            <a class="dp-login-link" href="{{ shib_discovery_login_url }}">
+                                Log in via another institution
+                            </a>
+                        </div>
+
+                        <div class="dp-login-help">
+                            Use the first link for direct login with {{ uni_name or main_dataverse_info.name }}.
+                            Use the second link if you want to choose another identity provider.
+                        </div>
+
                         <a id="mainRepoAddLink" href="/dataset.xhtml?ownerId={{ main_dataverse_info.id }}">
                             <button type="button" name="add_dataverse_button" class="btn btn-default  btn-block">Add
                                 your Dataset

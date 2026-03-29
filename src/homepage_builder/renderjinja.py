@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from urllib.parse import quote
 import argparse
 import json
 import random
