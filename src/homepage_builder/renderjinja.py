@@ -349,12 +349,25 @@ def main():
 
         background = str(row.get("background", "")).strip()
         if len(background) < 5:
-            background = "/at/webcontent/pagedata/dh.png"
+            background = "/homepage/img/backgrounds/collection_root.jpg"
         uni_ctx["background"] = background
 
         uni_ctx["css"] = str(row.get("css", "")).strip()
         uni_ctx["js"] = str(row.get("js", "")).strip()
         uni_ctx["homepage"] = str(row.get("homepage", "")).strip()
+
+        shib_entityid = str(row.get("shib_entityid", "")).strip()
+        uni_ctx["shib_entityid"] = shib_entityid
+
+        if shib_entityid:
+            target = "/shib.xhtml"
+            uni_ctx["shib_login_url"] = (
+                "/Shibboleth.sso/Login"
+                f"?entityID={quote(shib_entityid, safe='')}"
+                f"&target={quote(target, safe='/')}"
+            )
+        else:
+            uni_ctx["shib_login_url"] = ""
 
         uni_html = render(env_uni, uni_template_name, uni_ctx)
         (target_dir / "index.html").write_text(uni_html, encoding="utf-8")
