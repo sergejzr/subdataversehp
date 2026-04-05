@@ -1,16 +1,19 @@
 Name,homepage,repourl,label,enabled,logo,background,css,js,txt,shib_entityid
-Uni Münster,https://www.uni-muenster.de/,,uni-muenster,0,,,,,,
-Uni Wuppertal,https://www.uni-wuppertal.de/,,uni-wuppertal,0,,,,,,
-Hochschule Münster,https://www.fh-muenster.de/,,fh-muenster,0,,,,,,
-Uni Bielefeld,https://www.uni-bielefeld.de/,,uni-bielefeld,1,https://upload.wikimedia.org/wikipedia/commons/a/a5/Universit%C3%A4t_Bielefeld_Logo.svg,/at/uni-bielefeld/img/bielefeld-bg.jpg,/at/uni-bielefeld/css/main.css,/at/uni-bielefeld/js/main.js,,
-Hochschule Bielefeld,https://www.hsbi.de/,,hsbi,0,,,,,,
-Hochschule Rhein Waal,https://www.hochschule-rhein-waal.de/,,hochschule-rhein-waal,1,,,,,,
-Hochschule Bochum,https://www.hochschule-bochum.de/,,hs-bochum,0,,,,,,
-Fachhochschule Südwestfalen,https://www.fh-swf.de/,,fh-swf,0,,,,,,
-Fernuniversität Hagen,https://www.fernuni-hagen.de/,,fernuni-hagen,0,,,,,,
-TH Köln,https://www.th-koeln.de/,,th-koeln,0,,,,,,
-Universität zu Köln,https://www.uni-koeln.de/,,uni-koeln,0,,,,,,
-Universität Siegen,https://www.uni-siegen.de/,,uni-siegen,1,https://upload.wikimedia.org/wikipedia/commons/6/6b/Logo_Uni_Siegen.svg,,,,,,
-Hochschule Bonn Rhein Sieg,https://www.h-brs.de/,,h-brs,0,,,,,,
-RWTH Aachen,https://www.rwth-aachen.de/,https://publications.rwth-aachen.de/collection/Dataset?ln=de,rwth-aachen,1,,,,,,
+Uni Münster,https://www.uni-muenster.de/,,uni-muenster,1,,,,,,https://zividp.uni-muenster.de/idp/shibboleth
+Uni Wuppertal,https://www.uni-wuppertal.de/,,uni-wuppertal,1,,,,,,https://idp.uni-wuppertal.de/idp/shibboleth
+Hochschule Münster,https://www.fh-muenster.de/,,fh-muenster,1,,,,,,https://idp.fh-muenster.de/idp/shibboleth
+Uni Bielefeld,https://www.uni-bielefeld.de/,,uni-bielefeld,1,,,,,,https://shibboleth.uni-bielefeld.de/idp/shibboleth
+Hochschule Bielefeld,https://www.hsbi.de/,,hsbi,1,,,,,,https://login.hsbi.de/nidp/saml2/metadata
+Hochschule Rhein Waal,https://www.hochschule-rhein-waal.de/,,hochschule-rhein-waal,1,,,,,,https://sso.hochschule-rhein-waal.de/idp/shibboleth
+Hochschule Bochum,https://www.hochschule-bochum.de/,,hs-bochum,1,,,,,,https://idp.hs-bochum.de/idp/shibboleth
+Fachhochschule Südwestfalen,https://www.fh-swf.de/,,fh-swf,1,,,,,,https://idp.fh-swf.de/idp/shibboleth
+Fernuniversität Hagen,https://www.fernuni-hagen.de/,,fernuni-hagen,1,,,,,,https://login.fernuni-hagen.de/idp/shibboleth
+TH Köln,https://www.th-koeln.de/,,th-koeln,1,,,,,,https://login.th-koeln.de/nidp/saml2/metadata
+Universität zu Köln,https://www.uni-koeln.de/,,uni-koeln,1,,,,,,https://idp.rrz.uni-koeln.de/idp/shibboleth
+Universität Siegen,https://www.uni-siegen.de/,,uni-siegen,1,,,,,,https://login.uni-siegen.de/idp/shibboleth
+Hochschule Bonn Rhein Sieg,https://www.h-brs.de/,,h-brs,1,,,,,,https://idp.h-brs.de/nidp/saml2/metadata
+RWTH Aachen,https://www.rwth-aachen.de/,https://publications.rwth-aachen.de/collection/Dataset?ln=de,rwth-aachen,1,,,,,,https://login.rz.rwth-aachen.de/shibboleth
 Universität Bonn,https://www.uni-bonn.de/,https://bonndata.uni-bonn.de/,uni-bonn,1,,,,,,https://shibboleth.uni-bonn.de/idp/shibboleth
+Test Layout Standard,https://www.uni-bonn.de/,,layout-standard,1,,,,,,
+Test Layout Adapted,https://www.uni-bonn.de/,,layout-adapted,1,https://upload.wikimedia.org/wikipedia/commons/a/a5/Universit%C3%A4t_Bielefeld_Logo.svg,/at/layout-adapted/img/bielefeld-bg.jpg,/at/layout-adapted/css/main.css,/at/layout-adapted/js/main.js,,
+Test Layout Custom,https://www.uni-bonn.de/,,layout-custom,1,https://upload.wikimedia.org/wikipedia/commons/6/6b/Logo_Uni_Siegen.svg,,,,,
