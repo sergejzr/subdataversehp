@@ -260,6 +260,9 @@ class DataverseAPI:
         return None
 
     def get_dataverse_url_of(self, dataset):
+        return "/dataverse/" + dataset["identifier_of_dataverse"]
+    
+    def get_full_dataverse_url_of(self, dataset):
         return self.get_server() + "/dataverse/" + dataset["identifier_of_dataverse"]
 
     def get_published_datasets(self, base_dataverse):
