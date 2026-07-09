@@ -454,6 +454,7 @@ if (firstItem) {
                     <br/>
                     <div class="input-group">
                         <input id="searchall" type="text" class="form-control" size="28" value=""
+                               onkeydown="if(event.key==='Enter'){window.location='/dataverse/{{main_dataverse_info.alias}}?q=' + document.getElementById('searchall').value;return false;}"
                                placeholder="Search all in all {{ main_dataverse_info.name }} datasets...">
                         <span class="input-group-btn">
                                                 <button type="submit" title="" style="height:34px;width:34px"
