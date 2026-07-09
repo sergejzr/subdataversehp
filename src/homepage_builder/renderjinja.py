@@ -146,11 +146,11 @@ def build_page_data(dataverse_api: DataverseAPI, templater: DataverseTemplate, b
 
     more_information = [
         {
-            "icon": "/at/webcontent/pagedata/dp-logo.svg",
+            "icon": "/at/webcontent/pagedata/icon-research-service.svg",
             "links": [{"text": "The Research Data Service Center", "href": "https://www.forschungsdaten.uni-bonn.de/"}],
         },
         {
-            "icon": "/at/webcontent/pagedata/dp-logo.svg",
+            "icon": "/at/webcontent/pagedata/icon-policies.svg",
             "links": [
                 {"text": "Policies & Community Sharing Norms", "href": "https://www.ulb.uni-bonn.de/de/datenschutz"},
                 {"text": 'Data Crunch handout "DIY: File naming"', "href": "https://zenodo.org/records/10275946"},
@@ -159,7 +159,7 @@ def build_page_data(dataverse_api: DataverseAPI, templater: DataverseTemplate, b
             ],
         },
         {
-            "icon": "/at/webcontent/pagedata/dp-logo.svg",
+            "icon": "/at/webcontent/pagedata/icon-contact.svg",
             "links": [{"text": "Need help? Send us an email!", "href": "mailto:forschungsdaten@uni-bonn.de"}],
         },
     ]
