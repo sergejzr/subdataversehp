@@ -146,7 +146,7 @@
                         <li><a href="https://confluence.team.uni-bonn.de/display/HRZSFDPUB/User+Guide" rel="noopener" target="_blank">User Guide</a>
                         </li><li><a href="mailto:support@datapublication.nrw?subject=DatapublicationSupportRequest" rel="noopener" target="_blank">Support</a></li>
 
-                            <li id="user_loggedin_item"><a href="/loginpage.xhtml?redirectPage=%2Fdataverse_homepage.xhtml">
+                            <li id="user_loggedin_item"><a href="/loginpage.xhtml?redirectPage=/at/{{main_dataverse_info.alias}}">
                                     Log In
                                 </a>
                             </li>
@@ -243,6 +243,7 @@ Generated: {{ gen_date }}
                 </a>
                 <div style="display: flex;    justify-content: space-between;    margin-top: 10px; width:100%">
                     <input id="searchall2" type="text" class="form-control" style="display: flex; flex:1;margin:5px;max-width:90%" size="24" value=""
+                               onkeydown="if(event.key==='Enter'){window.location='/dataverse/{{main_dataverse_info.alias}}?q=' + document.getElementById('searchall2').value;return false;}"
                                placeholder="Search all in all {{ main_dataverse_info.name}} datasets...">
                         <span class="input-group-btn" style="min-width: 10%;">
                                                 <button type="submit" title=""
