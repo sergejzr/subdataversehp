@@ -18,6 +18,14 @@
  *
  * Self-contained, no dependencies. On any failure it falls back to the native
  * /dataverse/<label> page, where logout works normally — never a silent dead click.
+ *
+ * Robustness note: a third JS layer, /homepage/js/homepage.js (handleLogin()), rebuilds
+ * the navbar login/logout markup client-side ~10s after load, restoring the original
+ * inline onclick="mojarra.cljs(...)" on a freshly created DOM node. Anything we patched
+ * onto the old node (a bound listener, a nulled onclick) is therefore lost. To be immune
+ * to that, we do NOT touch the link node at all: we register a single delegated listener
+ * on `document` in the CAPTURE phase, so we intercept the click before it can reach the
+ * link's own (possibly just-restored) inline handler, no matter when the rebuild happens.
  */
 (function () {
   'use strict';
@@ -78,8 +86,23 @@
       });
   }
 
-  function onLogoutClick(label, event) {
+  // Delegated, capture-phase click handler on `document`. Runs before the logout
+  // link's own inline handler (and before default #-navigation), and survives the
+  // navbar being re-rendered — see the Robustness note at the top of this file.
+  function onDocumentClickCapture(event) {
+    var target = event.target;
+    var link = target && target.closest ? target.closest('[id$="' + LOGOUT_SUFFIX + '"]') : null;
+    if (!link) return; // not a logout click — leave every other click untouched
+
+    var label = currentLabel();
+    if (!label) return; // not an /at/<label> page we can service — let the click proceed
+
+    // Stop the event synchronously, before any async work below, so neither the
+    // target's (possibly just-restored) inline mojarra.cljs(...) handler nor the
+    // default anchor navigation ever runs.
     event.preventDefault();
+    event.stopImmediatePropagation();
+
     performLogout(label)
       .then(function () { location.href = '/at/' + label; })
       .catch(function (err) {
@@ -90,21 +113,5 @@
       });
   }
 
-  function init() {
-    var link = document.querySelector('[id$="' + LOGOUT_SUFFIX + '"]');
-    if (!link) return; // no logout control on this page (e.g. logged-out state)
-    var label = currentLabel();
-    if (!label) return; // not an /at/<label> page we can service
-
-    // Neutralise the dead inline mojarra.cljs(...) handler, then own the click.
-    link.onclick = null;
-    link.removeAttribute('onclick');
-    link.addEventListener('click', function (e) { onLogoutClick(label, e); });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  document.addEventListener('click', onDocumentClickCapture, true);
 })();
