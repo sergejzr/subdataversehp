@@ -26,6 +26,9 @@
  * to that, we do NOT touch the link node at all: we register a single delegated listener
  * on `document` in the CAPTURE phase, so we intercept the click before it can reach the
  * link's own (possibly just-restored) inline handler, no matter when the rebuild happens.
+ *
+ * On success we redirect to /at/<label>?loggedOut=1 and, on that load, show a brief
+ * "Logged out successfully" toast, then scrub the query param via history.replaceState.
  */
 (function () {
   'use strict';
@@ -104,7 +107,7 @@
     event.stopImmediatePropagation();
 
     performLogout(label)
-      .then(function () { location.href = '/at/' + label; })
+      .then(function () { location.href = '/at/' + label + '?loggedOut=1'; })
       .catch(function (err) {
         // Never leave the user on a dead click: hand off to the native view,
         // where the JSF logout works normally.
@@ -113,5 +116,53 @@
       });
   }
 
+  // ---- Success toast --------------------------------------------------------
+  // After a successful logout we redirect to /at/<label>?loggedOut=1; on that next
+  // page load we show a brief confirmation, then scrub the param so a refresh or a
+  // shared link never re-triggers it. Fully self-contained (inline styles, no deps).
+  function showToast(message) {
+    var host = document.body || document.documentElement;
+    if (!host) return;
+    var t = document.createElement('div');
+    t.setAttribute('role', 'status');
+    t.textContent = message;
+    var s = t.style;
+    s.position = 'fixed';
+    s.top = '20px';
+    s.right = '20px';
+    s.zIndex = '2147483647';
+    s.maxWidth = '80vw';
+    s.padding = '10px 16px';
+    s.background = '#2e7d32';
+    s.color = '#fff';
+    s.font = '14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    s.borderRadius = '6px';
+    s.boxShadow = '0 2px 10px rgba(0,0,0,0.25)';
+    s.opacity = '0';
+    s.transition = 'opacity 0.3s ease';
+    s.pointerEvents = 'none';
+    host.appendChild(t);
+    // fade in on the next frame, hold ~3s, fade out, then remove
+    requestAnimationFrame(function () { s.opacity = '1'; });
+    setTimeout(function () {
+      s.opacity = '0';
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 400);
+    }, 3000);
+  }
+
+  function maybeShowLogoutToast() {
+    if (!/[?&]loggedOut=1(?:&|$)/.test(location.search)) return;
+    // Scrub the query first (the /at/ page has no other params worth keeping) so a
+    // reload or shared URL doesn't re-show the toast.
+    try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
+    showToast('Logged out successfully');
+  }
+
   document.addEventListener('click', onDocumentClickCapture, true);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', maybeShowLogoutToast);
+  } else {
+    maybeShowLogoutToast();
+  }
 })();
