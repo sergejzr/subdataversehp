@@ -148,7 +148,8 @@
                         <li><a href="https://confluence.team.uni-bonn.de/display/HRZSFDPUB/User+Guide" rel="noopener" target="_blank">User Guide</a>
                         </li><li><a href="mailto:support@datapublication.nrw?subject=DatapublicationSupportRequest" rel="noopener" target="_blank">Support</a></li>
 
-                            <li id="user_loggedin_item"><a href="/loginpage.xhtml?redirectPage=/at/{{main_dataverse_info.alias}}">
+                            {# redirectPage MUST stay an encoded JSF view (/dataverse.xhtml?alias=). Reverting to /at/{{main_dataverse_info.alias}} silently re-breaks login: it dead-ends in the form (see Item 1 fix history). #}
+                            <li id="user_loggedin_item"><a href="/loginpage.xhtml?redirectPage=%2Fdataverse.xhtml%3Falias%3D{{main_dataverse_info.alias}}">
                                     Log In
                                 </a>
                             </li>
@@ -433,7 +434,8 @@ if (firstItem) {
                             </a>
                             {% endif %}
 
-                            <a class="dp-login-link" href="/loginpage.xhtml?redirectPage=/at/{{main_dataverse_info.alias}}">
+                            {# redirectPage MUST stay an encoded JSF view (/dataverse.xhtml?alias=). Reverting to /at/{{main_dataverse_info.alias}} silently re-breaks login: it dead-ends in the form (see Item 1 fix history). #}
+                            <a class="dp-login-link" href="/loginpage.xhtml?redirectPage=%2Fdataverse.xhtml%3Falias%3D{{main_dataverse_info.alias}}">
                                 Log in via another institution
                             </a>
                         </div>
