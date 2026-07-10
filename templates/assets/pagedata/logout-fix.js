@@ -138,24 +138,35 @@
     s.font = '14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
     s.borderRadius = '6px';
     s.boxShadow = '0 2px 10px rgba(0,0,0,0.25)';
-    s.opacity = '0';
-    s.transition = 'opacity 0.3s ease';
+    // Paint at full opacity IMMEDIATELY so visibility never depends on a later
+    // frame. The earlier version mounted at opacity:0 and only flipped to 1 inside
+    // a single requestAnimationFrame; if that frame's style flush lost the race
+    // (observed only in Firefox — the toast stayed invisible on the /at/ page even
+    // though the redirect and DOM insertion had succeeded), the toast never showed.
+    // Now the fade is a purely cosmetic transform slide: even if it never runs, the
+    // toast is already visible.
+    s.opacity = '1';
+    s.transform = 'translateY(-6px)';
+    s.transition = 'transform 0.25s ease, opacity 0.4s ease';
+    s.willChange = 'transform';
     s.pointerEvents = 'none';
     host.appendChild(t);
-    // fade in on the next frame, hold ~3s, fade out, then remove
-    requestAnimationFrame(function () { s.opacity = '1'; });
+    void t.offsetHeight;                    // commit the start state before transitioning
+    // settle in on the next frame, hold ~3s, fade out, then remove
+    requestAnimationFrame(function () { s.transform = 'translateY(0)'; });
     setTimeout(function () {
       s.opacity = '0';
-      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 400);
+      setTimeout(function () { if (t.parentNode) t.parentNode.removeChild(t); }, 500);
     }, 3000);
   }
 
   function maybeShowLogoutToast() {
     if (!/[?&]loggedOut=1(?:&|$)/.test(location.search)) return;
-    // Scrub the query first (the /at/ page has no other params worth keeping) so a
-    // reload or shared URL doesn't re-show the toast.
-    try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
+    // Show the toast FIRST, then scrub the query (the /at/ page has no other params
+    // worth keeping) so a reload or shared URL doesn't re-show it. Ordering matters:
+    // the toast must be mounted before any replaceState/re-render can intervene.
     showToast('Logged out successfully');
+    try { history.replaceState(null, '', location.pathname + location.hash); } catch (e) {}
   }
 
   document.addEventListener('click', onDocumentClickCapture, true);
