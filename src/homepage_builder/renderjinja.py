@@ -347,6 +347,12 @@ def main():
         if isinstance(logo, str) and logo.strip():
             uni_ctx["logo"] = logo.strip()
 
+        # Optional per-uni favicon. Must tolerate an 11-column CSV (column
+        # absent -> default) and an empty cell (NaN, not a str). Empty means
+        # the template falls back to the shared instance favicon.
+        favicon = row.get("favicon", "")
+        uni_ctx["favicon"] = favicon.strip() if isinstance(favicon, str) else ""
+
         background = str(row.get("background", "")).strip()
         if len(background) < 5:
             background = "/homepage/img/backgrounds/collection_root.jpg"

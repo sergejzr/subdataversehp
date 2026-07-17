@@ -20,8 +20,12 @@
     <link rel="stylesheet" href="/jakarta.faces.resource/components.css.xhtml?ln=primefaces&amp;v=11.0.0" />
     <script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='en';PrimeFaces.settings.viewId='/dataverse_homepage.xhtml';PrimeFaces.settings.contextPath='';PrimeFaces.settings.cookiesSecure=false;}</script>
         <link rel="apple-touch-icon" sizes="180x180" href="/jakarta.faces.resource/images/fav/apple-touch-icon.png.xhtml" />
+        {%- if uni_ctx.favicon %}
+        <link rel="icon" type="image/png" href="{{ uni_ctx.favicon }}" />
+        {%- else %}
         <link rel="icon" type="image/png" sizes="16x16" href="/jakarta.faces.resource/images/fav/favicon-16x16.png.xhtml" />
         <link rel="icon" type="image/png" sizes="32x32" href="/jakarta.faces.resource/images/fav/favicon-32x32.png.xhtml" />
+        {%- endif %}
         <link rel="manifest" href="/jakarta.faces.resource/images/fav/site.webmanifest.xhtml" />
         <link rel="mask-icon" href="/jakarta.faces.resource/images/fav/safari-pinned-tab.svg.xhtml" color="#da532c" />
         <meta name="msapplication-TileColor" content="#da532c" />
