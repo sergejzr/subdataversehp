@@ -27,6 +27,17 @@
       --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.06);
     }
 
+/* Plain family name. The inlined NRW map (DP.svg) asks for font-family:'Exo 2';
+   without this block that name resolves to nothing and the browser falls back
+   to sans-serif, which overflows the hand-fitted label boxes. Same TTF as the
+   "Exo 2-Regular" block below, self-hosted via Ansible (files/webcontent/fonts). */
+@font-face {
+    font-family: "Exo 2";
+    src: url("/fonts/exo_2/static/Exo2-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 @font-face {
     font-family: "Exo 2-ExtraBold";
     src: url("/fonts/exo_2/static/Exo2-ExtraBold.ttf") format("truetype");
