@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional
 
 import pandas as pd
 from lxml import etree
@@ -19,6 +19,18 @@ class SVGLinkConfig:
     server_name: str = ""
     target_attr: str = "_blank"
     require_enabled_column: bool = False
+    # Subtle tint on the map label box of universities that already have their
+    # own branding. Derived from the CSV so it cannot drift from the registry.
+    built_column: str = "css"
+    built_fill: str = "#dceaf4"
+
+
+@dataclass(frozen=True)
+class UniRow:
+    enabled: int
+    url: str
+    name: str
+    built: bool
 
 
 class SVGManipulator:
@@ -74,15 +86,16 @@ class SVGManipulator:
             raise ValueError("server_name is required for fallback URL generation")
         return f"https://{server}/at/{label}/"
 
-    def _read_csv_rows(self) -> Dict[str, Tuple[int, str, str]]:
+    def _read_csv_rows(self) -> Dict[str, UniRow]:
         csv_path = self.csv_path()
         if not csv_path.exists():
             raise FileNotFoundError(f"CSV not found: {csv_path}")
 
         df = pd.read_csv(str(csv_path), delimiter=",", quotechar='"')
         has_enabled = "enabled" in df.columns
+        has_built = self.config.built_column in df.columns
 
-        mapping: Dict[str, Tuple[int, str, str]] = {}
+        mapping: Dict[str, UniRow] = {}
         for _, row in df.iterrows():
             label = str(row.get("label", "")).strip()
             if not label:
@@ -100,8 +113,12 @@ class SVGManipulator:
             repourl = row.get("repourl")
             repourl = repourl.strip() if isinstance(repourl, str) else ""
 
+            # Empty cells arrive as NaN from pandas, hence the isinstance guard.
+            built_cell = row.get(self.config.built_column) if has_built else None
+            built = isinstance(built_cell, str) and bool(built_cell.strip())
+
             url = repourl if repourl else self._fallback_url(label)
-            mapping[label] = (enabled, url, name)
+            mapping[label] = UniRow(enabled=enabled, url=url, name=name, built=built)
 
         return mapping
 
@@ -129,6 +146,21 @@ class SVGManipulator:
         a.append(text_el)
         return False
 
+    def _mark_built_rect(self, root: etree._Element, label: str) -> int:
+        """Tint the label box of an already-branded university.
+
+        Only the fill is touched: the stroke carries a separate meaning
+        (green frame = university links to its own external repository).
+        """
+        rects = root.xpath(
+            f'//svg:rect[@inkscape:label="rect_{label}"]',
+            namespaces=self.NS,
+        )
+        for rect in rects:
+            rect.set("fill", self.config.built_fill)
+            rect.set("data-dp-built", "1")
+        return len(rects)
+
     def generate_linked_svg(self, out_path: str | Path) -> dict:
         source_svg = self.source_svg_path()
         if not source_svg.exists():
@@ -146,9 +178,13 @@ class SVGManipulator:
             "updated": 0,
             "missing_text": 0,
             "skipped_disabled": 0,
+            "marked_built": 0,
         }
 
-        for label, (enabled, url, title) in rows.items():
+        for label, row in rows.items():
+            if row.enabled == 1 and row.built:
+                stats["marked_built"] += self._mark_built_rect(root, label)
+
             target_label = f"text_{label}"
 
             text_nodes = root.xpath(
@@ -160,12 +196,12 @@ class SVGManipulator:
                 stats["missing_text"] += 1
                 continue
 
-            if enabled != 1:
+            if row.enabled != 1:
                 stats["skipped_disabled"] += len(text_nodes)
                 continue
 
             for text_el in text_nodes:
-                already_wrapped = self._wrap_or_update_text_node(text_el, url, title)
+                already_wrapped = self._wrap_or_update_text_node(text_el, row.url, row.name)
                 if already_wrapped:
                     stats["updated"] += 1
                 else:
