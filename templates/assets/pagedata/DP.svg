@@ -2994,7 +2994,7 @@
     <rect
        x="377.63699"
        y="745.55103"
-       width="441"
+       width="428.116"
        height="57.000099"
        stroke="#000000"
        stroke-width="3.4375"
@@ -3009,15 +3009,15 @@
        font-weight="400"
        font-size="37px"
        id="text_hochschule-rhein-waal"
-       x="403.021"
+       x="390.137"
        y="788.05103"
        inkscape:label="text_hochschule-rhein-waal"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Exo 2';-inkscape-font-specification:'Exo 2, '"
          id="tspan488">Hochschule Rhein-Waal</tspan></text>
     <rect
-       x="653.5"
+       x="803.955"
        y="630.5"
-       width="372"
+       width="221.545"
        height="58.000099"
        stroke="#000000"
        stroke-width="3.4375"
@@ -3032,15 +3032,15 @@
        font-family="'Exo 2', 'Exo 2_MSFontService', sans-serif"
        font-weight="400"
        font-size="37px"
-       transform="translate(665.898,673)"
+       transform="translate(816.455,673)"
        id="text_fh-muenster"
        inkscape:label="text_fh-muenster"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Exo 2';-inkscape-font-specification:'Exo 2, '"
-         id="tspan591">Hochschule Münster</tspan></text>
+         id="tspan591">FH Münster</tspan></text>
     <rect
        x="954.5"
        y="1049.5"
-       width="451"
+       width="442.472"
        height="58.000099"
        stroke="#000000"
        stroke-width="3.4375"
@@ -3055,15 +3055,15 @@
        font-family="'Exo 2', 'Exo 2_MSFontService', sans-serif"
        font-weight="400"
        font-size="37px"
-       transform="translate(980.021,1093)"
+       transform="translate(967,1093)"
        id="text_fernuni-hagen"
        inkscape:label="text_fernuni-hagen"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Exo 2';-inkscape-font-specification:'Exo 2, '"
-         id="tspan1015">Fernuniversität in Hagen</tspan></text>
+         id="tspan1015">FernUniversität in Hagen</tspan></text>
     <rect
        x="1026.5"
        y="967.5"
-       width="571"
+       width="539.56"
        height="56.9997"
        stroke="#000000"
        stroke-width="3.4375"
@@ -3077,7 +3077,7 @@
        font-family="'Exo 2', 'Exo 2_MSFontService', sans-serif"
        font-weight="400"
        font-size="37px"
-       transform="translate(1051.84,1010)"
+       transform="translate(1039,1010)"
        id="text_fh-swf"
        inkscape:label="text_fh-swf"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Exo 2';-inkscape-font-specification:'Exo 2, '"
@@ -3182,7 +3182,7 @@
     <rect
        x="835.09918"
        y="1369.4277"
-       width="533.89484"
+       width="515.436"
        height="57.70697"
        stroke="#000000"
        stroke-width="3.73063"
@@ -3198,7 +3198,7 @@
        font-weight="400"
        font-size="37px"
        id="text_h-brs"
-       x="860.47357"
+       x="847.599"
        y="1412.7811"
        inkscape:label="text_h-brs"><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Exo 2';-inkscape-font-specification:'Exo 2, '"
