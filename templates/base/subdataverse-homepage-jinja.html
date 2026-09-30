@@ -503,7 +503,10 @@ if (firstItem) {
 
 <div class="row main-overview-section">
     <div class="content-centered">
-        <div  style="max-width:1000px;width:80%">
+        {# Gleiche Spalte wie #dataversePresentation oben (1100px/80%) plus
+           dessen col-md-8-Gutter (15px): Ueberschriften und Kacheln
+           beginnen an derselben Kante wie der Welcome-Block. #}
+        <div style="max-width:1100px;width:80%;padding:0 15px">
 {% for section in dataset_sections %}
 {% if section["items"]|length > 0 %}
 <span class="section-heading">{{section.title}}</span>
