@@ -129,10 +129,15 @@ def build_page_data(dataverse_api: DataverseAPI, templater: DataverseTemplate, b
             continue
         dataverse_items.append(templater.add_dataverse_item_to_carousel(info))
 
+    # Shuffle the children only. The template treats the FIRST item as the
+    # collection itself: the card loop skips it ({% if not loop.first %})
+    # and the dropdown labels it as the root. Shuffling after prepending
+    # put the root card into the carousel and dropped a random child on
+    # every build.
+    random.shuffle(dataverse_items)
+
     if extended_root:
         dataverse_items = [templater.add_dataverse_item_to_carousel(extended_root)] + dataverse_items
-
-    random.shuffle(dataverse_items)
 
     recent_datasets = dataverse_api.parse_datasets_for_carousel(base_dataverse, 8)
     popular_info = dataverse_api.parse_popular_datasets(base_dataverse, 4)
