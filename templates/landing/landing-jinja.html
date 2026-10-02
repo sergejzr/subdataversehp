@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
+{%- set base = urls[default_lang] %}
+{%- set dark_status = ['abgenommen', 'live'] %}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,165 +12,245 @@
   <link rel="alternate" hreflang="{{ alt_lang }}" href="{{ href }}">
   {%- endfor %}
   <link rel="alternate" hreflang="x-default" href="{{ urls[default_lang] }}">
+  <link rel="icon" href="{{ base }}assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="{{ base }}assets/fonts/open-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ css_href }}">
+  {%- set dark_labels = partners | selectattr('status', 'in', dark_status) | map(attribute='label') | list %}
+  {%- if dark_labels %}
+  {#- Map labels sit on their status box; dark boxes need light text. Values come from landing.css tokens. #}
+  <style>
+    {%- for label in dark_labels %}
+    .dp-map #text_{{ label }}{% if not loop.last %},{% endif %}
+    {%- endfor %} { fill: var(--dp-on-dark); }
+  </style>
+  {%- endif %}
 </head>
 <body>
   <a class="skip-link" href="#main">{{ s.skip_link }}</a>
 
-  <header id="header">
-    <p class="wordmark"><a href="{{ urls[lang] }}">{{ s.header.wordmark }}</a></p>
-    <nav aria-label="{{ s.header.nav_label }}">
-      <ul>
-        <li><a href="#about">{{ s.header.nav_service }}</a></li>
-        <li><a href="#progress">{{ s.header.nav_progress }}</a></li>
-        <li><a href="#universities">{{ s.header.nav_universities }}</a></li>
-        <li><a href="#contact">{{ s.header.nav_contact }}</a></li>
-      </ul>
-    </nav>
-    <p class="lang-switch"><a href="{{ urls[s.lang_switch_lang] }}" hreflang="{{ s.lang_switch_lang }}" lang="{{ s.lang_switch_lang }}">{{ s.lang_switch }}</a></p>
+  <header id="header" class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="{{ urls[lang] }}">
+        <img src="{{ base }}assets/dpnrw-wortmarke-kompakt-farbe.svg" alt="{{ s.header.logo_alt }}" width="178" height="40">
+      </a>
+      <nav class="site-nav" aria-label="{{ s.header.nav_label }}">
+        <ul>
+          <li><a href="#about">{{ s.header.nav_service }}</a></li>
+          <li><a href="#progress">{{ s.header.nav_progress }}</a></li>
+          <li><a href="#universities">{{ s.header.nav_universities }}</a></li>
+          <li><a href="#contact">{{ s.header.nav_contact }}</a></li>
+        </ul>
+      </nav>
+      <p class="lang-switch"><a href="{{ urls[s.lang_switch_lang] }}" hreflang="{{ s.lang_switch_lang }}" lang="{{ s.lang_switch_lang }}">{{ s.lang_switch }}</a></p>
+    </div>
   </header>
 
+  {%- set count_n %}<span class="count-n">{{ n }}</span>{% endset %}
+
   <main id="main">
-    <section id="hero">
-      <h1>{{ s.hero.claim }}</h1>
-      <p>{{ s.hero.explanation }}</p>
-      <p>{{ s.hero.status_line }}</p>
-      <p class="counter">{{ s.hero.counter.format(n=n, total=total) }}</p>
-      <p><a href="#universities">{{ s.hero.link_universities }}</a> · <a href="#contact">{{ s.hero.link_contact }}</a></p>
-    </section>
-
-    <section id="about">
-      <h2>{{ s.about.heading }}</h2>
-      <p>{{ s.about.placeholder }}</p>
-    </section>
-
-    <section id="workflow">
-      <h2>{{ s.workflow.heading }}</h2>
-      <p>{{ s.workflow.placeholder }}</p>
-      <ol class="tiles">
-        <li>{{ s.workflow.collect }}</li>
-        <li>{{ s.workflow.describe }}</li>
-        <li>{{ s.workflow.publish }}</li>
-        <li>{{ s.workflow.cite }}</li>
-      </ol>
-    </section>
-
-    <section id="progress">
-      <h2>{{ s.progress.heading }}</h2>
-      <p>{{ s.progress.placeholder }}</p>
-      <p class="counter">{{ s.hero.counter.format(n=n, total=total) }}</p>
-      {%- if steps %}
-      <figure>
-        {{ step_chart }}
-        <figcaption>{{ s.progress.chart_title }}</figcaption>
-      </figure>
-      <table>
-        <thead><tr><th scope="col">{{ s.progress.table_date }}</th><th scope="col">{{ s.progress.table_count }}</th></tr></thead>
-        <tbody>
-          {%- for step in steps %}
-          <tr><td>{{ step.datum }}</td><td>{{ step.n }} / {{ total }}</td></tr>
-          {%- endfor %}
-        </tbody>
-      </table>
-      {%- else %}
-      <p>{{ s.progress.no_steps }}</p>
-      {%- endif %}
-      <h3>{{ s.progress.news_heading }}</h3>
-      {%- if news %}
-      <ul class="news">
-        {%- for item in news %}
-        <li>
-          <time>{{ item.datum }}</time>
-          {%- if item.get('link') %}
-          <a href="{{ item['link'] }}">{{ item['titel_' ~ lang] }}</a>
-          {%- else %}
-          <strong>{{ item['titel_' ~ lang] }}</strong>
-          {%- endif %}
-          {%- if item.get('text_' ~ lang) %}
-          <p>{{ item['text_' ~ lang] }}</p>
-          {%- endif %}
-        </li>
-        {%- endfor %}
-      </ul>
-      {%- else %}
-      <p>{{ s.progress.no_news }}</p>
-      {%- endif %}
-      <p>{{ s.progress.stand }}: {{ stand }}</p>
-    </section>
-
-    <section id="universities">
-      <h2>{{ s.universities.heading }}</h2>
-      <p>{{ s.universities.placeholder }}</p>
-      <figure class="map" role="group" aria-label="{{ s.universities.map_label }}">
-        {{ map_svg }}
-      </figure>
-      <h3>{{ s.universities.list_heading }}</h3>
-      <ul class="partners">
-        {%- for p in partners %}
-        <li data-status="{{ p.status }}">
-          {%- if p.href %}<a href="{{ p.href }}">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}
-          – {{ s.status[p.status] }}
-        </li>
-        {%- endfor %}
-      </ul>
-    </section>
-
-    <section id="own-space">
-      <h2>{{ s.own_space.heading }}</h2>
-      <p>{{ s.own_space.placeholder }}</p>
-      <div class="slots">
-        <figure class="slot"><figcaption>{{ s.own_space.slot_1 }}</figcaption></figure>
-        <figure class="slot"><figcaption>{{ s.own_space.slot_2 }}</figcaption></figure>
-        <figure class="slot"><figcaption>{{ s.own_space.slot_3 }}</figcaption></figure>
+    <section id="hero" class="band band-dark hero">
+      <svg class="motif" viewBox="0 0 1440 560" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false">
+        <defs>
+          <path id="dp-tile" d="M28,0 L72,0 A28,28 0 0 1 100,28 L100,72 A28,28 0 0 1 72,100 L6,100 A6,6 0 0 1 0,94 L0,28 A28,28 0 0 1 28,0 Z"/>
+        </defs>
+        <use href="#dp-tile" class="motif-tile" transform="translate(1000 180) rotate(270 260 260) scale(5.2)"/>
+        <use href="#dp-tile" class="motif-tile" transform="translate(1180 -260) rotate(90 160 160) scale(3.2)"/>
+        <use href="#dp-tile" class="motif-accent" transform="translate(1220 300) rotate(180 60 60) scale(1.2)"/>
+      </svg>
+      <div class="wrap hero-inner">
+        <h1>{{ s.hero.claim }}</h1>
+        <p class="hero-lead">{{ s.hero.explanation }}</p>
+        <p class="hero-status">{{ s.hero.status_line }}</p>
+        <p class="counter counter-hero">{{ (s.hero.counter | e).format(n=count_n, total=total) }}</p>
+        <p class="hero-actions">
+          <a class="button button-primary" href="#universities">{{ s.hero.link_universities }}</a>
+          <a class="button button-ghost" href="#contact">{{ s.hero.link_contact }}</a>
+        </p>
       </div>
     </section>
 
-    <section id="onboarding">
-      <h2>{{ s.onboarding.heading }}</h2>
-      <p>{{ s.onboarding.placeholder }}</p>
-      <ol>
-        <li>{{ s.onboarding.step_1 }}</li>
-        <li>{{ s.onboarding.step_2 }}</li>
-        <li>{{ s.onboarding.step_3 }}</li>
-        <li>{{ s.onboarding.step_4 }}</li>
-      </ol>
+    <section id="about" class="band">
+      <div class="wrap narrow">
+        <h2>{{ s.about.heading }}</h2>
+        <p class="lead">{{ s.about.placeholder }}</p>
+      </div>
     </section>
 
-    <section id="roadmap">
-      <h2>{{ s.roadmap.heading }}</h2>
-      <p>{{ s.roadmap.placeholder }}</p>
+    <section id="workflow" class="band">
+      <div class="wrap">
+        <h2>{{ s.workflow.heading }}</h2>
+        <p class="lead">{{ s.workflow.placeholder }}</p>
+        <ol class="tiles">
+          {%- for key, icon in [('collect', 'sammeln-kachel-navy'), ('describe', 'beschreiben-kachel-navy'), ('publish', 'publizieren-kachel-cyan'), ('cite', 'zitieren-kachel-navy')] %}
+          <li class="tile card">
+            <img class="tile-icon" src="{{ base }}assets/icons/dpnrw-icon-{{ icon }}.svg" alt="" width="64" height="64">
+            <h3>{{ s.workflow[key] }}</h3>
+            <p>{{ s.workflow[key ~ '_text'] }}</p>
+          </li>
+          {%- endfor %}
+        </ol>
+      </div>
     </section>
 
-    <section id="contact">
-      <h2>{{ s.contact.heading }}</h2>
-      <p>{{ s.contact.placeholder }}</p>
-      <dl>
-        <dt>{{ s.contact.email_label }}</dt>
-        <dd><a href="mailto:{{ s.contact.email }}">{{ s.contact.email }}</a></dd>
-        <dt>{{ s.contact.list_label }}</dt>
-        <dd><a href="mailto:{{ s.contact.list_address }}">{{ s.contact.list_address }}</a></dd>
-      </dl>
+    <section id="progress" class="band">
+      <div class="wrap">
+        <h2>{{ s.progress.heading }}</h2>
+        <p class="lead">{{ s.progress.placeholder }}</p>
+        <div class="progress-grid">
+          <div class="card progress-main">
+            <p class="big-number"><span class="big-n">{{ n }}</span><span class="big-total"> / {{ total }}</span> <span class="big-label">{{ s.progress.big_label }}</span></p>
+            <p class="counter">{{ s.hero.counter.format(n=n, total=total) }}</p>
+            {%- if steps %}
+            <figure class="chart">
+              {{ step_chart }}
+              <figcaption>{{ s.progress.chart_title }}</figcaption>
+            </figure>
+            <details class="data-table">
+              <summary>{{ s.progress.table_toggle }}</summary>
+              <table>
+                <caption>{{ s.progress.chart_title }}</caption>
+                <thead><tr><th scope="col">{{ s.progress.table_date }}</th><th scope="col">{{ s.progress.table_count }}</th></tr></thead>
+                <tbody>
+                  {%- for step in steps %}
+                  <tr><td>{{ step.datum }}</td><td>{{ step.n }} / {{ total }}</td></tr>
+                  {%- endfor %}
+                </tbody>
+              </table>
+            </details>
+            {%- else %}
+            <p>{{ s.progress.no_steps }}</p>
+            {%- endif %}
+          </div>
+          <div class="card progress-news">
+            <h3>{{ s.progress.news_heading }}</h3>
+            {%- if news %}
+            <ul class="news">
+              {%- for item in news %}
+              <li>
+                <time>{{ item.datum }}</time>
+                {%- if item.get('link') %}
+                <a href="{{ item['link'] }}">{{ item['titel_' ~ lang] }}</a>
+                {%- else %}
+                <strong>{{ item['titel_' ~ lang] }}</strong>
+                {%- endif %}
+                {%- if item.get('text_' ~ lang) %}
+                <p>{{ item['text_' ~ lang] }}</p>
+                {%- endif %}
+              </li>
+              {%- endfor %}
+            </ul>
+            {%- else %}
+            <p>{{ s.progress.no_news }}</p>
+            {%- endif %}
+            <p class="stand">{{ s.progress.stand }}: {{ stand }}</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section id="funding">
-      <h2>{{ s.funding.heading }}</h2>
-      <p>{{ s.funding.placeholder }}</p>
-      <ul>
-        <li>{{ s.funding.embedding }}</li>
-        <li>{{ s.funding.operation }}</li>
-        <li>{{ s.funding.funding }}</li>
-      </ul>
+    <section id="universities" class="band">
+      <div class="wrap">
+        <h2>{{ s.universities.heading }}</h2>
+        <p class="lead">{{ s.universities.placeholder }}</p>
+        <div class="uni-grid">
+          <figure class="map card" role="group" aria-label="{{ s.universities.map_label }}">
+            {{ map_svg }}
+          </figure>
+          <div class="legend card">
+            <h3>{{ s.universities.legend_heading }}</h3>
+            <ul>
+              {%- for key in ['none', 'eingerichtet', 'abgenommen', 'live', 'external'] %}
+              <li>
+                <svg class="swatch" viewBox="0 0 36 20" width="36" height="20" aria-hidden="true" focusable="false"><rect class="status-box" data-status="{{ key }}" x="2" y="2" width="32" height="16" rx="3"/></svg>
+                {{ s.status[key] }}
+              </li>
+              {%- endfor %}
+            </ul>
+          </div>
+        </div>
+        <h3>{{ s.universities.list_heading }}</h3>
+        <ul class="partners">
+          {%- for p in partners %}
+          <li data-status="{{ p.status }}">
+            {%- if p.href %}<a href="{{ p.href }}">{{ p.name }}</a>{% else %}<span class="partner-name">{{ p.name }}</span>{% endif %}
+            <span class="badge" data-status="{{ p.status }}">{{ s.status[p.status] }}</span>
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </section>
+
+    <section id="own-space" class="band">
+      <div class="wrap">
+        <h2>{{ s.own_space.heading }}</h2>
+        <p class="lead">{{ s.own_space.placeholder }}</p>
+        <div class="slots">
+          <figure class="slot"><figcaption>{{ s.own_space.slot_1 }}</figcaption></figure>
+          <figure class="slot"><figcaption>{{ s.own_space.slot_2 }}</figcaption></figure>
+          <figure class="slot"><figcaption>{{ s.own_space.slot_3 }}</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="onboarding" class="band">
+      <div class="wrap">
+        <h2>{{ s.onboarding.heading }}</h2>
+        <p class="lead">{{ s.onboarding.placeholder }}</p>
+        <ol class="steps">
+          <li>{{ s.onboarding.step_1 }}</li>
+          <li>{{ s.onboarding.step_2 }}</li>
+          <li>{{ s.onboarding.step_3 }}</li>
+          <li>{{ s.onboarding.step_4 }}</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="roadmap" class="band">
+      <div class="wrap narrow">
+        <h2>{{ s.roadmap.heading }}</h2>
+        <p class="lead">{{ s.roadmap.placeholder }}</p>
+      </div>
+    </section>
+
+    <section id="contact" class="band">
+      <div class="wrap narrow">
+        <h2>{{ s.contact.heading }}</h2>
+        <p class="lead">{{ s.contact.placeholder }}</p>
+        <dl class="card contact-list">
+          <dt>{{ s.contact.email_label }}</dt>
+          <dd><a href="mailto:{{ s.contact.email }}">{{ s.contact.email }}</a></dd>
+          <dt>{{ s.contact.list_label }}</dt>
+          <dd><a href="mailto:{{ s.contact.list_address }}">{{ s.contact.list_address }}</a></dd>
+        </dl>
+      </div>
+    </section>
+
+    <section id="funding" class="band">
+      <div class="wrap">
+        <h2>{{ s.funding.heading }}</h2>
+        <p class="lead">{{ s.funding.placeholder }}</p>
+        <ul class="funding">
+          {%- for key in ['embedding', 'operation', 'funding'] %}
+          <li class="card">
+            <div class="logo-slot">{{ s.funding.logo_slot }}</div>
+            <p>{{ s.funding[key] }}</p>
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
     </section>
   </main>
 
-  <footer id="footer">
-    <h2>{{ s.footer.heading }}</h2>
-    <p>{{ s.footer.placeholder }}</p>
-    <ul>
-      <li><a href="#footer">{{ s.footer.imprint }}</a></li>
-      <li><a href="#footer">{{ s.footer.privacy }}</a></li>
-      <li><a href="#footer">{{ s.footer.accessibility }}</a></li>
-    </ul>
+  <footer id="footer" class="band band-dark site-footer">
+    <div class="wrap">
+      <h2>{{ s.footer.heading }}</h2>
+      <p>{{ s.footer.placeholder }}</p>
+      <ul class="footer-links">
+        <li><a href="#footer">{{ s.footer.imprint }}</a></li>
+        <li><a href="#footer">{{ s.footer.privacy }}</a></li>
+        <li><a href="#footer">{{ s.footer.accessibility }}</a></li>
+      </ul>
+    </div>
   </footer>
 </body>
 </html>

@@ -1,54 +1,905 @@
-/* Skeleton only: layout safety and status colours, no design yet. */
+/* DataPublication.nrw landing page - first design pass.
+   Brand values only in :root below; source: CD package 07-Farben/farbwerte.txt.
+   Mobile first. No external requests. Notes: tooling/landing-preview/DESIGN-NOTES.md */
+
+:root {
+  /* Brand colours (07-Farben/farbwerte.txt, line number in brackets) */
+  --dp-nachtblau: #003064;       /* [4] Hauptfarbe der Marke */
+  --dp-cyanblau: #29ABE2;        /* [5] Akzentfarbe, Kachel Publizieren */
+  --dp-mittelblau: #2E5C8A;      /* [7] optional fuer abgesetzte Endung */
+  --dp-anthrazitblau: #0B2239;   /* [8] Hintergrund dunkler Flaechen */
+  --dp-weiss: #FFFFFF;           /* [10] */
+
+  /* Roles */
+  --dp-text: var(--dp-anthrazitblau);
+  --dp-heading: var(--dp-nachtblau);
+  --dp-link: var(--dp-nachtblau);
+  --dp-link-hover: var(--dp-mittelblau);
+  --dp-surface: var(--dp-weiss);
+  --dp-dark: var(--dp-anthrazitblau);
+  --dp-on-dark: var(--dp-weiss);
+  --dp-accent-on-dark: var(--dp-cyanblau);
+  --dp-line: var(--dp-mittelblau);
+  --dp-focus: var(--dp-nachtblau);
+  --dp-focus-on-dark: var(--dp-cyanblau);
+
+  /* Typography (00-LIESMICH.txt: Open Sans, Hausschrift NRW) */
+  --dp-font: "Open Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Tile shape of the Bildmarke: three round corners (28/100), one hard (6/100) */
+  --dp-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  --dp-radius-small: 0.75rem 0.75rem 0.75rem 0.15rem;
+
+  --dp-gutter: 1rem;
+  --dp-max: 72rem;
+}
+
+/* ---------- Fonts: self-hosted, Latin subset, OFL (assets/fonts/OFL.txt) ---------- */
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/open-sans-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("assets/fonts/open-sans-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("assets/fonts/open-sans-latin-700-normal.woff2") format("woff2");
+}
+
+/* ---------- Base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
 
 body {
-  margin: 0 auto;
-  max-width: 70rem;
-  padding: 0 1rem;
-  font-family: system-ui, sans-serif;
-  line-height: 1.5;
+  margin: 0;
+  background: var(--dp-surface);
+  color: var(--dp-text);
+  font-family: var(--dp-font);
+  font-size: 1rem;
+  line-height: 1.6;
   overflow-wrap: anywhere;
 }
 
-.skip-link {
-  position: absolute;
-  left: -999px;
+h1,
+h2,
+h3 {
+  color: var(--dp-heading);
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+  overflow-wrap: normal;
+  hyphens: auto;
 }
 
-.skip-link:focus {
-  left: 1rem;
+h1 {
+  font-size: clamp(2rem, 1.4rem + 3vw, 3.25rem);
+  font-weight: 700;
 }
 
-nav ul,
-.partners,
-footer ul {
-  padding-left: 1.25rem;
+h2 {
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.125rem);
+  font-weight: 700;
 }
 
-svg,
-img {
+/* Decorative cyan rule under section headings (not information-bearing). */
+h2::after {
+  content: "";
+  display: block;
+  width: 3rem;
+  height: 0.25rem;
+  margin-top: 0.5rem;
+  background: var(--dp-cyanblau);
+  border-radius: 0.125rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--dp-link);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+a:hover {
+  color: var(--dp-link-hover);
+}
+
+:focus-visible {
+  outline: 3px solid var(--dp-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img,
+svg {
   max-width: 100%;
   height: auto;
 }
 
+.wrap {
+  width: 100%;
+  max-width: var(--dp-max);
+  margin: 0 auto;
+  padding-inline: var(--dp-gutter);
+}
+
+/* Text-only sections keep the shared left edge; only their measure is narrower. */
+.narrow > * {
+  max-width: 48rem;
+}
+
+.lead {
+  font-size: 1.0625rem;
+  max-width: 44rem;
+}
+
+.band {
+  padding-block: 3rem;
+}
+
+.band-dark {
+  background: var(--dp-dark);
+  color: var(--dp-on-dark);
+}
+
+.band-dark h1,
+.band-dark h2,
+.band-dark h3,
+.band-dark a {
+  color: var(--dp-on-dark);
+}
+
+.band-dark :focus-visible {
+  outline-color: var(--dp-focus-on-dark);
+}
+
+.card {
+  border: 2px solid var(--dp-nachtblau);
+  border-radius: var(--dp-radius);
+  background: var(--dp-surface);
+  padding: 1.25rem;
+}
+
+/* ---------- Skip link ---------- */
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -10rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--dp-nachtblau);
+  color: var(--dp-on-dark);
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 1rem;
+  color: var(--dp-on-dark);
+  outline-color: var(--dp-focus);
+}
+
+/* ---------- 0 Header ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--dp-line);
+  background: var(--dp-surface);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-block: 0.75rem;
+}
+
+/* CD Schutzraum: 1/5 of the block height (40px -> 8px) kept free around the mark. */
+.wordmark {
+  display: inline-block;
+  padding: 0.5rem;
+  margin: -0.5rem;
+  line-height: 0;
+}
+
+.wordmark img {
+  height: 40px;
+  width: auto;
+}
+
+.lang-switch {
+  margin: 0;
+  font-weight: 600;
+}
+
+.site-nav {
+  order: 3;
+  flex-basis: 100%;
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding-block: 0.25rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .site-nav {
+    order: 0;
+    flex-basis: auto;
+    margin-left: auto;
+  }
+}
+
+/* ---------- 1 Hero ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: 3.5rem 4rem;
+}
+
+.motif {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.motif-tile {
+  fill: var(--dp-nachtblau);
+}
+
+.motif-accent {
+  fill: var(--dp-cyanblau);
+  display: none;
+}
+
+/* The cyan accent tile only shows where it cannot sit behind text. */
+@media (min-width: 1100px) {
+  .motif-accent {
+    display: inline;
+  }
+}
+
+.hero-inner {
+  position: relative;
+}
+
+.hero-inner > * {
+  max-width: 36rem;
+}
+
+.hero-lead {
+  font-size: 1.125rem;
+}
+
+.hero-status {
+  color: var(--dp-accent-on-dark);
+  font-weight: 600;
+}
+
+.counter-hero {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.count-n {
+  display: inline-block;
+  margin-right: 0.15em;
+  color: var(--dp-accent-on-dark);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: -0.1em;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.7rem 1.25rem;
+  border: 2px solid transparent;
+  border-radius: var(--dp-radius-small);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.band-dark .button-primary,
+.button-primary {
+  background: var(--dp-cyanblau);
+  color: var(--dp-nachtblau);
+}
+
+.band-dark .button-primary:hover {
+  background: var(--dp-weiss);
+  color: var(--dp-nachtblau);
+}
+
+.button-ghost {
+  border-color: var(--dp-weiss);
+}
+
+.band-dark .button-ghost:hover {
+  background: var(--dp-weiss);
+  color: var(--dp-nachtblau);
+}
+
+/* ---------- 3 Workflow ---------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 560px) {
+  .tiles {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .tiles {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.tile-icon {
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0.75rem;
+}
+
+.tile h3 {
+  margin-bottom: 0.25rem;
+}
+
+.tile p {
+  margin: 0;
+}
+
+/* ---------- 4 Progress ---------- */
+
+.progress-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 960px) {
+  .progress-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.big-number {
+  margin: 0 0 0.25rem;
+  color: var(--dp-nachtblau);
+  line-height: 1.1;
+}
+
+.big-n {
+  font-size: clamp(3.5rem, 2.5rem + 4vw, 5rem);
+  font-weight: 700;
+}
+
+.big-total {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.big-label {
+  display: block;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.chart {
+  margin: 1rem 0 0.5rem;
+}
+
+.chart figcaption {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Server-rendered chart: restyle its presentation attributes. */
 .step-chart {
+  display: block;
   width: 100%;
   max-width: 600px;
 }
 
+.step-chart line {
+  stroke: var(--dp-mittelblau);
+  stroke-width: 2;
+}
+
+.step-chart path {
+  stroke: var(--dp-nachtblau);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
 .step-chart text {
+  fill: var(--dp-anthrazitblau);
+  font-family: var(--dp-font);
   font-size: 14px;
-  fill: currentColor;
+}
+
+/* The chart scales down with its viewBox; keep its labels readable. */
+@media (max-width: 599px) {
+  .step-chart text {
+    font-size: 22px;
+  }
+
+  /* Date labels (3rd and 4th text): move clear of the x axis and the "0" label. */
+  .step-chart text:nth-of-type(n + 3) {
+    transform: translateY(7px);
+  }
+}
+
+.data-table summary {
+  display: inline-block;
+  padding-block: 0.25rem;
+  color: var(--dp-link);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.data-table table {
+  margin-top: 0.5rem;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.data-table caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.3rem 1rem 0.3rem 0;
+  border-bottom: 1px solid var(--dp-line);
+  text-align: left;
+}
+
+.news {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.news li {
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.news li:first-child {
+  padding-top: 0;
+}
+
+.news time {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.news p {
+  margin: 0.25rem 0 0;
+}
+
+.stand {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* ---------- 5 Universities ---------- */
+
+.uni-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0 2rem;
+}
+
+@media (min-width: 960px) {
+  .uni-grid {
+    grid-template-columns: 3fr 1fr;
+    align-items: start;
+  }
+}
+
+.map {
+  margin: 0;
+  padding: 0.75rem;
+}
+
+.dp-map {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.legend ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-block: 0.2rem;
+}
+
+.swatch {
+  flex: none;
+}
+
+/* Status palette, shared by map boxes, legend swatches and list badges.
+   Text colour per status keeps >= 4.5:1 on its fill (DESIGN-NOTES.md). */
+[data-status="none"] {
+  --st-fill: var(--dp-weiss);
+  --st-stroke: var(--dp-mittelblau);
+  --st-text: var(--dp-nachtblau);
+}
+
+[data-status="eingerichtet"] {
+  --st-fill: var(--dp-cyanblau);
+  --st-stroke: var(--dp-nachtblau);
+  --st-text: var(--dp-nachtblau);
+}
+
+[data-status="abgenommen"] {
+  --st-fill: var(--dp-mittelblau);
+  --st-stroke: var(--dp-nachtblau);
+  --st-text: var(--dp-weiss);
+}
+
+[data-status="live"] {
+  --st-fill: var(--dp-nachtblau);
+  --st-stroke: var(--dp-nachtblau);
+  --st-text: var(--dp-weiss);
+}
+
+[data-status="external"] {
+  --st-fill: var(--dp-weiss);
+  --st-stroke: var(--dp-nachtblau);
+  --st-text: var(--dp-nachtblau);
+}
+
+.dp-map rect[data-status],
+.swatch rect[data-status] {
+  fill: var(--st-fill);
+  stroke: var(--st-stroke);
+}
+
+.dp-map rect[data-status] {
+  stroke-width: 4;
+}
+
+.swatch rect[data-status] {
+  stroke-width: 2;
+}
+
+/* Not by colour alone: in preparation = dashed outline, own repository = double-weight outline. */
+.dp-map rect[data-status="none"] {
+  stroke-dasharray: 12 8;
+}
+
+.swatch rect[data-status="none"] {
+  stroke-dasharray: 4 3;
+}
+
+.dp-map rect[data-status="external"] {
+  stroke-width: 8;
+}
+
+.swatch rect[data-status="external"] {
+  stroke-width: 3.5;
+}
+
+/* Map labels: brand font and colour; dark boxes get light text via the page head. */
+.dp-map text {
+  fill: var(--dp-nachtblau);
+}
+
+.dp-map text,
+.dp-map tspan {
+  font-family: var(--dp-font) !important;
+  font-weight: 600;
+}
+
+.partners {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 560px) {
+  .partners {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 960px) {
+  .partners {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.partners li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--dp-line);
+  border-radius: var(--dp-radius-small);
+}
+
+.partners a,
+.partner-name {
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.05rem 0.6rem;
+  border: 1px solid var(--st-stroke);
+  border-radius: 999px;
+  background: var(--st-fill);
+  color: var(--st-text);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge[data-status="none"] {
+  border-style: dashed;
+}
+
+.badge[data-status="external"] {
+  border-width: 2px;
+}
+
+/* ---------- 6 Own space ---------- */
+
+.slots {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .slots {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .slot {
-  margin: 0 0 1rem;
-  padding: 2rem 1rem;
-  border: 1px dashed;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  margin: 0;
+  padding: 1rem;
+  border: 2px dashed var(--dp-mittelblau);
+  border-radius: var(--dp-radius);
+  text-align: center;
 }
 
-/* Map: partner box fill by status (data-status set at render time). */
-.dp-map rect[data-status="none"] { fill: #fffefc; }
-.dp-map rect[data-status="eingerichtet"] { fill: #fde7a9; }
-.dp-map rect[data-status="abgenommen"] { fill: #cfe5f5; }
-.dp-map rect[data-status="live"] { fill: #bfe3b4; }
-.dp-map rect[data-status="external"] { fill: #e4e4e4; }
+/* ---------- 7 Onboarding ---------- */
+
+.steps {
+  counter-reset: step;
+  display: grid;
+  gap: 0;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.steps li {
+  counter-increment: step;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-height: 3.5rem;
+  padding-block: 0.5rem;
+  font-weight: 600;
+}
+
+.steps li::before {
+  content: counter(step);
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--dp-radius-small);
+  background: var(--dp-nachtblau);
+  color: var(--dp-weiss);
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+/* Vertical connector on mobile */
+.steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: calc(1.375rem - 1px);
+  top: 2.5rem;
+  bottom: -1rem;
+  width: 2px;
+  background: var(--dp-line);
+}
+
+@media (min-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .steps li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* Horizontal connector on desktop */
+  .steps li:not(:last-child)::after {
+    left: 3.25rem;
+    right: -0.5rem;
+    top: calc(0.5rem + 1.375rem - 1px);
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+}
+
+/* ---------- 9 Contact ---------- */
+
+.contact-list {
+  margin: 1.5rem 0 0;
+}
+
+.contact-list dt {
+  font-weight: 600;
+}
+
+.contact-list dd {
+  margin: 0 0 0.75rem;
+}
+
+.contact-list dd:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- 10 Funding ---------- */
+
+.funding {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .funding {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.funding p {
+  margin: 0;
+}
+
+.logo-slot {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 3 / 1;
+  margin-bottom: 0.75rem;
+  border: 2px dashed var(--dp-mittelblau);
+  border-radius: var(--dp-radius-small);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* ---------- 11 Footer ---------- */
+
+.site-footer h2 {
+  font-size: 1.25rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------- Motion ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  .button {
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+}

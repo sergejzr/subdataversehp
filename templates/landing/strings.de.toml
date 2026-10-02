@@ -22,6 +22,7 @@ nav_service = "Service"
 nav_progress = "Fortschritt"
 nav_universities = "Hochschulen"
 nav_contact = "Kontakt"
+logo_alt = "DataPublication.nrw – zum Seitenanfang"
 
 [hero]
 claim = "[Platzhalter: Claim]"
@@ -42,6 +43,10 @@ collect = "Collect"
 describe = "Describe"
 publish = "Publish"
 cite = "Cite"
+collect_text = "[Platzhalter: Daten zusammenstellen]"
+describe_text = "[Platzhalter: Metadaten und Dokumentation ergänzen]"
+publish_text = "[Platzhalter: Prüfung und Veröffentlichung]"
+cite_text = "[Platzhalter: DOI und Zitation]"
 
 [progress]
 heading = "Fortschritt"
@@ -54,12 +59,15 @@ no_news = "Noch keine Neuigkeiten."
 no_steps = "Noch keine Bereiche eingerichtet."
 stand = "Stand"
 no_date = "–"
+table_toggle = "Daten als Tabelle"
+big_label = "Bereiche eingerichtet"
 
 [universities]
 heading = "Beteiligte Hochschulen"
 placeholder = "[Platzhalter: Einleitung zur Karte und Liste]"
 map_label = "Karte der beteiligten Hochschulen in NRW"
 list_heading = "Alle Hochschulen"
+legend_heading = "Legende"
 
 [own_space]
 heading = "Ein eigener Bereich für Ihre Hochschule"
@@ -94,6 +102,7 @@ placeholder = "[Platzhalter: Rahmen des Projekts]"
 embedding = "[Platzhalter: Einbettung]"
 operation = "[Platzhalter: Betrieb]"
 funding = "[Platzhalter: Förderung]"
+logo_slot = "[Platzhalter: Logo]"
 
 [footer]
 heading = "Rechtliches"

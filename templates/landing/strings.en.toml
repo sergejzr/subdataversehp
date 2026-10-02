@@ -22,6 +22,7 @@ nav_service = "Service"
 nav_progress = "Progress"
 nav_universities = "Universities"
 nav_contact = "Contact"
+logo_alt = "DataPublication.nrw – back to top"
 
 [hero]
 claim = "[Placeholder: claim]"
@@ -42,6 +43,10 @@ collect = "Collect"
 describe = "Describe"
 publish = "Publish"
 cite = "Cite"
+collect_text = "[Placeholder: assemble the data]"
+describe_text = "[Placeholder: add metadata and documentation]"
+publish_text = "[Placeholder: review and publication]"
+cite_text = "[Placeholder: DOI and citation]"
 
 [progress]
 heading = "Progress"
@@ -54,12 +59,15 @@ no_news = "No news yet."
 no_steps = "No spaces set up yet."
 stand = "As of"
 no_date = "–"
+table_toggle = "Data as table"
+big_label = "spaces set up"
 
 [universities]
 heading = "Participating universities"
 placeholder = "[Placeholder: introduction to the map and list]"
 map_label = "Map of the participating universities in NRW"
 list_heading = "All universities"
+legend_heading = "Legend"
 
 [own_space]
 heading = "A space of your own for your university"
@@ -94,6 +102,7 @@ placeholder = "[Placeholder: project framework]"
 embedding = "[Placeholder: embedding]"
 operation = "[Placeholder: operation]"
 funding = "[Placeholder: funding]"
+logo_slot = "[Placeholder: logo]"
 
 [footer]
 heading = "Legal"
