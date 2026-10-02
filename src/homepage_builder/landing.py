@@ -365,6 +365,8 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
 
     out_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(landing_dir / "landing.css", out_dir / "landing.css")
+    if (landing_dir / "assets").is_dir():
+        shutil.copytree(landing_dir / "assets", out_dir / "assets", dirs_exist_ok=True)
     for lang, html in pages.items():
         target = out_dir if lang == DEFAULT_LANGUAGE else out_dir / lang
         target.mkdir(parents=True, exist_ok=True)
