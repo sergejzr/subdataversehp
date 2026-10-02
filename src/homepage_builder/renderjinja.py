@@ -4,6 +4,7 @@ import argparse
 import json
 import random
 import shutil
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -306,7 +307,7 @@ def main():
             local_test=True,
         ),
     )
-    svg_manip.ensure_linked_svg()
+    linked_svg = svg_manip.ensure_linked_svg()
 
     env_index = build_env(base_templates_dir)
     index_ctx = build_page_data(dataverse_api, templater, base_dataverse=base_dataverse)
@@ -382,6 +383,18 @@ def main():
 
         uni_html = render(env_uni, uni_template_name, uni_ctx)
         (target_dir / "index.html").write_text(uni_html, encoding="utf-8")
+
+    # New landing page preview. Imported here so that neither an import
+    # problem nor bad landing data can break the pages above.
+    try:
+        try:
+            from .landing import render_landing
+        except ImportError:
+            from landing import render_landing
+        render_landing(project_root, at_root, linked_svg, config_dir / "unis.csv")
+    except Exception as exc:
+        print(f"[LANDING] ERROR: {exc}", file=sys.stderr)
+        print("[LANDING] Preview skipped; all other pages were rendered.", file=sys.stderr)
 
     print(f"Done. Output written to: {output_root}")
 

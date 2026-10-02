@@ -1,0 +1,103 @@
+# All visible text of the landing page (English).
+# Keys must match strings.de.toml, otherwise the preview is skipped.
+
+date_format = "%Y-%m-%d"
+title = "DataPublication.nrw"
+description = "[Placeholder: page meta description]"
+skip_link = "Skip to content"
+lang_switch = "Deutsch"
+lang_switch_lang = "de"
+
+[status]
+none = "in preparation"
+eingerichtet = "set up"
+abgenommen = "approved"
+live = "live"
+external = "own repository"
+
+[header]
+wordmark = "DataPublication.nrw"
+nav_label = "Main navigation"
+nav_service = "Service"
+nav_progress = "Progress"
+nav_universities = "Universities"
+nav_contact = "Contact"
+
+[hero]
+claim = "[Placeholder: claim]"
+explanation = "[Placeholder: one sentence on what DataPublication.nrw is]"
+status_line = "[Placeholder: status line, e.g. test operation]"
+counter = "{n} of {total} spaces set up"
+link_universities = "See the universities"
+link_contact = "Get in touch"
+
+[about]
+heading = "About DataPublication.nrw"
+placeholder = "[Placeholder: short description of the service]"
+
+[workflow]
+heading = "How it works"
+placeholder = "[Placeholder: workflow in four steps, one line per tile]"
+collect = "Collect"
+describe = "Describe"
+publish = "Publish"
+cite = "Cite"
+
+[progress]
+heading = "Progress"
+placeholder = "[Placeholder: context for the current state of the rollout]"
+chart_title = "Spaces set up over time"
+table_date = "Date"
+table_count = "Spaces set up"
+news_heading = "News"
+no_news = "No news yet."
+no_steps = "No spaces set up yet."
+stand = "As of"
+no_date = "–"
+
+[universities]
+heading = "Participating universities"
+placeholder = "[Placeholder: introduction to the map and list]"
+map_label = "Map of the participating universities in NRW"
+list_heading = "All universities"
+
+[own_space]
+heading = "A space of your own for your university"
+placeholder = "[Placeholder: what a dedicated space offers]"
+slot_1 = "[Placeholder: screenshot 1]"
+slot_2 = "[Placeholder: screenshot 2]"
+slot_3 = "[Placeholder: screenshot 3]"
+
+[onboarding]
+heading = "The way to your own space"
+placeholder = "[Placeholder: how onboarding works]"
+step_1 = "Corporate design material"
+step_2 = "Draft"
+step_3 = "Approval"
+step_4 = "Live"
+
+[roadmap]
+heading = "Roadmap"
+placeholder = "[Placeholder: planned milestones]"
+
+[contact]
+heading = "Contact"
+placeholder = "[Placeholder: who answers which questions]"
+email_label = "Email"
+email = "info@datapublication.nrw"
+list_label = "Mailing list"
+list_address = "datapublication-nrw-info@listen.uni-bonn.de"
+
+[funding]
+heading = "Embedding, operation and funding"
+placeholder = "[Placeholder: project framework]"
+embedding = "[Placeholder: embedding]"
+operation = "[Placeholder: operation]"
+funding = "[Placeholder: funding]"
+
+[footer]
+heading = "Legal"
+placeholder = "[Placeholder: footer content]"
+imprint = "Imprint"
+privacy = "Privacy"
+accessibility = "Accessibility"

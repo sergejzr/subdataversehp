@@ -1,0 +1,8 @@
+# Neuigkeiten für die Landing Page. Neueste drei werden angezeigt.
+# Pflicht: datum (YYYY-MM-DD), titel_de, titel_en. Optional: text_de, text_en, link.
+
+[[news]]
+datum = 2026-10-02
+titel_de = "[Platzhalter] Beispielmeldung – vor dem Livegang ersetzen"
+titel_en = "[Placeholder] Sample news item – replace before go-live"
+text_de = "[Platzhalter: Ein bis zwei Sätze zur Meldung]"

@@ -1,0 +1,103 @@
+# Alle sichtbaren Texte der Landing Page (deutsch).
+# Schlüssel müssen mit strings.en.toml übereinstimmen, sonst wird die Vorschau übersprungen.
+
+date_format = "%d.%m.%Y"
+title = "DataPublication.nrw"
+description = "[Platzhalter: Meta-Beschreibung der Seite]"
+skip_link = "Zum Inhalt springen"
+lang_switch = "English"
+lang_switch_lang = "en"
+
+[status]
+none = "in Vorbereitung"
+eingerichtet = "eingerichtet"
+abgenommen = "abgenommen"
+live = "live"
+external = "eigenes Repositorium"
+
+[header]
+wordmark = "DataPublication.nrw"
+nav_label = "Hauptnavigation"
+nav_service = "Service"
+nav_progress = "Fortschritt"
+nav_universities = "Hochschulen"
+nav_contact = "Kontakt"
+
+[hero]
+claim = "[Platzhalter: Claim]"
+explanation = "[Platzhalter: Ein Satz, was DataPublication.nrw ist]"
+status_line = "[Platzhalter: Statuszeile, z. B. Testbetrieb]"
+counter = "{n} von {total} Bereichen eingerichtet"
+link_universities = "Zu den Hochschulen"
+link_contact = "Kontakt aufnehmen"
+
+[about]
+heading = "Über DataPublication.nrw"
+placeholder = "[Platzhalter: Kurzbeschreibung des Dienstes]"
+
+[workflow]
+heading = "So funktioniert es"
+placeholder = "[Platzhalter: Ablauf in vier Schritten, je eine Zeile pro Kachel]"
+collect = "Collect"
+describe = "Describe"
+publish = "Publish"
+cite = "Cite"
+
+[progress]
+heading = "Fortschritt"
+placeholder = "[Platzhalter: Einordnung des Aufbaustands]"
+chart_title = "Eingerichtete Bereiche im Zeitverlauf"
+table_date = "Datum"
+table_count = "Eingerichtete Bereiche"
+news_heading = "Neuigkeiten"
+no_news = "Noch keine Neuigkeiten."
+no_steps = "Noch keine Bereiche eingerichtet."
+stand = "Stand"
+no_date = "–"
+
+[universities]
+heading = "Beteiligte Hochschulen"
+placeholder = "[Platzhalter: Einleitung zur Karte und Liste]"
+map_label = "Karte der beteiligten Hochschulen in NRW"
+list_heading = "Alle Hochschulen"
+
+[own_space]
+heading = "Ein eigener Bereich für Ihre Hochschule"
+placeholder = "[Platzhalter: Was ein eigener Bereich bietet]"
+slot_1 = "[Platzhalter: Screenshot 1]"
+slot_2 = "[Platzhalter: Screenshot 2]"
+slot_3 = "[Platzhalter: Screenshot 3]"
+
+[onboarding]
+heading = "Der Weg zum eigenen Bereich"
+placeholder = "[Platzhalter: Ablauf des Onboardings]"
+step_1 = "CD-Material"
+step_2 = "Entwurf"
+step_3 = "Abnahme"
+step_4 = "Live"
+
+[roadmap]
+heading = "Roadmap"
+placeholder = "[Platzhalter: Geplante Meilensteine]"
+
+[contact]
+heading = "Kontakt"
+placeholder = "[Platzhalter: Wer antwortet auf welche Fragen]"
+email_label = "E-Mail"
+email = "info@datapublication.nrw"
+list_label = "Mailingliste"
+list_address = "datapublication-nrw-info@listen.uni-bonn.de"
+
+[funding]
+heading = "Einbettung, Betrieb und Förderung"
+placeholder = "[Platzhalter: Rahmen des Projekts]"
+embedding = "[Platzhalter: Einbettung]"
+operation = "[Platzhalter: Betrieb]"
+funding = "[Platzhalter: Förderung]"
+
+[footer]
+heading = "Rechtliches"
+placeholder = "[Platzhalter: Footer-Inhalte]"
+imprint = "Impressum"
+privacy = "Datenschutz"
+accessibility = "Barrierefreiheit"

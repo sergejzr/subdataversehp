@@ -1,0 +1,54 @@
+/* Skeleton only: layout safety and status colours, no design yet. */
+
+body {
+  margin: 0 auto;
+  max-width: 70rem;
+  padding: 0 1rem;
+  font-family: system-ui, sans-serif;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+}
+
+.skip-link:focus {
+  left: 1rem;
+}
+
+nav ul,
+.partners,
+footer ul {
+  padding-left: 1.25rem;
+}
+
+svg,
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.step-chart {
+  width: 100%;
+  max-width: 600px;
+}
+
+.step-chart text {
+  font-size: 14px;
+  fill: currentColor;
+}
+
+.slot {
+  margin: 0 0 1rem;
+  padding: 2rem 1rem;
+  border: 1px dashed;
+}
+
+/* Map: partner box fill by status (data-status set at render time). */
+.dp-map rect[data-status="none"] { fill: #fffefc; }
+.dp-map rect[data-status="eingerichtet"] { fill: #fde7a9; }
+.dp-map rect[data-status="abgenommen"] { fill: #cfe5f5; }
+.dp-map rect[data-status="live"] { fill: #bfe3b4; }
+.dp-map rect[data-status="external"] { fill: #e4e4e4; }
