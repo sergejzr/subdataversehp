@@ -476,11 +476,14 @@ ol {
   }
 }
 
+/* Text on top, six facts below in three columns. */
 @media (min-width: 900px) {
   .about-grid {
-    grid-template-columns: 7fr 5fr;
-    gap: 2rem;
-    align-items: start;
+    gap: 1.5rem;
+  }
+
+  .facts {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
