@@ -39,8 +39,8 @@ NEWS_KEYS_OPTIONAL = {"text_de", "text_en", "link"}
 LOGO_SUFFIXES = (".svg", ".png")
 # Logos are scaled to the same visible area (px^2) so that wide and compact
 # marks carry similar weight, then capped to the cell (max width, max height).
-LOGO_AREA = {"partner": 4400, "org": 2600}
-LOGO_MAX = {"partner": (150, 58), "org": (124, 46)}
+LOGO_AREA = {"partner": 4400, "org": 4200}
+LOGO_MAX = {"partner": (150, 58), "org": (166, 48)}
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _RECT_LABEL = re.compile(r'inkscape:label="rect_([a-z0-9-]+)"')
@@ -257,6 +257,7 @@ def own_space_shots(labels: list[str], partners: list[dict], shots_dir: Path) ->
 
 _SVG_ROOT = re.compile(r"<svg\b[^>]*>", re.S)
 _SVG_VIEWBOX = re.compile(r'viewBox\s*=\s*"([^"]+)"')
+_SVG_LENGTH = {name: re.compile(rf'\s{name}\s*=\s*"([\d.]+)(?:px)?"') for name in ("width", "height")}
 
 
 def _intrinsic_size(path: Path) -> tuple[float, float] | None:
@@ -268,11 +269,20 @@ def _intrinsic_size(path: Path) -> tuple[float, float] | None:
             return float(width), float(height)
         return None
     root = _SVG_ROOT.search(path.read_text(encoding="utf-8", errors="replace"))
-    viewbox = _SVG_VIEWBOX.search(root.group(0)) if root else None
-    if not viewbox:
+    if not root:
         return None
-    parts = [float(v) for v in re.split(r"[\s,]+", viewbox.group(1).strip())]
-    return (parts[2], parts[3]) if len(parts) == 4 and parts[2] > 0 and parts[3] > 0 else None
+    viewbox = _SVG_VIEWBOX.search(root.group(0))
+    if viewbox:
+        parts = [float(v) for v in re.split(r"[\s,]+", viewbox.group(1).strip())]
+        if len(parts) == 4 and parts[2] > 0 and parts[3] > 0:
+            return parts[2], parts[3]
+    # No viewBox: fall back to absolute width/height (px or unitless).
+    dims = [_SVG_LENGTH[name].search(root.group(0)) for name in ("width", "height")]
+    if all(dims):
+        width, height = (float(m.group(1)) for m in dims)
+        if width > 0 and height > 0:
+            return width, height
+    return None
 
 
 def _logo_size(size: tuple[float, float] | None, kind: str) -> tuple[int, int] | None:
