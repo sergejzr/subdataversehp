@@ -28,22 +28,7 @@
 <body>
   <a class="skip-link" href="#main">{{ s.skip_link }}</a>
 
-  <header id="header" class="site-header">
-    <div class="wrap header-inner">
-      <a class="wordmark" href="{{ urls[lang] }}">
-        <img src="{{ base }}assets/dpnrw-wortmarke-kompakt-farbe.svg" alt="{{ s.header.logo_alt }}" width="178" height="40">
-      </a>
-      <nav class="site-nav" aria-label="{{ s.header.nav_label }}">
-        <ul>
-          <li><a href="#about">{{ s.header.nav_about }}</a></li>
-          <li><a href="#progress">{{ s.header.nav_progress }}</a></li>
-          <li><a href="#universities">{{ s.header.nav_universities }}</a></li>
-          <li><a href="#contact">{{ s.header.nav_contact }}</a></li>
-        </ul>
-      </nav>
-      <p class="lang-switch"><a href="{{ urls[s.lang_switch_lang] }}" hreflang="{{ s.lang_switch_lang }}" lang="{{ s.lang_switch_lang }}">{{ s.lang_switch }}</a></p>
-    </div>
-  </header>
+  {% include "_header.html" %}
 
   {%- set count_n %}<span class="count-n">{{ n }}</span>{% endset %}
 
@@ -324,19 +309,6 @@
     </div>
   </main>
 
-  <footer id="footer" class="band band-dark site-footer">
-    <div class="wrap footer-inner">
-      <div>
-        <h2>{{ s.footer.heading }}</h2>
-        <p>{{ s.footer.text }}</p>
-      </div>
-      <ul class="footer-links">
-        <li><a href="{{ s.footer.imprint_url }}">{{ s.footer.imprint }}</a></li>
-        <li><a href="#footer">{{ s.footer.privacy }}</a></li>
-        <li><a href="#footer">{{ s.footer.accessibility }}</a></li>
-        <li><a href="{{ urls[s.lang_switch_lang] }}" hreflang="{{ s.lang_switch_lang }}" lang="{{ s.lang_switch_lang }}">{{ s.lang_switch }}</a></li>
-      </ul>
-    </div>
-  </footer>
+  {% include "_footer.html" %}
 </body>
 </html>

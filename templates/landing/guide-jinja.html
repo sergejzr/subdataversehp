@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+{%- set base = urls[default_lang] %}
+{%- macro tree(nodes) %}
+<ul>
+  {%- for n in nodes %}
+  <li><a href="{{ n.url }}"{% if n.url == page.url %} aria-current="page"{% endif %}>{{ n.title }}</a>
+    {%- if n.children %}{{ tree(n.children) }}{% endif %}</li>
+  {%- endfor %}
+</ul>
+{%- endmacro %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{ page.title }} · {{ s.guide.title }}</title>
+  <link rel="icon" href="{{ base }}assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="{{ base }}assets/fonts/open-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ css_href }}">
+</head>
+<body class="guide-page">
+  <a class="skip-link" href="#main">{{ s.skip_link }}</a>
+  {% include "_header.html" %}
+
+  <div class="band guide-band">
+    <div class="wrap guide-layout">
+      <nav class="guide-nav" aria-label="{{ s.guide.nav_label }}">
+        <p class="guide-nav-heading"><a href="{{ guide_url }}">{{ s.guide.title }}</a></p>
+        {{ tree(nav.main[0].children) }}
+        {%- if nav.references %}
+        <p class="guide-nav-heading">{{ s.guide.references }}</p>
+        {{ tree(nav.references) }}
+        {%- endif %}
+      </nav>
+
+      <main id="main" class="guide-main">
+        <p class="draft-note">{{ s.guide.draft_note }}{% if todo_count %} {{ s.guide.todo_count.format(n=todo_count) }}{% endif %}</p>
+        <h1>{{ page.title }}</h1>
+        <div class="guide-content">
+          {{ page.html }}
+        </div>
+        {%- if page.children %}
+        <section class="guide-children" aria-labelledby="guide-children-heading">
+          <h2 id="guide-children-heading">{{ s.guide.in_this_section }}</h2>
+          <ul>
+            {%- for c in page.children %}
+            <li><a href="{{ c.url }}">{{ c.title }}</a></li>
+            {%- endfor %}
+          </ul>
+        </section>
+        {%- endif %}
+        <nav class="guide-pager" aria-label="{{ s.guide.pager_label }}">
+          {%- if prev %}<a class="guide-prev" href="{{ prev.url }}"><span>{{ s.guide.prev }}</span> {{ prev.title }}</a>{% endif %}
+          {%- if next %}<a class="guide-next" href="{{ next.url }}"><span>{{ s.guide.next }}</span> {{ next.title }}</a>{% endif %}
+        </nav>
+      </main>
+    </div>
+  </div>
+
+  {% include "_footer.html" %}
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Navigation order of the user guide: page paths without .md, one per line.
+# Pages not listed here follow, sorted by title.
+DataPublication-User-Guide-v1.0.0/scope-of-DataPublication
+DataPublication-User-Guide-v1.0.0/DataPublication-User-Registration
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/{Dataset-creation}
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/{Mandatory-and-optional-metadata}
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/{Adding-files-to-dataset}
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/{Adding-files-to-dataset}/{upload-less-than-10GB}
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/{Adding-files-to-dataset}/{Upload-files-between10-100GB}
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/{Adding-files-to-dataset}/{Upload-files-larger-than-100GB}
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/{Editing-files}
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/Choosing-appropriate-licenses-for-your-research-data
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/Setting-an-embargo-for-files-in-a-dataset
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/Choosing-a-guestbook-for-your-dataset
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/Enabling-dataset-review-functionality-for-unpublished-datasets
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/Finalizing-the-publication-process
+DataPublication-User-Guide-v1.0.0/DataPublication-Dataset-Preparation-Workflow/Choosing-a-thumbnail-image-for-a-dataset
+DataPublication-User-Guide-v1.0.0/DataPublication-Organisation
+DataPublication-User-Guide-v1.0.0/Independent-sub-collections
+DataPublication-User-Guide-v1.0.0/Data-access-modes
+DataPublication-User-Guide-v1.0.0/Downloading-files-from-published-datasets
+DataPublication-User-Guide-v1.0.0/DataPublication-API
+references/Guestbooks-for-sub-collections
+references/Forschungssoftware-und-Code

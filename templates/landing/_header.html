@@ -1,0 +1,22 @@
+{#- Shared site header. Context: s, lang, urls, base, guide_url, alt_url, current. #}
+  <header id="header" class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="{{ urls[lang] }}">
+        <img src="{{ base }}assets/dpnrw-wortmarke-kompakt-farbe.svg" alt="{{ s.header.logo_alt }}" width="178" height="40">
+      </a>
+      <nav class="site-nav" aria-label="{{ s.header.nav_label }}">
+        <ul>
+          <li><a href="{{ urls[lang] }}#about">{{ s.header.nav_about }}</a></li>
+          <li><a href="{{ urls[lang] }}#progress">{{ s.header.nav_progress }}</a></li>
+          <li><a href="{{ urls[lang] }}#universities">{{ s.header.nav_universities }}</a></li>
+          {%- if guide_url %}
+          <li><a href="{{ guide_url }}"{% if current == 'guide' %} aria-current="page"{% endif %}>{{ s.header.nav_guide }}</a></li>
+          {%- endif %}
+          <li><a href="{{ urls[lang] }}#contact">{{ s.header.nav_contact }}</a></li>
+        </ul>
+      </nav>
+      {%- if alt_url %}
+      <p class="lang-switch"><a href="{{ alt_url }}" hreflang="{{ s.lang_switch_lang }}" lang="{{ s.lang_switch_lang }}">{{ s.lang_switch }}</a></p>
+      {%- endif %}
+    </div>
+  </header>

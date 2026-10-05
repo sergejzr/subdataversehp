@@ -16,6 +16,7 @@ import csv
 import re
 import shutil
 import struct
+import sys
 import tomllib
 import unicodedata
 from datetime import date
@@ -451,10 +452,32 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
         keep_trailing_newline=True,
     )
     template = env.get_template("landing-jinja.html")
+    css_href = f"{LANDING_BASE_PATH}landing.css"
 
     urls = {lang: LANDING_BASE_PATH if lang == DEFAULT_LANGUAGE else f"{LANDING_BASE_PATH}{lang}/" for lang in LANGUAGES}
     map_markup = map_with_status(svg_text, partner_list)
     logos = logo_files(landing_dir / "assets" / "logos")
+
+    # User guide (English only). Rendered first so that the landing pages link it
+    # only when it rendered; any guide problem skips the guide, never the landing.
+    guide = None
+    guide_url = None
+    try:
+        try:
+            from .landing_guide import render_guide
+        except ImportError:
+            from landing_guide import render_guide
+        guide_url = f"{LANDING_BASE_PATH}guide/"
+        guide = render_guide(
+            env,
+            landing_dir / "guide",
+            strings["en"],
+            {"urls": urls, "default_lang": DEFAULT_LANGUAGE, "css_href": css_href, "guide_url": guide_url},
+            LANDING_BASE_PATH,
+        )
+    except Exception as exc:
+        guide, guide_url = None, None
+        print(f"[LANDING] Guide skipped: {exc}", file=sys.stderr)
 
     pages = {}
     for lang in LANGUAGES:
@@ -466,7 +489,10 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
             s=s,
             urls=urls,
             default_lang=DEFAULT_LANGUAGE,
-            css_href=f"{LANDING_BASE_PATH}landing.css",
+            css_href=css_href,
+            guide_url=guide_url,
+            alt_url=urls[s["lang_switch_lang"]],
+            current="landing",
             n=len(current),
             total=total,
             stand=stand.strftime(fmt) if stand else s["progress"]["no_date"],
@@ -487,6 +513,17 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
         target = out_dir if lang == DEFAULT_LANGUAGE else out_dir / lang
         target.mkdir(parents=True, exist_ok=True)
         (target / "index.html").write_text(html, encoding="utf-8")
+
+    if guide:
+        for rel, html in guide["pages"].items():
+            target = out_dir / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(html, encoding="utf-8")
+        if guide["uploads"].is_dir():
+            shutil.copytree(guide["uploads"], out_dir / "guide" / "uploads", dirs_exist_ok=True)
+        print(f"[LANDING] Guide written: {len(guide['pages'])} pages, {len(guide['warnings'])} warnings")
+        for warning in guide["warnings"]:
+            print(f"[LANDING] Guide warning: {warning}")
 
     print(f"[LANDING] Preview written to {out_dir} ({len(current)}/{total} partners with status, Stand {stand})")
     return out_dir

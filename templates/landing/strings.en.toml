@@ -28,6 +28,7 @@ nav_label = "Main navigation"
 nav_about = "Service"
 nav_progress = "Progress"
 nav_universities = "Universities"
+nav_guide = "User Guide"
 nav_contact = "Contact"
 logo_alt = "DataPublication.nrw – back to top"
 
@@ -174,7 +175,19 @@ operation_logos = ["uni-bonn", "sfd", "hrz", "ulb", "rwth-aachen"]
 funding_logos = ["mkw"]
 embedding_logos = ["dh-nrw", "fdm-nrw"]
 
+[guide]
+title = "User Guide"
+nav_label = "User Guide chapters"
+references = "Further reading"
+in_this_section = "In this chapter"
+pager_label = "Page navigation"
+prev = "Previous:"
+next = "Next:"
+draft_note = "Draft, not yet reviewed. Highlighted passages are open points."
+todo_count = "On this page: {n}."
+
 [footer]
+guide = "User Guide"
 heading = "DataPublication.nrw"
 text = "A statewide service run by the University of Bonn and RWTH Aachen University, funded by the Ministry of Culture and Science of the State of North Rhine-Westphalia."
 imprint = "Legal notice"
