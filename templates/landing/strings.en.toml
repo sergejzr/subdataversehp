@@ -138,6 +138,14 @@ list_text = "News about the project and the start of onboarding (in German)."
 list_link = "Subscribe to the mailing list"
 list_url = "https://listen.uni-bonn.de/wws/info/datapublication-nrw-info"
 
+[imprint]
+heading = "Legal notice"
+provider_label = "Provider"
+provider_text = "Rheinische Friedrich-Wilhelms-Universität Bonn (University of Bonn), a corporation under public law, legally represented by the Rector"
+operator_label = "Operated by"
+operator_text = "Hochschulrechenzentrum (IT centre) of the University of Bonn, Wegelerstraße 6, 53115 Bonn, Germany"
+link_text = "Full legal notice (in German)"
+
 [funding]
 heading = "Operation and funding"
 operation_title = "Operation"

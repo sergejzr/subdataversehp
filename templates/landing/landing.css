@@ -1072,8 +1072,24 @@ ol {
   }
 }
 
+.contact-col {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+}
+
+@media (min-width: 1000px) {
+  .contact-col {
+    gap: 1.5rem;
+  }
+}
+
 .contact-list {
   margin: 1rem 0 0;
+}
+
+.imprint-link {
+  margin-top: 0.75rem;
 }
 
 .contact-list dt {

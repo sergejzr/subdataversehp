@@ -138,6 +138,14 @@ list_text = "Neuigkeiten zum Projekt und zum Start des Onboardings."
 list_link = "Mailingliste abonnieren"
 list_url = "https://listen.uni-bonn.de/wws/info/datapublication-nrw-info"
 
+[imprint]
+heading = "Impressum"
+provider_label = "Anbieter"
+provider_text = "Rheinische Friedrich-Wilhelms-Universität Bonn, Körperschaft des öffentlichen Rechts, gesetzlich vertreten durch den Rektor"
+operator_label = "Betrieb"
+operator_text = "Hochschulrechenzentrum der Universität Bonn, Wegelerstraße 6, 53115 Bonn"
+link_text = "Vollständiges Impressum"
+
 [funding]
 heading = "Betrieb und Förderung"
 operation_title = "Betrieb"

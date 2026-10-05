@@ -274,6 +274,7 @@
 
     <div class="band">
       <div class="wrap contact-funding">
+        <div class="contact-col">
         <section id="contact" class="card">
           <h2>{{ s.contact.heading }}</h2>
           <p>{{ s.contact.lead }}</p>
@@ -284,6 +285,17 @@
             <dd>{{ s.contact.list_text }} <a href="{{ s.contact.list_url }}">{{ s.contact.list_link }}</a></dd>
           </dl>
         </section>
+        <section id="imprint" class="card">
+          <h2>{{ s.imprint.heading }}</h2>
+          <dl class="contact-list">
+            <dt>{{ s.imprint.provider_label }}</dt>
+            <dd>{{ s.imprint.provider_text }}</dd>
+            <dt>{{ s.imprint.operator_label }}</dt>
+            <dd>{{ s.imprint.operator_text }}</dd>
+          </dl>
+          <p class="imprint-link"><a href="{{ s.footer.imprint_url }}">{{ s.imprint.link_text }}</a></p>
+        </section>
+        </div>
         <section id="funding" class="card">
           <h2>{{ s.funding.heading }}</h2>
           <div class="funding">
