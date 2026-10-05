@@ -1,4 +1,4 @@
-/* DataPublication.nrw landing page - first design pass.
+/* DataPublication.nrw landing page - design round 2 (denser layout, real content).
    Brand values only in :root below; source: CD package 07-Farben/farbwerte.txt.
    Mobile first. No external requests. Notes: tooling/landing-preview/DESIGN-NOTES.md */
 
@@ -60,6 +60,7 @@
   src: url("assets/fonts/open-sans-latin-700-normal.woff2") format("woff2");
 }
 
+
 /* ---------- Base ---------- */
 
 *,
@@ -85,48 +86,54 @@ body {
   color: var(--dp-text);
   font-family: var(--dp-font);
   font-size: 1rem;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
+  line-height: 1.55;
+  overflow-wrap: break-word;
 }
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   color: var(--dp-heading);
   line-height: 1.2;
-  margin: 0 0 0.75rem;
-  overflow-wrap: normal;
+  margin: 0 0 0.5rem;
   hyphens: auto;
 }
 
 h1 {
-  font-size: clamp(2rem, 1.4rem + 3vw, 3.25rem);
+  font-size: clamp(1.875rem, 1.35rem + 2.4vw, 2.875rem);
   font-weight: 700;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2.125rem);
+  font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2rem);
   font-weight: 700;
+  margin-bottom: 0.75rem;
 }
 
 /* Decorative cyan rule under section headings (not information-bearing). */
 h2::after {
   content: "";
   display: block;
-  width: 3rem;
+  width: 2.5rem;
   height: 0.25rem;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
   background: var(--dp-cyanblau);
   border-radius: 0.125rem;
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+h4 {
+  font-size: 1rem;
   font-weight: 600;
 }
 
 p {
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
 }
 
 a {
@@ -151,6 +158,13 @@ svg {
   height: auto;
 }
 
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .wrap {
   width: 100%;
   max-width: var(--dp-max);
@@ -158,18 +172,20 @@ svg {
   padding-inline: var(--dp-gutter);
 }
 
-/* Text-only sections keep the shared left edge; only their measure is narrower. */
-.narrow > * {
-  max-width: 48rem;
-}
-
 .lead {
+  max-width: 68ch;
+  margin-bottom: 1.5rem;
   font-size: 1.0625rem;
-  max-width: 44rem;
 }
 
 .band {
-  padding-block: 3rem;
+  padding-block: 40px;
+}
+
+@media (min-width: 900px) {
+  .band {
+    padding-block: 56px;
+  }
 }
 
 .band-dark {
@@ -180,7 +196,7 @@ svg {
 .band-dark h1,
 .band-dark h2,
 .band-dark h3,
-.band-dark a {
+.band-dark a:not(.button) {
   color: var(--dp-on-dark);
 }
 
@@ -192,7 +208,18 @@ svg {
   border: 2px solid var(--dp-nachtblau);
   border-radius: var(--dp-radius);
   background: var(--dp-surface);
-  padding: 1.25rem;
+  padding: 20px;
+}
+
+@media (min-width: 900px) {
+  .card {
+    padding: 24px;
+  }
+}
+
+.card > :last-child,
+.card p:last-child {
+  margin-bottom: 0;
 }
 
 /* ---------- Skip link ---------- */
@@ -226,8 +253,8 @@ svg {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem 1.5rem;
-  padding-block: 0.75rem;
+  gap: 0.25rem 1.5rem;
+  padding-block: 0.625rem;
 }
 
 /* CD Schutzraum: 1/5 of the block height (40px -> 8px) kept free around the mark. */
@@ -256,10 +283,7 @@ svg {
 .site-nav ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: 0 1.25rem;
 }
 
 .site-nav a {
@@ -287,7 +311,13 @@ svg {
 .hero {
   position: relative;
   overflow: hidden;
-  padding-block: 3.5rem 4rem;
+  padding-block: 2.25rem 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .hero {
+    padding-block: 3rem 3.25rem;
+  }
 }
 
 .motif {
@@ -319,11 +349,25 @@ svg {
 }
 
 .hero-inner > * {
-  max-width: 36rem;
+  max-width: 40rem;
+}
+
+.hero-inner > h1 {
+  max-width: 52rem;
+  hyphens: manual;
+}
+
+.eyebrow {
+  margin-bottom: 0.5rem;
+  color: var(--dp-accent-on-dark);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .hero-lead {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
 }
 
 .hero-status {
@@ -332,7 +376,7 @@ svg {
 }
 
 .counter-hero {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-weight: 600;
 }
 
@@ -340,7 +384,7 @@ svg {
   display: inline-block;
   margin-right: 0.15em;
   color: var(--dp-accent-on-dark);
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   line-height: 1;
   vertical-align: -0.1em;
@@ -350,36 +394,94 @@ svg {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 1.5rem;
+  margin: 1.25rem 0 0;
 }
 
 .button {
   display: inline-block;
-  padding: 0.7rem 1.25rem;
+  padding: 0.6rem 1.15rem;
   border: 2px solid transparent;
   border-radius: var(--dp-radius-small);
   font-weight: 600;
   text-decoration: none;
 }
 
-.band-dark .button-primary,
 .button-primary {
   background: var(--dp-cyanblau);
   color: var(--dp-nachtblau);
 }
 
-.band-dark .button-primary:hover {
+.button-primary:hover {
   background: var(--dp-weiss);
   color: var(--dp-nachtblau);
 }
 
 .button-ghost {
   border-color: var(--dp-weiss);
+  color: var(--dp-on-dark);
 }
 
-.band-dark .button-ghost:hover {
+.button-ghost:hover {
   background: var(--dp-weiss);
   color: var(--dp-nachtblau);
+}
+
+/* ---------- 2 About ---------- */
+
+.about-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.about-text p {
+  max-width: 68ch;
+  font-size: 1.0625rem;
+}
+
+.facts {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.facts .card {
+  padding: 16px 18px;
+}
+
+.facts h3 {
+  margin-bottom: 0.25rem;
+}
+
+/* Below 600px the facts are a plain list: title + text with a decorative cyan bar. */
+@media (max-width: 599px) {
+  .facts {
+    gap: 0.875rem;
+  }
+
+  .facts .card {
+    padding: 0 0 0 0.875rem;
+    border: 0;
+    border-left: 4px solid var(--dp-cyanblau);
+    border-radius: 0;
+    background: none;
+  }
+
+  .facts h3 {
+    margin-bottom: 0.125rem;
+  }
+}
+
+@media (min-width: 600px) {
+  .facts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .about-grid {
+    grid-template-columns: 7fr 5fr;
+    gap: 2rem;
+    align-items: start;
+  }
 }
 
 /* ---------- 3 Workflow ---------- */
@@ -387,10 +489,7 @@ svg {
 .tiles {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
-  margin: 1.5rem 0 0;
-  padding: 0;
-  list-style: none;
+  gap: 0.75rem;
 }
 
 @media (min-width: 560px) {
@@ -405,15 +504,21 @@ svg {
   }
 }
 
+.tile-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
 .tile-icon {
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin-bottom: 0.75rem;
+  flex: none;
+  width: 48px;
+  height: 48px;
 }
 
 .tile h3 {
-  margin-bottom: 0.25rem;
+  margin: 0;
 }
 
 .tile p {
@@ -425,39 +530,49 @@ svg {
 .progress-grid {
   display: grid;
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
-@media (min-width: 960px) {
+.progress-main {
+  display: grid;
+  gap: 0.75rem 1.5rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
   .progress-grid {
     grid-template-columns: 2fr 1fr;
+    align-items: start;
+  }
+
+  .progress-main {
+    grid-template-columns: auto 1fr;
   }
 }
 
 .big-number {
-  margin: 0 0 0.25rem;
+  margin: 0;
   color: var(--dp-nachtblau);
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 .big-n {
-  font-size: clamp(3.5rem, 2.5rem + 4vw, 5rem);
+  font-size: clamp(3.25rem, 2.6rem + 3vw, 4.5rem);
   font-weight: 700;
 }
 
 .big-total {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 600;
 }
 
 .big-label {
   display: block;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 600;
 }
 
 .chart {
-  margin: 1rem 0 0.5rem;
+  margin: 0 0 0.25rem;
 }
 
 .chart figcaption {
@@ -465,11 +580,11 @@ svg {
   font-weight: 600;
 }
 
-/* Server-rendered chart: restyle its presentation attributes. */
+/* Server-rendered chart (landing.py lays it out for labels up to 22 units). */
 .step-chart {
   display: block;
   width: 100%;
-  max-width: 600px;
+  max-width: 480px;
 }
 
 .step-chart line {
@@ -486,25 +601,21 @@ svg {
 .step-chart text {
   fill: var(--dp-anthrazitblau);
   font-family: var(--dp-font);
-  font-size: 14px;
+  font-size: 13px;
 }
 
-/* The chart scales down with its viewBox; keep its labels readable. */
+/* Narrow cards scale the chart down; larger label units keep about 12px on screen. */
 @media (max-width: 599px) {
   .step-chart text {
-    font-size: 22px;
-  }
-
-  /* Date labels (3rd and 4th text): move clear of the x axis and the "0" label. */
-  .step-chart text:nth-of-type(n + 3) {
-    transform: translateY(7px);
+    font-size: 20px;
   }
 }
 
 .data-table summary {
   display: inline-block;
-  padding-block: 0.25rem;
+  padding-block: 0.125rem;
   color: var(--dp-link);
+  font-size: 0.9375rem;
   font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
@@ -527,19 +638,13 @@ svg {
 
 .data-table th,
 .data-table td {
-  padding: 0.3rem 1rem 0.3rem 0;
+  padding: 0.25rem 1rem 0.25rem 0;
   border-bottom: 1px solid var(--dp-line);
   text-align: left;
 }
 
-.news {
-  margin: 0 0 1rem;
-  padding: 0;
-  list-style: none;
-}
-
 .news li {
-  padding-block: 0.75rem;
+  padding-block: 0.625rem;
   border-bottom: 1px solid var(--dp-line);
 }
 
@@ -549,37 +654,42 @@ svg {
 
 .news time {
   display: block;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 600;
 }
 
+.news h4 {
+  margin: 0.125rem 0 0.25rem;
+}
+
 .news p {
-  margin: 0.25rem 0 0;
+  margin: 0;
+  font-size: 0.9375rem;
 }
 
 .stand {
-  margin: 0;
-  font-size: 0.875rem;
+  margin: 0.625rem 0 0;
+  font-size: 0.8125rem;
 }
 
 /* ---------- 5 Universities ---------- */
 
 .uni-grid {
   display: grid;
-  gap: 1rem;
-  margin: 1.5rem 0 2rem;
+  gap: 1.25rem;
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1000px) {
   .uni-grid {
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 7fr 5fr;
+    gap: 2rem;
     align-items: start;
   }
 }
 
 .map {
   margin: 0;
-  padding: 0.75rem;
+  padding: 0.5rem;
 }
 
 .dp-map {
@@ -588,21 +698,60 @@ svg {
   height: auto;
 }
 
+.legend {
+  margin-top: 0.75rem;
+}
+
+.legend h3 {
+  font-size: 1rem;
+}
+
 .legend ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  display: grid;
+  gap: 0.375rem 1.25rem;
+}
+
+@media (min-width: 560px) {
+  .legend ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .legend li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.5rem;
-  padding-block: 0.2rem;
+  font-size: 0.9375rem;
+  line-height: 1.35;
 }
 
 .swatch {
   flex: none;
+  margin-top: 0.05rem;
+}
+
+.legend-desc {
+  display: block;
+  font-size: 0.8125rem;
+}
+
+.uni-list h3 {
+  margin-bottom: 0.25rem;
+}
+
+.partners li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.125rem 0.75rem;
+  padding-block: 0.4rem;
+  border-bottom: 1px solid var(--dp-line);
+}
+
+.partners a,
+.partner-name {
+  font-weight: 600;
 }
 
 /* Status palette, shared by map boxes, legend swatches and list badges.
@@ -668,63 +817,29 @@ svg {
   stroke-width: 3.5;
 }
 
-/* Map labels: brand font and colour; dark boxes get light text via the page head. */
+/* Map labels: brand font and colour; sized so every label fits its box
+   (DP.svg sets 37px Exo 2 inline). Dark boxes get light text via the page head. */
 .dp-map text {
   fill: var(--dp-nachtblau);
+  font-size: 34px;
 }
 
 .dp-map text,
 .dp-map tspan {
   font-family: var(--dp-font) !important;
-  font-weight: 600;
-}
-
-.partners {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-@media (min-width: 560px) {
-  .partners {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 960px) {
-  .partners {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-.partners li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.25rem 0.75rem;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid var(--dp-line);
-  border-radius: var(--dp-radius-small);
-}
-
-.partners a,
-.partner-name {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 .badge {
   display: inline-block;
-  padding: 0.05rem 0.6rem;
+  padding: 0 0.55rem;
   border: 1px solid var(--st-stroke);
   border-radius: 999px;
   background: var(--st-fill);
   color: var(--st-text);
   font-size: 0.8125rem;
   font-weight: 600;
+  line-height: 1.5;
   white-space: nowrap;
 }
 
@@ -738,103 +853,227 @@ svg {
 
 /* ---------- 6 Own space ---------- */
 
-.slots {
+.shots {
   display: grid;
   gap: 1rem;
-  margin-top: 1.5rem;
 }
 
 @media (min-width: 768px) {
-  .slots {
+  .shots {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-.slot {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 16 / 10;
+.shot {
   margin: 0;
-  padding: 1rem;
-  border: 2px dashed var(--dp-mittelblau);
-  border-radius: var(--dp-radius);
-  text-align: center;
 }
 
-/* ---------- 7 Onboarding ---------- */
+.shot img,
+.shot-missing {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--dp-line);
+  border-radius: var(--dp-radius-small);
+}
+
+.shot figcaption {
+  margin-top: 0.375rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.note {
+  margin: 0.75rem 0 0;
+  font-size: 0.8125rem;
+}
+
+/* ---------- 7 Onboarding (dark band) ---------- */
 
 .steps {
   counter-reset: step;
   display: grid;
-  gap: 0;
-  margin: 1.5rem 0 0;
-  padding: 0;
-  list-style: none;
+  gap: 1rem;
 }
 
 .steps li {
   counter-increment: step;
   position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  min-height: 3.5rem;
-  padding-block: 0.5rem;
-  font-weight: 600;
+  padding-left: 3.25rem;
 }
 
 .steps li::before {
   content: counter(step);
-  flex: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
   border-radius: var(--dp-radius-small);
-  background: var(--dp-nachtblau);
-  color: var(--dp-weiss);
+  background: var(--dp-cyanblau);
+  color: var(--dp-nachtblau);
   font-weight: 700;
-  position: relative;
-  z-index: 1;
 }
 
-/* Vertical connector on mobile */
+/* Connector: vertical on mobile */
 .steps li:not(:last-child)::after {
   content: "";
   position: absolute;
-  left: calc(1.375rem - 1px);
-  top: 2.5rem;
+  left: calc(1.125rem - 1px);
+  top: 2.25rem;
   bottom: -1rem;
   width: 2px;
-  background: var(--dp-line);
+  background: var(--dp-cyanblau);
 }
 
-@media (min-width: 768px) {
+.steps h3 {
+  margin: 0.375rem 0 0.25rem;
+}
+
+.steps p {
+  margin: 0;
+}
+
+@media (min-width: 900px) {
   .steps {
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .steps li {
-    flex-direction: column;
-    align-items: flex-start;
+    padding-left: 0;
+    padding-top: 3rem;
   }
 
-  /* Horizontal connector on desktop */
+  /* Connector: horizontal on desktop */
   .steps li:not(:last-child)::after {
-    left: 3.25rem;
-    right: -0.5rem;
-    top: calc(0.5rem + 1.375rem - 1px);
+    left: 2.75rem;
+    right: -1rem;
+    top: calc(1.125rem - 1px);
     bottom: auto;
     width: auto;
     height: 2px;
   }
+
+  .steps h3 {
+    margin-top: 0;
+  }
 }
 
-/* ---------- 9 Contact ---------- */
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 1.75rem 0 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+}
+
+/* ---------- 8 Roadmap ---------- */
+
+.timeline {
+  display: grid;
+  gap: 1rem;
+  border-left: 2px solid var(--dp-line);
+  margin-left: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.phase {
+  position: relative;
+}
+
+/* Phase marker on the line: hollow, filled for the current phase. */
+.phase::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.5rem - 9px);
+  top: 0.2rem;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--dp-nachtblau);
+  border-radius: 50%;
+  background: var(--dp-weiss);
+}
+
+.phase.is-current::before {
+  left: calc(-1.5rem - 13px);
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--dp-nachtblau);
+  box-shadow: 0 0 0 3px var(--dp-weiss), 0 0 0 5px var(--dp-nachtblau);
+}
+
+.phase-when {
+  margin-bottom: 0.125rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.current-label {
+  display: inline-block;
+  margin-left: 0.375rem;
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  background: var(--dp-nachtblau);
+  color: var(--dp-weiss);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.phase h3 {
+  margin-bottom: 0.25rem;
+}
+
+.phase p:last-child {
+  margin: 0;
+  font-size: 0.9375rem;
+}
+
+@media (min-width: 900px) {
+  .timeline {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    border-left: 0;
+    border-top: 2px solid var(--dp-line);
+    margin: 12px 0 0;
+    padding: 1.5rem 0 0;
+  }
+
+  .phase::before {
+    left: 0;
+    top: calc(-1.5rem - 9px);
+  }
+
+  .phase.is-current::before {
+    left: 0;
+    top: calc(-1.5rem - 13px);
+  }
+}
+
+/* ---------- 9 Contact + 10 Funding ---------- */
+
+.contact-funding {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 1000px) {
+  .contact-funding {
+    grid-template-columns: 5fr 7fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+}
 
 .contact-list {
-  margin: 1.5rem 0 0;
+  margin: 1rem 0 0;
 }
 
 .contact-list dt {
@@ -842,57 +1081,70 @@ svg {
 }
 
 .contact-list dd {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.625rem;
 }
 
 .contact-list dd:last-child {
   margin-bottom: 0;
 }
 
-/* ---------- 10 Funding ---------- */
-
-.funding {
-  display: grid;
-  gap: 1rem;
-  margin: 1.5rem 0 0;
-  padding: 0;
-  list-style: none;
+.funding-block + .funding-block {
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--dp-line);
 }
 
-@media (min-width: 768px) {
-  .funding {
-    grid-template-columns: repeat(3, 1fr);
-  }
+.funding-block h3 {
+  margin-bottom: 0.25rem;
 }
 
-.funding p {
-  margin: 0;
+.funding-block p {
+  margin-bottom: 0.375rem;
 }
 
-.logo-slot {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 3 / 1;
-  margin-bottom: 0.75rem;
-  border: 2px dashed var(--dp-mittelblau);
-  border-radius: var(--dp-radius-small);
-  font-size: 0.875rem;
-  text-align: center;
+.link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.125rem 1.25rem;
+  font-size: 0.9375rem;
 }
 
 /* ---------- 11 Footer ---------- */
 
+.site-footer {
+  padding-block: 2rem;
+}
+
 .site-footer h2 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
+}
+
+.site-footer h2::after {
+  display: none;
+}
+
+.site-footer p {
+  max-width: 60ch;
+  font-size: 0.9375rem;
+}
+
+.footer-inner {
+  display: grid;
+  gap: 0.5rem 2rem;
+}
+
+@media (min-width: 900px) {
+  .footer-inner {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
 }
 
 .footer-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: 0.25rem 1.25rem;
+  font-size: 0.9375rem;
 }
 
 /* ---------- Motion ---------- */

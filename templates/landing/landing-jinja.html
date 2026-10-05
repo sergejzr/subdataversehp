@@ -35,7 +35,7 @@
       </a>
       <nav class="site-nav" aria-label="{{ s.header.nav_label }}">
         <ul>
-          <li><a href="#about">{{ s.header.nav_service }}</a></li>
+          <li><a href="#about">{{ s.header.nav_about }}</a></li>
           <li><a href="#progress">{{ s.header.nav_progress }}</a></li>
           <li><a href="#universities">{{ s.header.nav_universities }}</a></li>
           <li><a href="#contact">{{ s.header.nav_contact }}</a></li>
@@ -58,10 +58,11 @@
         <use href="#dp-tile" class="motif-accent" transform="translate(1220 300) rotate(180 60 60) scale(1.2)"/>
       </svg>
       <div class="wrap hero-inner">
+        <p class="eyebrow" lang="en">{{ s.hero.eyebrow }}</p>
         <h1>{{ s.hero.claim }}</h1>
         <p class="hero-lead">{{ s.hero.explanation }}</p>
         <p class="hero-status">{{ s.hero.status_line }}</p>
-        <p class="counter counter-hero">{{ (s.hero.counter | e).format(n=count_n, total=total) }}</p>
+        <p class="counter-hero">{{ (s.hero.counter | e).format(n=count_n, total=total) }}</p>
         <p class="hero-actions">
           <a class="button button-primary" href="#universities">{{ s.hero.link_universities }}</a>
           <a class="button button-ghost" href="#contact">{{ s.hero.link_contact }}</a>
@@ -70,21 +71,36 @@
     </section>
 
     <section id="about" class="band">
-      <div class="wrap narrow">
+      <div class="wrap">
         <h2>{{ s.about.heading }}</h2>
-        <p class="lead">{{ s.about.placeholder }}</p>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>{{ s.about.text_1 }}</p>
+            <p>{{ s.about.text_2 }}</p>
+          </div>
+          <ul class="facts">
+            {%- for i in range(1, 5) %}
+            <li class="card">
+              <h3>{{ s.about['fact_%d_title' % i] }}</h3>
+              <p>{{ s.about['fact_%d_text' % i] }}</p>
+            </li>
+            {%- endfor %}
+          </ul>
+        </div>
       </div>
     </section>
 
     <section id="workflow" class="band">
       <div class="wrap">
         <h2>{{ s.workflow.heading }}</h2>
-        <p class="lead">{{ s.workflow.placeholder }}</p>
+        <p class="lead">{{ s.workflow.lead }}</p>
         <ol class="tiles">
           {%- for key, icon in [('collect', 'sammeln-kachel-navy'), ('describe', 'beschreiben-kachel-navy'), ('publish', 'publizieren-kachel-cyan'), ('cite', 'zitieren-kachel-navy')] %}
           <li class="tile card">
-            <img class="tile-icon" src="{{ base }}assets/icons/dpnrw-icon-{{ icon }}.svg" alt="" width="64" height="64">
-            <h3>{{ s.workflow[key] }}</h3>
+            <div class="tile-head">
+              <img class="tile-icon" src="{{ base }}assets/icons/dpnrw-icon-{{ icon }}.svg" alt="" width="48" height="48">
+              <h3 lang="en">{{ s.workflow[key] }}</h3>
+            </div>
             <p>{{ s.workflow[key ~ '_text'] }}</p>
           </li>
           {%- endfor %}
@@ -95,28 +111,29 @@
     <section id="progress" class="band">
       <div class="wrap">
         <h2>{{ s.progress.heading }}</h2>
-        <p class="lead">{{ s.progress.placeholder }}</p>
+        <p class="lead">{{ s.progress.lead }}</p>
         <div class="progress-grid">
           <div class="card progress-main">
-            <p class="big-number"><span class="big-n">{{ n }}</span><span class="big-total"> / {{ total }}</span> <span class="big-label">{{ s.progress.big_label }}</span></p>
-            <p class="counter">{{ s.hero.counter.format(n=n, total=total) }}</p>
+            <p class="big-number"><span class="big-n">{{ n }}</span><span class="big-total">&#8239;/&#8239;{{ total }}</span> <span class="big-label">{{ s.progress.big_label }}</span></p>
             {%- if steps %}
-            <figure class="chart">
-              {{ step_chart }}
-              <figcaption>{{ s.progress.chart_title }}</figcaption>
-            </figure>
-            <details class="data-table">
-              <summary>{{ s.progress.table_toggle }}</summary>
-              <table>
-                <caption>{{ s.progress.chart_title }}</caption>
-                <thead><tr><th scope="col">{{ s.progress.table_date }}</th><th scope="col">{{ s.progress.table_count }}</th></tr></thead>
-                <tbody>
-                  {%- for step in steps %}
-                  <tr><td>{{ step.datum }}</td><td>{{ step.n }} / {{ total }}</td></tr>
-                  {%- endfor %}
-                </tbody>
-              </table>
-            </details>
+            <div class="chart-wrap">
+              <figure class="chart">
+                {{ step_chart }}
+                <figcaption>{{ s.progress.chart_title }}</figcaption>
+              </figure>
+              <details class="data-table">
+                <summary>{{ s.progress.table_toggle }}</summary>
+                <table>
+                  <caption>{{ s.progress.chart_title }}</caption>
+                  <thead><tr><th scope="col">{{ s.progress.table_date }}</th><th scope="col">{{ s.progress.table_count }}</th></tr></thead>
+                  <tbody>
+                    {%- for step in steps %}
+                    <tr><td>{{ step.datum }}</td><td>{{ step.n }} / {{ total }}</td></tr>
+                    {%- endfor %}
+                  </tbody>
+                </table>
+              </details>
+            </div>
             {%- else %}
             <p>{{ s.progress.no_steps }}</p>
             {%- endif %}
@@ -128,11 +145,10 @@
               {%- for item in news %}
               <li>
                 <time>{{ item.datum }}</time>
-                {%- if item.get('link') %}
-                <a href="{{ item['link'] }}">{{ item['titel_' ~ lang] }}</a>
-                {%- else %}
-                <strong>{{ item['titel_' ~ lang] }}</strong>
-                {%- endif %}
+                <h4>
+                  {%- if item.get('link') %}<a href="{{ item['link'] }}">{{ item['titel_' ~ lang] }}</a>
+                  {%- else %}{{ item['titel_' ~ lang] }}{% endif -%}
+                </h4>
                 {%- if item.get('text_' ~ lang) %}
                 <p>{{ item['text_' ~ lang] }}</p>
                 {%- endif %}
@@ -151,104 +167,138 @@
     <section id="universities" class="band">
       <div class="wrap">
         <h2>{{ s.universities.heading }}</h2>
-        <p class="lead">{{ s.universities.placeholder }}</p>
+        <p class="lead">{{ s.universities.lead }}</p>
         <div class="uni-grid">
-          <figure class="map card" role="group" aria-label="{{ s.universities.map_label }}">
-            {{ map_svg }}
-          </figure>
-          <div class="legend card">
-            <h3>{{ s.universities.legend_heading }}</h3>
-            <ul>
-              {%- for key in ['none', 'eingerichtet', 'abgenommen', 'live', 'external'] %}
-              <li>
-                <svg class="swatch" viewBox="0 0 36 20" width="36" height="20" aria-hidden="true" focusable="false"><rect class="status-box" data-status="{{ key }}" x="2" y="2" width="32" height="16" rx="3"/></svg>
-                {{ s.status[key] }}
+          <div class="uni-map">
+            <figure class="map card" role="group" aria-label="{{ s.universities.map_label }}">
+              {{ map_svg }}
+            </figure>
+            <div class="legend">
+              <h3>{{ s.universities.legend_heading }}</h3>
+              <ul>
+                {%- for key in ['none', 'eingerichtet', 'abgenommen', 'live', 'external'] %}
+                <li>
+                  <svg class="swatch" viewBox="0 0 36 20" width="36" height="20" aria-hidden="true" focusable="false"><rect class="status-box" data-status="{{ key }}" x="2" y="2" width="32" height="16" rx="3"/></svg>
+                  <span><strong>{{ s.status[key] }}</strong> <span class="legend-desc">{{ s.status_desc[key] }}</span></span>
+                </li>
+                {%- endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="uni-list">
+            <h3>{{ s.universities.list_heading }}</h3>
+            <ul class="partners">
+              {%- for p in partners %}
+              <li data-status="{{ p.status }}">
+                {%- if p.href %}<a href="{{ p.href }}">{{ p.name }}</a>{% else %}<span class="partner-name">{{ p.name }}</span>{% endif %}
+                <span class="badge" data-status="{{ p.status }}">{{ s.status[p.status] }}</span>
               </li>
               {%- endfor %}
             </ul>
           </div>
         </div>
-        <h3>{{ s.universities.list_heading }}</h3>
-        <ul class="partners">
-          {%- for p in partners %}
-          <li data-status="{{ p.status }}">
-            {%- if p.href %}<a href="{{ p.href }}">{{ p.name }}</a>{% else %}<span class="partner-name">{{ p.name }}</span>{% endif %}
-            <span class="badge" data-status="{{ p.status }}">{{ s.status[p.status] }}</span>
-          </li>
-          {%- endfor %}
-        </ul>
       </div>
     </section>
 
     <section id="own-space" class="band">
       <div class="wrap">
         <h2>{{ s.own_space.heading }}</h2>
-        <p class="lead">{{ s.own_space.placeholder }}</p>
-        <div class="slots">
-          <figure class="slot"><figcaption>{{ s.own_space.slot_1 }}</figcaption></figure>
-          <figure class="slot"><figcaption>{{ s.own_space.slot_2 }}</figcaption></figure>
-          <figure class="slot"><figcaption>{{ s.own_space.slot_3 }}</figcaption></figure>
+        <p class="lead">{{ s.own_space.lead }}</p>
+        <div class="shots">
+          {%- for shot in shots %}
+          <figure class="shot">
+            {%- if shot.src %}
+            <img src="{{ shot.src }}" width="960" height="600" loading="lazy" alt="{{ s.own_space.shot_alt.format(name=shot.name) }}">
+            {%- else %}
+            <div class="shot-missing" role="img" aria-label="{{ s.own_space.shot_alt.format(name=shot.name) }}"></div>
+            {%- endif %}
+            <figcaption>{{ shot.name }}</figcaption>
+          </figure>
+          {%- endfor %}
         </div>
+        <p class="note">{{ s.own_space.note }}</p>
       </div>
     </section>
 
-    <section id="onboarding" class="band">
+    <section id="onboarding" class="band band-dark">
       <div class="wrap">
         <h2>{{ s.onboarding.heading }}</h2>
-        <p class="lead">{{ s.onboarding.placeholder }}</p>
+        <p class="lead">{{ s.onboarding.lead }}</p>
         <ol class="steps">
-          <li>{{ s.onboarding.step_1 }}</li>
-          <li>{{ s.onboarding.step_2 }}</li>
-          <li>{{ s.onboarding.step_3 }}</li>
-          <li>{{ s.onboarding.step_4 }}</li>
+          {%- for i in range(1, 5) %}
+          <li>
+            <h3>{{ s.onboarding['step_%d' % i] }}</h3>
+            <p>{{ s.onboarding['step_%d_text' % i] }}</p>
+          </li>
+          {%- endfor %}
         </ol>
+        <p class="cta">
+          <span>{{ s.onboarding.cta_text }}</span>
+          <a class="button button-primary" href="mailto:{{ s.contact.email }}">{{ s.onboarding.cta_link }}</a>
+        </p>
       </div>
     </section>
 
     <section id="roadmap" class="band">
-      <div class="wrap narrow">
-        <h2>{{ s.roadmap.heading }}</h2>
-        <p class="lead">{{ s.roadmap.placeholder }}</p>
-      </div>
-    </section>
-
-    <section id="contact" class="band">
-      <div class="wrap narrow">
-        <h2>{{ s.contact.heading }}</h2>
-        <p class="lead">{{ s.contact.placeholder }}</p>
-        <dl class="card contact-list">
-          <dt>{{ s.contact.email_label }}</dt>
-          <dd><a href="mailto:{{ s.contact.email }}">{{ s.contact.email }}</a></dd>
-          <dt>{{ s.contact.list_label }}</dt>
-          <dd><a href="mailto:{{ s.contact.list_address }}">{{ s.contact.list_address }}</a></dd>
-        </dl>
-      </div>
-    </section>
-
-    <section id="funding" class="band">
       <div class="wrap">
-        <h2>{{ s.funding.heading }}</h2>
-        <p class="lead">{{ s.funding.placeholder }}</p>
-        <ul class="funding">
-          {%- for key in ['embedding', 'operation', 'funding'] %}
-          <li class="card">
-            <div class="logo-slot">{{ s.funding.logo_slot }}</div>
-            <p>{{ s.funding[key] }}</p>
+        <h2>{{ s.roadmap.heading }}</h2>
+        <p class="lead">{{ s.roadmap.lead }}</p>
+        <ol class="timeline">
+          {%- for i in range(1, 5) %}
+          {%- set current = (i == s.roadmap.current_phase) %}
+          <li class="phase{% if current %} is-current{% endif %}"{% if current %} aria-current="step"{% endif %}>
+            <p class="phase-when">{{ s.roadmap['phase_%d_when' % i] }}{% if current %} <span class="current-label">{{ s.roadmap.current_label }}</span>{% endif %}</p>
+            <h3>{{ s.roadmap['phase_%d_title' % i] }}</h3>
+            <p>{{ s.roadmap['phase_%d_text' % i] }}</p>
           </li>
           {%- endfor %}
-        </ul>
+        </ol>
       </div>
     </section>
+
+    <div class="band">
+      <div class="wrap contact-funding">
+        <section id="contact" class="card">
+          <h2>{{ s.contact.heading }}</h2>
+          <p>{{ s.contact.lead }}</p>
+          <dl class="contact-list">
+            <dt>{{ s.contact.email_label }}</dt>
+            <dd><a href="mailto:{{ s.contact.email }}">{{ s.contact.email }}</a></dd>
+            <dt>{{ s.contact.list_label }}</dt>
+            <dd>{{ s.contact.list_text }} <a href="{{ s.contact.list_url }}">{{ s.contact.list_link }}</a></dd>
+          </dl>
+        </section>
+        <section id="funding" class="card">
+          <h2>{{ s.funding.heading }}</h2>
+          <div class="funding">
+            {%- for key in ['operation', 'funding', 'embedding'] %}
+            <div class="funding-block">
+              <h3>{{ s.funding[key ~ '_title'] }}</h3>
+              <p>{{ s.funding[key ~ '_text'] }}</p>
+              <ul class="link-list">
+                {%- for link in s.funding[key ~ '_links'] %}
+                <li><a href="{{ link.url }}">{{ link.text }}</a></li>
+                {%- endfor %}
+              </ul>
+            </div>
+            {%- endfor %}
+          </div>
+        </section>
+      </div>
+    </div>
   </main>
 
   <footer id="footer" class="band band-dark site-footer">
-    <div class="wrap">
-      <h2>{{ s.footer.heading }}</h2>
-      <p>{{ s.footer.placeholder }}</p>
+    <div class="wrap footer-inner">
+      <div>
+        <h2>{{ s.footer.heading }}</h2>
+        <p>{{ s.footer.text }}</p>
+      </div>
       <ul class="footer-links">
-        <li><a href="#footer">{{ s.footer.imprint }}</a></li>
+        <li><a href="{{ s.footer.imprint_url }}">{{ s.footer.imprint }}</a></li>
         <li><a href="#footer">{{ s.footer.privacy }}</a></li>
         <li><a href="#footer">{{ s.footer.accessibility }}</a></li>
+        <li><a href="{{ urls[s.lang_switch_lang] }}" hreflang="{{ s.lang_switch_lang }}" lang="{{ s.lang_switch_lang }}">{{ s.lang_switch }}</a></li>
       </ul>
     </div>
   </footer>

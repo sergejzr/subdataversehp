@@ -16,6 +16,7 @@ import csv
 import re
 import shutil
 import tomllib
+import unicodedata
 from datetime import date
 from pathlib import Path
 
@@ -179,12 +180,18 @@ def progress_steps(rows: list[dict]) -> list[dict]:
 
 
 def step_chart_svg(steps: list[dict], total: int, until: date, fmt: str, title: str) -> Markup:
-    """Minimal step chart; the template shows the same data as a table."""
+    """Minimal step chart; the template shows the same data as a table.
+
+    The margins leave room for labels up to 22 user units (landing.css
+    enlarges them on narrow screens): the "0" label ends left of the axis,
+    the date labels sit fully below the "0" label, the end date is
+    right-aligned so the two dates never meet.
+    """
     if not steps:
         return Markup("")
 
-    width, height = 600, 220
-    left, right, top, bottom = 40, 20, 15, 30
+    width, height = 400, 200
+    left, right, top, bottom = 46, 8, 14, 42
     start = steps[0]["datum"]
     span = max((until - start).days, 1)
 
@@ -204,14 +211,42 @@ def step_chart_svg(steps: list[dict], total: int, until: date, fmt: str, title: 
         f'<svg class="step-chart" viewBox="0 0 {width} {height}" role="img" aria-label="{Markup.escape(title)}">',
         f'<line x1="{left}" y1="{base}" x2="{width - right}" y2="{base}" stroke="currentColor"/>',
         f'<line x1="{left}" y1="{top}" x2="{left}" y2="{base}" stroke="currentColor"/>',
-        f'<text x="{left - 6}" y="{y(0):.1f}" text-anchor="end" dominant-baseline="middle">0</text>',
-        f'<text x="{left - 6}" y="{y(total):.1f}" text-anchor="end" dominant-baseline="middle">{total}</text>',
-        f'<text x="{left}" y="{height - 8}">{start.strftime(fmt)}</text>',
-        f'<text x="{width - right}" y="{height - 8}" text-anchor="end">{until.strftime(fmt)}</text>',
+        f'<text class="axis-y" x="{left - 8}" y="{y(0):.1f}" text-anchor="end" dominant-baseline="middle" font-size="14">0</text>',
+        f'<text class="axis-y" x="{left - 8}" y="{y(total):.1f}" text-anchor="end" dominant-baseline="middle" font-size="14">{total}</text>',
+        f'<text class="axis-x" x="{left}" y="{height - 4}" font-size="14">{start.strftime(fmt)}</text>',
+        f'<text class="axis-x" x="{width - right}" y="{height - 4}" text-anchor="end" font-size="14">{until.strftime(fmt)}</text>',
         f'<path d="{"".join(path)}" fill="none" stroke="currentColor" stroke-width="3"/>',
         "</svg>",
     ]
     return Markup("".join(parts))
+
+
+def _sort_key(name: str) -> str:
+    """Alphabetical order that files Ü under U and ignores case."""
+    decomposed = unicodedata.normalize("NFKD", name)
+    return "".join(c for c in decomposed if not unicodedata.combining(c)).casefold()
+
+
+def localized_partners(partners: list[dict], display_names: dict) -> list[dict]:
+    """Partners with the display name of one language, sorted by it.
+
+    Display name = strings [names] entry, falling back to the registry name.
+    """
+    named = [{**p, "name": display_names.get(p["label"]) or p["name"]} for p in partners]
+    return sorted(named, key=lambda p: _sort_key(p["name"]))
+
+
+def own_space_shots(labels: list[str], partners: list[dict], shots_dir: Path) -> list[dict]:
+    """Screenshot slots; src is None when the image is missing (neutral box)."""
+    by_label = {p["label"]: p for p in partners}
+    return [
+        {
+            "label": label,
+            "name": by_label[label]["name"] if label in by_label else label,
+            "src": f"{LANDING_BASE_PATH}assets/shots/{label}.webp" if (shots_dir / f"{label}.webp").is_file() else None,
+        }
+        for label in labels
+    ]
 
 
 def partner_href(label: str, status: str, repourl: str) -> str | None:
@@ -316,8 +351,12 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
     for row in rows:
         current[row["label"]] = row["status"]
 
+    # "Stand" never runs ahead of the build: future-dated news stay listed but
+    # do not count. The chart's x-axis likewise ends at the build date.
+    build_date = date.today()
     dates = [row["datum"] for row in rows] + [item["datum"] for item in news]
-    stand = max(dates) if dates else None
+    past = [d for d in dates if d <= build_date]
+    stand = max(past) if past else None
     steps = progress_steps(rows)
     # Partners with their own repository are shown but not counted.
     total = len(partners) - len(external)
@@ -347,6 +386,7 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
     for lang in LANGUAGES:
         s = strings[lang]
         fmt = s["date_format"]
+        lang_partners = localized_partners(partner_list, s.get("names", {}))
         pages[lang] = template.render(
             lang=lang,
             s=s,
@@ -357,9 +397,10 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
             total=total,
             stand=stand.strftime(fmt) if stand else s["progress"]["no_date"],
             steps=[{"datum": st["datum"].strftime(fmt), "n": st["n"]} for st in steps],
-            step_chart=step_chart_svg(steps, total, stand or date.today(), fmt, s["progress"]["chart_title"]),
+            step_chart=step_chart_svg(steps, total, build_date, fmt, s["progress"]["chart_title"]),
             news=[{**item, "datum": item["datum"].strftime(fmt)} for item in news[:3]],
-            partners=partner_list,
+            partners=lang_partners,
+            shots=own_space_shots(s["own_space"]["shots"], lang_partners, landing_dir / "assets" / "shots"),
             map_svg=map_markup,
         )
 

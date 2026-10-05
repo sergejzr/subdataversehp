@@ -2,7 +2,23 @@
 # Pflicht: datum (YYYY-MM-DD), titel_de, titel_en. Optional: text_de, text_en, link.
 
 [[news]]
-datum = 2026-10-02
-titel_de = "[Platzhalter] Beispielmeldung – vor dem Livegang ersetzen"
-titel_en = "[Placeholder] Sample news item – replace before go-live"
-text_de = "[Platzhalter: Ein bis zwei Sätze zur Meldung]"
+datum = 2026-10-06
+titel_de = "DataPublication.nrw beim TRA-Workshop in Bonn"
+titel_en = "DataPublication.nrw at the TRA workshop in Bonn"
+text_de = "Beim Workshop „Great Data, Great Science“ im Wissenschaftszentrum Bonn stellen wir den Dienst mit einem Poster vor."
+text_en = "At the workshop “Great Data, Great Science” at the Wissenschaftszentrum Bonn we present the service with a poster."
+link = "https://indico.hiskp.uni-bonn.de/event/1445/"
+
+[[news]]
+datum = 2026-09-22
+titel_de = "Eigenes Erscheinungsbild"
+titel_en = "A visual identity of its own"
+text_de = "DataPublication.nrw hat ein Logo. Die vier Kacheln stehen für Sammeln, Beschreiben, Publizieren und Zitieren."
+text_en = "DataPublication.nrw has a logo. Its four tiles stand for collecting, describing, publishing and citing."
+
+[[news]]
+datum = 2026-01-01
+titel_de = "Projektstart"
+titel_en = "Project start"
+text_de = "Das Land NRW fördert DataPublication.nrw im Rahmen der Digitalisierungsoffensive bis Ende 2029."
+text_en = "The state of North Rhine-Westphalia funds DataPublication.nrw as part of its digitalisation initiative until the end of 2029."

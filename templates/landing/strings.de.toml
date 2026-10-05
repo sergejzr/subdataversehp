@@ -2,8 +2,8 @@
 # Schlüssel müssen mit strings.en.toml übereinstimmen, sonst wird die Vorschau übersprungen.
 
 date_format = "%d.%m.%Y"
-title = "DataPublication.nrw"
-description = "[Platzhalter: Meta-Beschreibung der Seite]"
+title = "DataPublication.nrw · Landesweites Repositorium für Forschungsdaten"
+description = "DataPublication.nrw ist das landesweite Repositorium für Forschungsdaten der Hochschulen in Nordrhein-Westfalen. Hier stehen der Stand des Aufbaus, die beteiligten Hochschulen und die Ansprechpersonen."
 skip_link = "Zum Inhalt springen"
 lang_switch = "English"
 lang_switch_lang = "en"
@@ -15,42 +15,59 @@ abgenommen = "abgenommen"
 live = "live"
 external = "eigenes Repositorium"
 
+[status_desc]
+none = "Der Bereich ist noch nicht gebaut."
+eingerichtet = "Der Bereich steht auf dem Testsystem."
+abgenommen = "Die Hochschule hat ihren Bereich freigegeben."
+live = "Der Bereich ist im Betrieb öffentlich erreichbar."
+external = "Die Hochschule betreibt ein eigenes Repositorium."
+
 [header]
 wordmark = "DataPublication.nrw"
 nav_label = "Hauptnavigation"
-nav_service = "Service"
-nav_progress = "Fortschritt"
+nav_about = "Dienst"
+nav_progress = "Stand"
 nav_universities = "Hochschulen"
 nav_contact = "Kontakt"
 logo_alt = "DataPublication.nrw – zum Seitenanfang"
 
 [hero]
-claim = "[Platzhalter: Claim]"
-explanation = "[Platzhalter: Ein Satz, was DataPublication.nrw ist]"
-status_line = "[Platzhalter: Statuszeile, z. B. Testbetrieb]"
+eyebrow = "Connecting Research Data Across NRW"
+claim = "Das landesweite Repositorium für Forschungsdaten in NRW"
+explanation = "DataPublication.nrw ist ein gemeinsamer Dienst für die öffentlich-rechtlichen Hochschulen in Nordrhein-Westfalen. Forschende veröffentlichen hier ihre Daten mit DOI, gut beschrieben und dauerhaft zitierbar."
+status_line = "Technisch startbereit · Die Bereiche der Partnerhochschulen werden eingerichtet"
 counter = "{n} von {total} Bereichen eingerichtet"
-link_universities = "Zu den Hochschulen"
+link_universities = "Beteiligte Hochschulen"
 link_contact = "Kontakt aufnehmen"
 
 [about]
-heading = "Über DataPublication.nrw"
-placeholder = "[Platzhalter: Kurzbeschreibung des Dienstes]"
+heading = "Was ist DataPublication.nrw?"
+text_1 = "Förderer, Verlage und Hochschulen erwarten zunehmend, dass Forschungsdaten nach den FAIR-Prinzipien veröffentlicht werden. Ein eigenes Repositorium aufzubauen und zu betreiben ist aber aufwendig, gerade für kleinere und mittelgroße Hochschulen."
+text_2 = "DataPublication.nrw bündelt Technik, Qualitätssicherung und Beratung in einem Landesdienst. Jede Hochschule bekommt darin einen eigenen Bereich in ihrem Erscheinungsbild und bleibt mit ihren Daten sichtbar."
+fact_1_title = "Landesdienst"
+fact_1_text = "Gefördert vom Land NRW, getragen von der Universität Bonn gemeinsam mit der RWTH Aachen."
+fact_2_title = "Open Source"
+fact_2_text = "Grundlage ist Dataverse, eine international verbreitete Software für Forschungsdaten-Repositorien."
+fact_3_title = "DOI für jeden Datensatz"
+fact_3_text = "Veröffentlichte Daten bleiben dauerhaft auffindbar und zitierbar."
+fact_4_title = "Vernetzt"
+fact_4_text = "Die Daten liegen in DataStorage.nrw. Eine Schnittstelle zu Coscine.nrw wird entwickelt."
 
 [workflow]
-heading = "So funktioniert es"
-placeholder = "[Platzhalter: Ablauf in vier Schritten, je eine Zeile pro Kachel]"
+heading = "Vom Datensatz zur Publikation"
+lead = "Die vier Kacheln im Logo stehen für die vier Schritte einer Veröffentlichung."
 collect = "Collect"
 describe = "Describe"
 publish = "Publish"
 cite = "Cite"
-collect_text = "[Platzhalter: Daten zusammenstellen]"
-describe_text = "[Platzhalter: Metadaten und Dokumentation ergänzen]"
-publish_text = "[Platzhalter: Prüfung und Veröffentlichung]"
-cite_text = "[Platzhalter: DOI und Zitation]"
+collect_text = "Forschende stellen ihre Daten und die zugehörige Dokumentation zusammen und laden sie im Bereich ihrer Hochschule hoch."
+describe_text = "Strukturierte Metadaten, eine Lizenz und eine Beschreibung machen den Datensatz auffindbar und nachnutzbar."
+publish_text = "Vor der Veröffentlichung wird der Datensatz formal geprüft. Jede Hochschule entscheidet, wie viel Kuratierung und Beratung sie selbst übernimmt."
+cite_text = "Der Datensatz erhält einen DOI und eine Zitationsempfehlung. Spätere Änderungen erscheinen als neue Version."
 
 [progress]
-heading = "Fortschritt"
-placeholder = "[Platzhalter: Einordnung des Aufbaustands]"
+heading = "Stand des Aufbaus"
+lead = "Seit Januar 2026 entsteht DataPublication.nrw. Für jede Partnerhochschule richten wir einen eigenen Bereich ein, zunächst auf dem Testsystem. Nach dem Start des Produktivbetriebs zeigt diese Seite auch die veröffentlichten Datensätze."
 chart_title = "Eingerichtete Bereiche im Zeitverlauf"
 table_date = "Datum"
 table_count = "Eingerichtete Bereiche"
@@ -64,49 +81,102 @@ big_label = "Bereiche eingerichtet"
 
 [universities]
 heading = "Beteiligte Hochschulen"
-placeholder = "[Platzhalter: Einleitung zur Karte und Liste]"
+lead = "Zwölf Hochschulen haben schon in der Antragsphase ihre Beteiligung erklärt und gestalten den Aufbau mit. Die Universität Bonn und die RWTH Aachen tragen den Dienst und betreiben daneben eigene Repositorien. Weitere Hochschulen in NRW können später dazukommen."
 map_label = "Karte der beteiligten Hochschulen in NRW"
 list_heading = "Alle Hochschulen"
-legend_heading = "Legende"
+legend_heading = "Status"
 
 [own_space]
-heading = "Ein eigener Bereich für Ihre Hochschule"
-placeholder = "[Platzhalter: Was ein eigener Bereich bietet]"
-slot_1 = "[Platzhalter: Screenshot 1]"
-slot_2 = "[Platzhalter: Screenshot 2]"
-slot_3 = "[Platzhalter: Screenshot 3]"
+heading = "Ein eigener Bereich für jede Hochschule"
+lead = "Jede Hochschule erhält bei DataPublication.nrw eine eigene Startseite mit Logo, Farben und Schrift aus ihrem Corporate Design. Darunter lassen sich Fakultäten, Institute oder Projekte als Unterbereiche anlegen."
+shots = ["fh-muenster", "hsbi", "fernuni-hagen"]
+shot_alt = "Startseite des Bereichs der {name} bei DataPublication.nrw"
+note = "Ansichten aus dem Testsystem"
 
 [onboarding]
 heading = "Der Weg zum eigenen Bereich"
-placeholder = "[Platzhalter: Ablauf des Onboardings]"
-step_1 = "CD-Material"
+lead = "So läuft die Einrichtung für die Partnerhochschulen ab. Hochschulen, die später dazukommen, durchlaufen dieselben Schritte."
+step_1 = "Unterlagen"
+step_1_text = "Die Hochschule schickt Logo, Corporate-Design-Leitfaden und eine Ansprechperson."
 step_2 = "Entwurf"
+step_2_text = "Wir richten den Bereich auf dem Testsystem ein und gestalten ihn nach dem Leitfaden."
 step_3 = "Abnahme"
+step_3_text = "Die Hochschule prüft den Entwurf. Wir arbeiten Änderungswünsche ein, danach gibt sie ihn frei."
 step_4 = "Live"
+step_4_text = "Mit dem Produktivbetrieb ist der Bereich öffentlich erreichbar und Forschende können veröffentlichen."
+cta_text = "Ihre Hochschule möchte dabei sein?"
+cta_link = "Schreiben Sie uns"
 
 [roadmap]
-heading = "Roadmap"
-placeholder = "[Platzhalter: Geplante Meilensteine]"
+heading = "Zeitplan"
+lead = "Das Land fördert DataPublication.nrw von Januar 2026 bis Ende 2029."
+current_phase = 2
+current_label = "Wir sind hier"
+phase_1_when = "2025"
+phase_1_title = "Konzept und Antrag"
+phase_1_text = "Projektantrag in der Digitalisierungsoffensive des Landes, Letters of Intent der Partnerhochschulen."
+phase_2_when = "2026"
+phase_2_title = "Aufbau"
+phase_2_text = "Test- und Produktivsystem, Anbindung an DataStorage.nrw, Bereiche der Partnerhochschulen."
+phase_3_when = "ab Produktivstart"
+phase_3_title = "Betrieb und Onboarding"
+phase_3_text = "Erste Veröffentlichungen, Begleitung der Hochschulen, Aufnahme weiterer Hochschulen."
+phase_4_when = "bis Ende 2029"
+phase_4_title = "Evaluation und Verstetigung"
+phase_4_text = "Externe Evaluation und ein Modell für den dauerhaften Betrieb."
 
 [contact]
 heading = "Kontakt"
-placeholder = "[Platzhalter: Wer antwortet auf welche Fragen]"
+lead = "Fragen zum Dienst, zur Beteiligung Ihrer Hochschule oder zum Stand des Projekts beantwortet das Team von DataPublication.nrw an der Universität Bonn."
 email_label = "E-Mail"
 email = "info@datapublication.nrw"
 list_label = "Mailingliste"
-list_address = "datapublication-nrw-info@listen.uni-bonn.de"
+list_text = "Neuigkeiten zum Projekt und zum Start des Onboardings."
+list_link = "Mailingliste abonnieren"
+list_url = "https://listen.uni-bonn.de/wws/info/datapublication-nrw-info"
 
 [funding]
-heading = "Einbettung, Betrieb und Förderung"
-placeholder = "[Platzhalter: Rahmen des Projekts]"
-embedding = "[Platzhalter: Einbettung]"
-operation = "[Platzhalter: Betrieb]"
-funding = "[Platzhalter: Förderung]"
-logo_slot = "[Platzhalter: Logo]"
+heading = "Betrieb und Förderung"
+operation_title = "Betrieb"
+operation_text = "Die Universität Bonn leitet das Konsortium. Ihre Servicestelle Forschungsdaten übernimmt Koordination, Qualitätssicherung und den Betrieb des Repositoriums. Die RWTH Aachen entwickelt die Schnittstellen zu DataStorage.nrw und Coscine.nrw."
+operation_links = [
+  { text = "Servicestelle Forschungsdaten", url = "https://www.forschungsdaten.uni-bonn.de" },
+  { text = "Universität Bonn", url = "https://www.uni-bonn.de" },
+  { text = "RWTH Aachen", url = "https://www.rwth-aachen.de" },
+]
+funding_title = "Förderung"
+funding_text = "Gefördert vom Ministerium für Kultur und Wissenschaft des Landes Nordrhein-Westfalen im Rahmen der Digitalisierungsoffensive."
+funding_links = [
+  { text = "Ministerium für Kultur und Wissenschaft NRW", url = "https://www.mkw.nrw" },
+]
+embedding_title = "Einbettung"
+embedding_text = "Die Digitale Hochschule NRW begleitet das Vorhaben im Rahmen der landesweiten Hochschulstrategie. FDM.NRW unterstützt organisatorisch und konzeptionell im Hochschulverbund."
+embedding_links = [
+  { text = "Digitale Hochschule NRW", url = "https://www.dh.nrw" },
+  { text = "FDM.NRW", url = "https://www.fdm.nrw" },
+]
 
 [footer]
-heading = "Rechtliches"
-placeholder = "[Platzhalter: Footer-Inhalte]"
+heading = "DataPublication.nrw"
+text = "Ein Landesdienst der Universität Bonn und der RWTH Aachen, gefördert vom Ministerium für Kultur und Wissenschaft des Landes Nordrhein-Westfalen."
 imprint = "Impressum"
+imprint_url = "https://www.hrz.uni-bonn.de/de/impressum"
 privacy = "Datenschutz"
 accessibility = "Barrierefreiheit"
+
+# Anzeigenamen in Liste, Bildunterschriften und Alt-Texten. Die Karte nutzt weiter die Namen aus DP.svg.
+[names]
+uni-koeln = "Universität zu Köln"
+uni-bonn = "Universität Bonn"
+uni-wuppertal = "Bergische Universität Wuppertal"
+hs-bochum = "Hochschule Bochum"
+hochschule-rhein-waal = "Hochschule Rhein-Waal"
+fh-muenster = "FH Münster"
+fernuni-hagen = "FernUniversität in Hagen"
+fh-swf = "Fachhochschule Südwestfalen"
+uni-siegen = "Universität Siegen"
+rwth-aachen = "RWTH Aachen"
+th-koeln = "TH Köln"
+h-brs = "Hochschule Bonn-Rhein-Sieg"
+uni-bielefeld = "Universität Bielefeld"
+hsbi = "Hochschule Bielefeld"

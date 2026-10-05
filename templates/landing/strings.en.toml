@@ -1,9 +1,9 @@
-# All visible text of the landing page (English).
+# All visible texts of the landing page (English).
 # Keys must match strings.de.toml, otherwise the preview is skipped.
 
-date_format = "%Y-%m-%d"
-title = "DataPublication.nrw"
-description = "[Placeholder: page meta description]"
+date_format = "%d %b %Y"
+title = "DataPublication.nrw · Statewide research data repository"
+description = "DataPublication.nrw is the statewide research data repository for universities in North Rhine-Westphalia. This page shows the current state of the build-up, the participating universities and whom to contact."
 skip_link = "Skip to content"
 lang_switch = "Deutsch"
 lang_switch_lang = "de"
@@ -15,43 +15,60 @@ abgenommen = "approved"
 live = "live"
 external = "own repository"
 
+[status_desc]
+none = "The space has not been built yet."
+eingerichtet = "The space is set up on the test system."
+abgenommen = "The university has approved its space."
+live = "The space is publicly available in production."
+external = "The university runs its own repository."
+
 [header]
 wordmark = "DataPublication.nrw"
 nav_label = "Main navigation"
-nav_service = "Service"
+nav_about = "Service"
 nav_progress = "Progress"
 nav_universities = "Universities"
 nav_contact = "Contact"
 logo_alt = "DataPublication.nrw – back to top"
 
 [hero]
-claim = "[Placeholder: claim]"
-explanation = "[Placeholder: one sentence on what DataPublication.nrw is]"
-status_line = "[Placeholder: status line, e.g. test operation]"
-counter = "{n} of {total} spaces set up"
-link_universities = "See the universities"
+eyebrow = "Connecting Research Data Across NRW"
+claim = "The statewide research data repository for North Rhine-Westphalia"
+explanation = "DataPublication.nrw is a shared service for the public universities in North Rhine-Westphalia. Researchers publish their data here with a DOI, well described and citable for the long term."
+status_line = "Technically ready · Spaces for the partner universities are being set up"
+counter = "{n} of {total} university spaces set up"
+link_universities = "Participating universities"
 link_contact = "Get in touch"
 
 [about]
-heading = "About DataPublication.nrw"
-placeholder = "[Placeholder: short description of the service]"
+heading = "What is DataPublication.nrw?"
+text_1 = "Funders, publishers and universities increasingly expect research data to be published according to the FAIR principles. Building and running a repository of one's own takes a lot of effort, especially for small and medium-sized universities."
+text_2 = "DataPublication.nrw combines infrastructure, quality assurance and advice in one statewide service. Each university gets its own space in its own corporate design and stays visible with its data."
+fact_1_title = "Statewide service"
+fact_1_text = "Funded by the state of North Rhine-Westphalia, run by the University of Bonn together with RWTH Aachen University."
+fact_2_title = "Open source"
+fact_2_text = "Built on Dataverse, research data repository software used by institutions around the world."
+fact_3_title = "A DOI for every dataset"
+fact_3_text = "Published data stay findable and citable for the long term."
+fact_4_title = "Connected"
+fact_4_text = "Data are stored in DataStorage.nrw. An interface to Coscine.nrw is under development."
 
 [workflow]
-heading = "How it works"
-placeholder = "[Placeholder: workflow in four steps, one line per tile]"
+heading = "From dataset to publication"
+lead = "The four tiles in the logo stand for the four steps of a publication."
 collect = "Collect"
 describe = "Describe"
 publish = "Publish"
 cite = "Cite"
-collect_text = "[Placeholder: assemble the data]"
-describe_text = "[Placeholder: add metadata and documentation]"
-publish_text = "[Placeholder: review and publication]"
-cite_text = "[Placeholder: DOI and citation]"
+collect_text = "Researchers put together their data and documentation and upload them to their university's space."
+describe_text = "Structured metadata, a licence and a description make the dataset findable and reusable."
+publish_text = "Each dataset is checked formally before it is published. Every university decides how much curation and advice it provides itself."
+cite_text = "The dataset receives a DOI and a suggested citation. Later changes are published as a new version."
 
 [progress]
 heading = "Progress"
-placeholder = "[Placeholder: context for the current state of the rollout]"
-chart_title = "Spaces set up over time"
+lead = "DataPublication.nrw has been under construction since January 2026. We are setting up a space for each partner university, first on the test system. Once the service is in production, this page will also show the published datasets."
+chart_title = "University spaces set up over time"
 table_date = "Date"
 table_count = "Spaces set up"
 news_heading = "News"
@@ -59,54 +76,108 @@ no_news = "No news yet."
 no_steps = "No spaces set up yet."
 stand = "As of"
 no_date = "–"
-table_toggle = "Data as table"
+table_toggle = "Show data as a table"
 big_label = "spaces set up"
 
 [universities]
 heading = "Participating universities"
-placeholder = "[Placeholder: introduction to the map and list]"
-map_label = "Map of the participating universities in NRW"
+lead = "Twelve universities declared their participation during the proposal phase and help shape the service. The University of Bonn and RWTH Aachen University run the service and also operate repositories of their own. Further universities in North Rhine-Westphalia can join later."
+map_label = "Map of the participating universities in North Rhine-Westphalia"
 list_heading = "All universities"
-legend_heading = "Legend"
+legend_heading = "Status"
 
 [own_space]
-heading = "A space of your own for your university"
-placeholder = "[Placeholder: what a dedicated space offers]"
-slot_1 = "[Placeholder: screenshot 1]"
-slot_2 = "[Placeholder: screenshot 2]"
-slot_3 = "[Placeholder: screenshot 3]"
+heading = "A space of its own for every university"
+lead = "Each university gets its own start page at DataPublication.nrw, with the logo, colours and typeface of its corporate design. Faculties, institutes or projects can have sub-spaces of their own below it."
+shots = ["fh-muenster", "hsbi", "fernuni-hagen"]
+shot_alt = "Start page of the {name} space at DataPublication.nrw"
+note = "Views from the test system"
 
 [onboarding]
-heading = "The way to your own space"
-placeholder = "[Placeholder: how onboarding works]"
-step_1 = "Corporate design material"
+heading = "How a university gets its space"
+lead = "This is how the partner universities are set up. Universities that join later go through the same steps."
+step_1 = "Material"
+step_1_text = "The university sends its logo, its corporate design guide and a contact person."
 step_2 = "Draft"
+step_2_text = "We set up the space on the test system and design it according to the guide."
 step_3 = "Approval"
+step_3_text = "The university reviews the draft. We work in requested changes, then the university approves it."
 step_4 = "Live"
+step_4_text = "Once the service is in production, the space is public and researchers can publish."
+cta_text = "Would your university like to join?"
+cta_link = "Write to us"
 
 [roadmap]
-heading = "Roadmap"
-placeholder = "[Placeholder: planned milestones]"
+heading = "Timeline"
+lead = "The state of North Rhine-Westphalia funds DataPublication.nrw from January 2026 to the end of 2029."
+current_phase = 2
+current_label = "We are here"
+phase_1_when = "2025"
+phase_1_title = "Concept and proposal"
+phase_1_text = "Proposal within the state's digitalisation initiative, letters of intent from the partner universities."
+phase_2_when = "2026"
+phase_2_title = "Build-up"
+phase_2_text = "Test and production systems, connection to DataStorage.nrw, spaces for the partner universities."
+phase_3_when = "From go-live"
+phase_3_title = "Operation and onboarding"
+phase_3_text = "First publications, support for the universities, onboarding of further universities."
+phase_4_when = "Until end of 2029"
+phase_4_title = "Evaluation and long-term operation"
+phase_4_text = "External evaluation and a model for running the service permanently."
 
 [contact]
 heading = "Contact"
-placeholder = "[Placeholder: who answers which questions]"
+lead = "The DataPublication.nrw team at the University of Bonn answers questions about the service, about your university taking part, or about the state of the project."
 email_label = "Email"
 email = "info@datapublication.nrw"
 list_label = "Mailing list"
-list_address = "datapublication-nrw-info@listen.uni-bonn.de"
+list_text = "News about the project and the start of onboarding (in German)."
+list_link = "Subscribe to the mailing list"
+list_url = "https://listen.uni-bonn.de/wws/info/datapublication-nrw-info"
 
 [funding]
-heading = "Embedding, operation and funding"
-placeholder = "[Placeholder: project framework]"
-embedding = "[Placeholder: embedding]"
-operation = "[Placeholder: operation]"
-funding = "[Placeholder: funding]"
-logo_slot = "[Placeholder: logo]"
+heading = "Operation and funding"
+operation_title = "Operation"
+operation_text = "The University of Bonn leads the consortium. Its Research Data Service Centre handles coordination, quality assurance and the operation of the repository. RWTH Aachen University develops the interfaces to DataStorage.nrw and Coscine.nrw."
+operation_links = [
+  { text = "Research Data Service Centre (German)", url = "https://www.forschungsdaten.uni-bonn.de" },
+  { text = "University of Bonn", url = "https://www.uni-bonn.de" },
+  { text = "RWTH Aachen University", url = "https://www.rwth-aachen.de" },
+]
+funding_title = "Funding"
+funding_text = "Funded by the Ministry of Culture and Science of the State of North Rhine-Westphalia as part of its digitalisation initiative."
+funding_links = [
+  { text = "Ministry of Culture and Science (German)", url = "https://www.mkw.nrw" },
+]
+embedding_title = "Context"
+embedding_text = "Digitale Hochschule NRW accompanies the project as part of the statewide strategy for higher education. FDM.NRW provides organisational and conceptual support within the university network."
+embedding_links = [
+  { text = "Digitale Hochschule NRW", url = "https://www.dh.nrw" },
+  { text = "FDM.NRW", url = "https://www.fdm.nrw" },
+]
 
 [footer]
-heading = "Legal"
-placeholder = "[Placeholder: footer content]"
-imprint = "Imprint"
+heading = "DataPublication.nrw"
+text = "A statewide service run by the University of Bonn and RWTH Aachen University, funded by the Ministry of Culture and Science of the State of North Rhine-Westphalia."
+imprint = "Legal notice"
+imprint_url = "https://www.hrz.uni-bonn.de/de/impressum"
 privacy = "Privacy"
 accessibility = "Accessibility"
+
+# Display names in the list, captions and alt texts. The map keeps the names from DP.svg.
+# English names: to be checked against each university's own usage.
+[names]
+uni-koeln = "University of Cologne"
+uni-bonn = "University of Bonn"
+uni-wuppertal = "University of Wuppertal"
+hs-bochum = "Bochum University of Applied Sciences"
+hochschule-rhein-waal = "Rhine-Waal University of Applied Sciences"
+fh-muenster = "FH Münster University of Applied Sciences"
+fernuni-hagen = "FernUniversität in Hagen"
+fh-swf = "South Westphalia University of Applied Sciences"
+uni-siegen = "University of Siegen"
+rwth-aachen = "RWTH Aachen University"
+th-koeln = "TH Köln"
+h-brs = "Bonn-Rhein-Sieg University of Applied Sciences"
+uni-bielefeld = "Bielefeld University"
+hsbi = "Bielefeld University of Applied Sciences and Arts"
