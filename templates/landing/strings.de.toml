@@ -40,6 +40,9 @@ counter = "{n} von {total} Bereichen eingerichtet"
 link_universities = "Beteiligte Hochschulen"
 link_contact = "Kontakt aufnehmen"
 
+[partners]
+heading = "Partnerhochschulen"
+
 [about]
 heading = "Was ist DataPublication.nrw?"
 text_1 = "Förderer, Verlage und Hochschulen erwarten zunehmend, dass Forschungsdaten nach den FAIR-Prinzipien veröffentlicht werden. Ein eigenes Repositorium aufzubauen und zu betreiben ist aber aufwendig, gerade für kleinere und mittelgroße Hochschulen."
@@ -155,6 +158,9 @@ embedding_links = [
   { text = "Digitale Hochschule NRW", url = "https://www.dh.nrw" },
   { text = "FDM.NRW", url = "https://www.fdm.nrw" },
 ]
+operation_logos = ["uni-bonn", "sfd", "hrz", "ulb", "rwth-aachen"]
+funding_logos = ["mkw"]
+embedding_logos = ["dh-nrw", "fdm-nrw"]
 
 [footer]
 heading = "DataPublication.nrw"
@@ -163,6 +169,18 @@ imprint = "Impressum"
 imprint_url = "https://www.hrz.uni-bonn.de/de/impressum"
 privacy = "Datenschutz"
 accessibility = "Barrierefreiheit"
+
+
+# Namen für Logos von Betrieb und Förderung; stehen als Platzhalter, solange das Logo fehlt.
+[org_names]
+uni-bonn = "Universität Bonn"
+sfd = "Servicestelle Forschungsdaten"
+hrz = "Hochschulrechenzentrum"
+ulb = "Universitäts- und Landesbibliothek Bonn"
+rwth-aachen = "RWTH Aachen"
+mkw = "Ministerium für Kultur und Wissenschaft NRW"
+dh-nrw = "Digitale Hochschule NRW"
+fdm-nrw = "FDM.NRW"
 
 # Anzeigenamen in Liste, Bildunterschriften und Alt-Texten. Die Karte nutzt weiter die Namen aus DP.svg.
 [names]

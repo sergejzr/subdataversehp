@@ -40,6 +40,9 @@ counter = "{n} of {total} university spaces set up"
 link_universities = "Participating universities"
 link_contact = "Get in touch"
 
+[partners]
+heading = "Partner universities"
+
 [about]
 heading = "What is DataPublication.nrw?"
 text_1 = "Funders, publishers and universities increasingly expect research data to be published according to the FAIR principles. Building and running a repository of one's own takes a lot of effort, especially for small and medium-sized universities."
@@ -155,6 +158,9 @@ embedding_links = [
   { text = "Digitale Hochschule NRW", url = "https://www.dh.nrw" },
   { text = "FDM.NRW", url = "https://www.fdm.nrw" },
 ]
+operation_logos = ["uni-bonn", "sfd", "hrz", "ulb", "rwth-aachen"]
+funding_logos = ["mkw"]
+embedding_logos = ["dh-nrw", "fdm-nrw"]
 
 [footer]
 heading = "DataPublication.nrw"
@@ -165,6 +171,18 @@ privacy = "Privacy"
 accessibility = "Accessibility"
 
 # Display names in the list, captions and alt texts. The map keeps the names from DP.svg.
+
+# Names for the operation and funding logos; shown as placeholders while a logo is missing.
+[org_names]
+uni-bonn = "University of Bonn"
+sfd = "Research Data Service Centre"
+hrz = "Hochschulrechenzentrum (HRZ)"
+ulb = "ULB Bonn"
+rwth-aachen = "RWTH Aachen University"
+mkw = "Ministry of Culture and Science NRW"
+dh-nrw = "Digitale Hochschule NRW"
+fdm-nrw = "FDM.NRW"
+
 # English names: to be checked against each university's own usage.
 [names]
 uni-koeln = "University of Cologne"

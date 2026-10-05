@@ -35,6 +35,7 @@ EXTERNAL = "external"  # partner runs its own repository (unis.csv repourl)
 STATUS_HEADER = ["label", "status", "datum"]
 NEWS_KEYS_REQUIRED = {"datum", "titel_de", "titel_en"}
 NEWS_KEYS_OPTIONAL = {"text_de", "text_en", "link"}
+LOGO_SUFFIXES = (".svg", ".png", ".webp")
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _RECT_LABEL = re.compile(r'inkscape:label="rect_([a-z0-9-]+)"')
@@ -249,6 +250,17 @@ def own_space_shots(labels: list[str], partners: list[dict], shots_dir: Path) ->
     ]
 
 
+def logo_files(logo_dir: Path) -> dict[str, str]:
+    """Logo URL per key (file stem, e.g. a partner label). Missing keys render as text placeholders."""
+    if not logo_dir.is_dir():
+        return {}
+    return {
+        path.stem: f"{LANDING_BASE_PATH}assets/logos/{path.name}"
+        for path in sorted(logo_dir.iterdir())
+        if path.suffix.lower() in LOGO_SUFFIXES
+    }
+
+
 def partner_href(label: str, status: str, repourl: str) -> str | None:
     """One link rule for map and list."""
     if status == EXTERNAL:
@@ -381,6 +393,7 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
 
     urls = {lang: LANDING_BASE_PATH if lang == DEFAULT_LANGUAGE else f"{LANDING_BASE_PATH}{lang}/" for lang in LANGUAGES}
     map_markup = map_with_status(svg_text, partner_list)
+    logos = logo_files(landing_dir / "assets" / "logos")
 
     pages = {}
     for lang in LANGUAGES:
@@ -402,6 +415,7 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
             partners=lang_partners,
             shots=own_space_shots(s["own_space"]["shots"], lang_partners, landing_dir / "assets" / "shots"),
             map_svg=map_markup,
+            logos=logos,
         )
 
     out_dir.mkdir(parents=True, exist_ok=True)

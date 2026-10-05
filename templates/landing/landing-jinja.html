@@ -70,6 +70,19 @@
       </div>
     </section>
 
+    <section id="partners" class="band band-logos" aria-labelledby="partners-heading">
+      <div class="wrap">
+        <h2 id="partners-heading" class="logos-heading">{{ s.partners.heading }}</h2>
+        <ul class="logo-grid">
+          {%- for p in partners if p.status != 'external' %}
+          <li class="logo-cell{% if p.label not in logos %} logo-missing{% endif %}">
+            {%- if p.label in logos %}<img src="{{ logos[p.label] }}" alt="{{ p.name }}" loading="lazy">{% else %}<span>{{ p.name }}</span>{% endif %}
+          </li>
+          {%- endfor %}
+        </ul>
+      </div>
+    </section>
+
     <section id="about" class="band">
       <div class="wrap">
         <h2>{{ s.about.heading }}</h2>
@@ -275,6 +288,13 @@
             <div class="funding-block">
               <h3>{{ s.funding[key ~ '_title'] }}</h3>
               <p>{{ s.funding[key ~ '_text'] }}</p>
+              <ul class="org-logos">
+                {%- for org in s.funding[key ~ '_logos'] %}
+                <li class="logo-cell{% if org not in logos %} logo-missing{% endif %}">
+                  {%- if org in logos %}<img src="{{ logos[org] }}" alt="{{ s.org_names[org] }}" loading="lazy">{% else %}<span>{{ s.org_names[org] }}</span>{% endif %}
+                </li>
+                {%- endfor %}
+              </ul>
               <ul class="link-list">
                 {%- for link in s.funding[key ~ '_links'] %}
                 <li><a href="{{ link.url }}">{{ link.text }}</a></li>
