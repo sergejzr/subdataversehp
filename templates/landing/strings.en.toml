@@ -9,17 +9,11 @@ lang_switch = "Deutsch"
 lang_switch_lang = "de"
 
 [status]
-none = "in preparation"
-eingerichtet = "set up"
-abgenommen = "approved"
-live = "live"
+partner = "partner university"
 external = "own repository"
 
 [status_desc]
-none = "The space has not been built yet."
-eingerichtet = "The space is set up on the test system."
-abgenommen = "The university has approved its space."
-live = "The space is publicly available in production."
+partner = "Gets a space of its own at DataPublication.nrw."
 external = "The university runs its own repository."
 
 [header]
@@ -92,7 +86,7 @@ heading = "Participating universities"
 lead = "Twelve universities declared their participation during the proposal phase and help shape workflows, policies and exchange formats. The University of Bonn and RWTH Aachen University run the service and also operate repositories of their own."
 map_label = "Map of the participating universities in North Rhine-Westphalia"
 list_heading = "All universities"
-legend_heading = "Status"
+legend_heading = "Key"
 
 [own_space]
 heading = "A space of its own for every university"

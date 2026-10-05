@@ -9,17 +9,11 @@ lang_switch = "English"
 lang_switch_lang = "en"
 
 [status]
-none = "in Vorbereitung"
-eingerichtet = "eingerichtet"
-abgenommen = "abgenommen"
-live = "live"
+partner = "Partnerhochschule"
 external = "eigenes Repositorium"
 
 [status_desc]
-none = "Der Bereich ist noch nicht gebaut."
-eingerichtet = "Der Bereich steht auf dem Testsystem."
-abgenommen = "Die Hochschule hat ihren Bereich freigegeben."
-live = "Der Bereich ist im Betrieb öffentlich erreichbar."
+partner = "Erhält einen eigenen Bereich bei DataPublication.nrw."
 external = "Die Hochschule betreibt ein eigenes Repositorium."
 
 [header]
@@ -92,7 +86,7 @@ heading = "Beteiligte Hochschulen"
 lead = "Zwölf Hochschulen haben schon in der Antragsphase ihre Beteiligung erklärt und gestalten Workflows, Policies und Austauschformate mit. Die Universität Bonn und die RWTH Aachen tragen den Dienst und betreiben daneben eigene Repositorien."
 map_label = "Karte der beteiligten Hochschulen in NRW"
 list_heading = "Alle Hochschulen"
-legend_heading = "Status"
+legend_heading = "Legende"
 
 [own_space]
 heading = "Ein eigener Bereich für jede Hochschule"

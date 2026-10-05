@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
 {%- set base = urls[default_lang] %}
-{%- set dark_status = ['abgenommen', 'live'] %}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,15 +14,6 @@
   <link rel="icon" href="{{ base }}assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="{{ base }}assets/fonts/open-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ css_href }}">
-  {%- set dark_labels = partners | selectattr('status', 'in', dark_status) | map(attribute='label') | list %}
-  {%- if dark_labels %}
-  {#- Map labels sit on their status box; dark boxes need light text. Values come from landing.css tokens. #}
-  <style>
-    {%- for label in dark_labels %}
-    .dp-map #text_{{ label }}{% if not loop.last %},{% endif %}
-    {%- endfor %} { fill: var(--dp-on-dark); }
-  </style>
-  {%- endif %}
 </head>
 <body>
   <a class="skip-link" href="#main">{{ s.skip_link }}</a>
@@ -177,7 +167,7 @@
             <div class="legend">
               <h3>{{ s.universities.legend_heading }}</h3>
               <ul>
-                {%- for key in ['none', 'eingerichtet', 'abgenommen', 'live', 'external'] %}
+                {%- for key in ['partner', 'external'] %}
                 <li>
                   <svg class="swatch" viewBox="0 0 36 20" width="36" height="20" aria-hidden="true" focusable="false"><rect class="status-box" data-status="{{ key }}" x="2" y="2" width="32" height="16" rx="3"/></svg>
                   <span><strong>{{ s.status[key] }}</strong> <span class="legend-desc">{{ s.status_desc[key] }}</span></span>
@@ -190,9 +180,11 @@
             <h3>{{ s.universities.list_heading }}</h3>
             <ul class="partners">
               {%- for p in partners %}
-              <li data-status="{{ p.status }}">
+              <li data-status="{{ p.shown }}">
                 {%- if p.href %}<a href="{{ p.href }}">{{ p.name }}</a>{% else %}<span class="partner-name">{{ p.name }}</span>{% endif %}
-                <span class="badge" data-status="{{ p.status }}">{{ s.status[p.status] }}</span>
+                {%- if p.shown == 'external' %}
+                <span class="badge" data-status="external">{{ s.status.external }}</span>
+                {%- endif %}
               </li>
               {%- endfor %}
             </ul>

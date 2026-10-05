@@ -34,6 +34,10 @@ DEFAULT_LANGUAGE = "de"
 STATUSES = ("eingerichtet", "abgenommen", "live")
 NO_STATUS = "none"
 EXTERNAL = "external"  # partner runs its own repository (unis.csv repourl)
+# Shown on map and list instead of the progress status: per-university progress
+# stays internal (links, counter, chart) so the page never singles out who is
+# still waiting. Only "own repository" is a property worth showing.
+PARTNER = "partner"
 STATUS_HEADER = ["label", "status", "datum"]
 NEWS_KEYS_REQUIRED = {"datum", "titel_de", "titel_en"}
 NEWS_KEYS_OPTIONAL = {"text_de", "text_en", "link"}
@@ -344,7 +348,8 @@ def _check_all_marked(what: str, marked: list[str], partners: list[str]) -> None
 def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
     """The shared linked map with landing-only edits on a copy of its text.
 
-    Each partner box gets data-status, and each partner label is (re)linked by
+    Each partner box gets data-status (partner or external, not the progress
+    status), and each partner label is (re)linked by
     partner_href(): the shared file links every enabled partner, the landing
     page only set-up spaces that exist in this build and external repositories. Text-level edits because the source SVG
     carries an invalid xmlns that lxml only reads in recover mode, and the
@@ -363,7 +368,7 @@ def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
         if label not in by_label:
             return match.group(0)
         marked_rects.append(label)
-        return f'{match.group(0)} data-status="{by_label[label]["status"]}"'
+        return f'{match.group(0)} data-status="{by_label[label]["shown"]}"'
 
     svg = _RECT_LABEL.sub(mark, svg)
     _check_all_marked("partner boxes", marked_rects, labels)
@@ -442,6 +447,7 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
             "label": label,
             "name": names.get(label) or label,
             "status": status,
+            "shown": EXTERNAL if status == EXTERNAL else PARTNER,
             "href": partner_href(label, status, repourls.get(label, ""), (at_root / label / "index.html").is_file()),
         })
 

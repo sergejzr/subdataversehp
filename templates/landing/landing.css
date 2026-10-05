@@ -757,30 +757,14 @@ ol {
   font-weight: 600;
 }
 
-/* Status palette, shared by map boxes, legend swatches and list badges.
-   Text colour per status keeps >= 4.5:1 on its fill (DESIGN-NOTES.md). */
-[data-status="none"] {
-  --st-fill: var(--dp-weiss);
-  --st-stroke: var(--dp-mittelblau);
-  --st-text: var(--dp-nachtblau);
-}
-
-[data-status="eingerichtet"] {
+/* Palette shared by map boxes, legend swatches and list badges. The page
+   shows no per-university progress (landing.py, PARTNER): every consortium
+   university looks the same, only "own repository" differs.
+   Text colour keeps >= 4.5:1 on its fill (DESIGN-NOTES.md). */
+[data-status="partner"] {
   --st-fill: var(--dp-cyanblau);
   --st-stroke: var(--dp-nachtblau);
   --st-text: var(--dp-nachtblau);
-}
-
-[data-status="abgenommen"] {
-  --st-fill: var(--dp-mittelblau);
-  --st-stroke: var(--dp-nachtblau);
-  --st-text: var(--dp-weiss);
-}
-
-[data-status="live"] {
-  --st-fill: var(--dp-nachtblau);
-  --st-stroke: var(--dp-nachtblau);
-  --st-text: var(--dp-weiss);
 }
 
 [data-status="external"] {
@@ -803,15 +787,7 @@ ol {
   stroke-width: 2;
 }
 
-/* Not by colour alone: in preparation = dashed outline, own repository = double-weight outline. */
-.dp-map rect[data-status="none"] {
-  stroke-dasharray: 12 8;
-}
-
-.swatch rect[data-status="none"] {
-  stroke-dasharray: 4 3;
-}
-
+/* Not by colour alone: own repository = white fill and double-weight outline. */
 .dp-map rect[data-status="external"] {
   stroke-width: 8;
 }
@@ -821,7 +797,7 @@ ol {
 }
 
 /* Map labels: brand font and colour; sized so every label fits its box
-   (DP.svg sets 37px Exo 2 inline). Dark boxes get light text via the page head. */
+   (DP.svg sets 37px Exo 2 inline). */
 .dp-map text {
   fill: var(--dp-nachtblau);
   font-size: 34px;
@@ -844,10 +820,6 @@ ol {
   font-weight: 600;
   line-height: 1.5;
   white-space: nowrap;
-}
-
-.badge[data-status="none"] {
-  border-style: dashed;
 }
 
 .badge[data-status="external"] {
