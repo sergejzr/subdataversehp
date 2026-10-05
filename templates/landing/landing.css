@@ -1170,12 +1170,39 @@ ol {
   padding: 8px 10px;
 }
 
+/* Display sizes come from landing.py (same visible area per logo). */
 .logo-cell img {
   display: block;
-  width: auto;
-  height: auto;
   max-width: 100%;
+  height: auto;
+}
+
+.logo-cell img:not([width]) {
+  width: auto;
   max-height: 52px;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--dp-radius-small);
+}
+
+.logo-link:hover {
+  box-shadow: inset 0 0 0 1px var(--dp-line);
+}
+
+.logo-missing .logo-link {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .logo-grid .logo-cell {
+    height: 72px;
+  }
 }
 
 .logo-missing {
@@ -1196,7 +1223,7 @@ ol {
   height: 64px;
 }
 
-.org-logos .logo-cell img {
+.org-logos .logo-cell img:not([width]) {
   max-height: 44px;
 }
 

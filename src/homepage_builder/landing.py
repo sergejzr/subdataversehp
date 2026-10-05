@@ -15,6 +15,7 @@ from __future__ import annotations
 import csv
 import re
 import shutil
+import struct
 import tomllib
 import unicodedata
 from datetime import date
@@ -35,7 +36,11 @@ EXTERNAL = "external"  # partner runs its own repository (unis.csv repourl)
 STATUS_HEADER = ["label", "status", "datum"]
 NEWS_KEYS_REQUIRED = {"datum", "titel_de", "titel_en"}
 NEWS_KEYS_OPTIONAL = {"text_de", "text_en", "link"}
-LOGO_SUFFIXES = (".svg", ".png", ".webp")
+LOGO_SUFFIXES = (".svg", ".png")
+# Logos are scaled to the same visible area (px^2) so that wide and compact
+# marks carry similar weight, then capped to the cell (max width, max height).
+LOGO_AREA = {"partner": 4400, "org": 2600}
+LOGO_MAX = {"partner": (150, 58), "org": (124, 46)}
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _RECT_LABEL = re.compile(r'inkscape:label="rect_([a-z0-9-]+)"')
@@ -250,22 +255,68 @@ def own_space_shots(labels: list[str], partners: list[dict], shots_dir: Path) ->
     ]
 
 
-def logo_files(logo_dir: Path) -> dict[str, str]:
-    """Logo URL per key (file stem, e.g. a partner label). Missing keys render as text placeholders."""
+_SVG_ROOT = re.compile(r"<svg\b[^>]*>", re.S)
+_SVG_VIEWBOX = re.compile(r'viewBox\s*=\s*"([^"]+)"')
+
+
+def _intrinsic_size(path: Path) -> tuple[float, float] | None:
+    """Width and height from the PNG header or the SVG root viewBox."""
+    if path.suffix.lower() == ".png":
+        head = path.read_bytes()[:24]
+        if head[:8] == b"\x89PNG\r\n\x1a\n":
+            width, height = struct.unpack(">II", head[16:24])
+            return float(width), float(height)
+        return None
+    root = _SVG_ROOT.search(path.read_text(encoding="utf-8", errors="replace"))
+    viewbox = _SVG_VIEWBOX.search(root.group(0)) if root else None
+    if not viewbox:
+        return None
+    parts = [float(v) for v in re.split(r"[\s,]+", viewbox.group(1).strip())]
+    return (parts[2], parts[3]) if len(parts) == 4 and parts[2] > 0 and parts[3] > 0 else None
+
+
+def _logo_size(size: tuple[float, float] | None, kind: str) -> tuple[int, int] | None:
+    if not size:
+        return None
+    ratio = size[0] / size[1]
+    width = (LOGO_AREA[kind] * ratio) ** 0.5
+    height = width / ratio
+    max_w, max_h = LOGO_MAX[kind]
+    scale = min(1.0, max_w / width, max_h / height)
+    return round(width * scale), round(height * scale)
+
+
+def logo_files(logo_dir: Path) -> dict[str, dict]:
+    """Logo per key (file stem, e.g. a partner label) with its display size.
+
+    Missing keys render as text placeholders. Empty margins inside the files
+    distort the balance; crop them before adding a logo.
+    """
     if not logo_dir.is_dir():
         return {}
-    return {
-        path.stem: f"{LANDING_BASE_PATH}assets/logos/{path.name}"
-        for path in sorted(logo_dir.iterdir())
-        if path.suffix.lower() in LOGO_SUFFIXES
-    }
+    logos = {}
+    for path in sorted(logo_dir.iterdir()):
+        if path.suffix.lower() not in LOGO_SUFFIXES:
+            continue
+        size = _intrinsic_size(path)
+        logos[path.stem] = {
+            "src": f"{LANDING_BASE_PATH}assets/logos/{path.name}",
+            "partner": _logo_size(size, "partner"),
+            "org": _logo_size(size, "org"),
+        }
+    return logos
 
 
-def partner_href(label: str, status: str, repourl: str) -> str | None:
-    """One link rule for map and list."""
+def partner_href(label: str, status: str, repourl: str, has_space: bool) -> str | None:
+    """One link rule for map, logo strip and list.
+
+    External partners link to their own repository. Everyone else links to
+    /at/<label>/ once the space is set up (any status) and its page exists in
+    this build, so a status ahead of the server never produces a dead link.
+    """
     if status == EXTERNAL:
         return repourl
-    if status == "live":
+    if status in STATUSES and has_space:
         return f"/at/{label}/"
     return None
 
@@ -284,7 +335,7 @@ def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
 
     Each partner box gets data-status, and each partner label is (re)linked by
     partner_href(): the shared file links every enabled partner, the landing
-    page only live and external ones. Text-level edits because the source SVG
+    page only set-up spaces that exist in this build and external repositories. Text-level edits because the source SVG
     carries an invalid xmlns that lxml only reads in recover mode, and the
     original page inlines the file verbatim.
     """
@@ -380,7 +431,7 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
             "label": label,
             "name": names.get(label) or label,
             "status": status,
-            "href": partner_href(label, status, repourls.get(label, "")),
+            "href": partner_href(label, status, repourls.get(label, ""), (at_root / label / "index.html").is_file()),
         })
 
     env = Environment(

@@ -75,8 +75,11 @@
         <h2 id="partners-heading" class="logos-heading">{{ s.partners.heading }}</h2>
         <ul class="logo-grid">
           {%- for p in partners if p.status != 'external' %}
-          <li class="logo-cell{% if p.label not in logos %} logo-missing{% endif %}">
-            {%- if p.label in logos %}<img src="{{ logos[p.label] }}" alt="{{ p.name }}" loading="lazy">{% else %}<span>{{ p.name }}</span>{% endif %}
+          {%- set lg = logos.get(p.label) %}
+          <li class="logo-cell{% if not lg %} logo-missing{% endif %}">
+            {%- if p.href %}<a class="logo-link" href="{{ p.href }}">{% endif %}
+            {%- if lg %}<img src="{{ lg.src }}" alt="{{ p.name }}"{% if lg.partner %} width="{{ lg.partner[0] }}" height="{{ lg.partner[1] }}"{% endif %} loading="lazy">{% else %}<span>{{ p.name }}</span>{% endif %}
+            {%- if p.href %}</a>{% endif %}
           </li>
           {%- endfor %}
         </ul>
@@ -290,8 +293,9 @@
               <p>{{ s.funding[key ~ '_text'] }}</p>
               <ul class="org-logos">
                 {%- for org in s.funding[key ~ '_logos'] %}
-                <li class="logo-cell{% if org not in logos %} logo-missing{% endif %}">
-                  {%- if org in logos %}<img src="{{ logos[org] }}" alt="{{ s.org_names[org] }}" loading="lazy">{% else %}<span>{{ s.org_names[org] }}</span>{% endif %}
+                {%- set lg = logos.get(org) %}
+                <li class="logo-cell{% if not lg %} logo-missing{% endif %}">
+                  {%- if lg %}<img src="{{ lg.src }}" alt="{{ s.org_names[org] }}"{% if lg.org %} width="{{ lg.org[0] }}" height="{{ lg.org[1] }}"{% endif %} loading="lazy">{% else %}<span>{{ s.org_names[org] }}</span>{% endif %}
                 </li>
                 {%- endfor %}
               </ul>
