@@ -1560,3 +1560,16 @@ mark.todo {
   margin-left: auto;
   text-align: right;
 }
+
+/* ---------- Plain pages (legal notice, privacy, accessibility) ---------- */
+
+.plain-article {
+  max-width: 72ch;
+}
+
+.plain-article h1 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+  line-height: 1.2;
+  color: var(--dp-heading);
+}

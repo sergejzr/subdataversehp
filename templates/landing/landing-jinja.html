@@ -278,7 +278,7 @@
             <dt>{{ s.imprint.operator_label }}</dt>
             <dd>{{ s.imprint.operator_text }}</dd>
           </dl>
-          <p class="imprint-link"><a href="{{ s.footer.imprint_url }}">{{ s.imprint.link_text }}</a></p>
+          <p class="imprint-link"><a href="{{ legal_urls.get('impressum', s.footer.imprint_url) }}">{{ s.imprint.link_text }}</a></p>
         </section>
         </div>
         <section id="funding" class="card">

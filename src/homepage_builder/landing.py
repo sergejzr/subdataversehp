@@ -458,26 +458,50 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
     map_markup = map_with_status(svg_text, partner_list)
     logos = logo_files(landing_dir / "assets" / "logos")
 
-    # User guide (English only). Rendered first so that the landing pages link it
-    # only when it rendered; any guide problem skips the guide, never the landing.
+    # Plain pages (legal notice, privacy, accessibility; German) and the user
+    # guide (English). Rendered before the landing so that links only point to
+    # pages that rendered; a problem here skips those pages, never the landing.
+    try:
+        from . import landing_guide
+    except ImportError:
+        try:
+            import landing_guide
+        except Exception as exc:  # e.g. Markdown not installed
+            landing_guide = None
+            print(f"[LANDING] Guide and pages skipped: {exc}", file=sys.stderr)
+    except Exception as exc:
+        landing_guide = None
+        print(f"[LANDING] Guide and pages skipped: {exc}", file=sys.stderr)
+
+    shared = {"urls": urls, "default_lang": DEFAULT_LANGUAGE, "css_href": css_href}
+    plain = None
+    legal_urls: dict[str, str] = {}
     guide = None
     guide_url = None
-    try:
+    if landing_guide:
         try:
-            from .landing_guide import render_guide
-        except ImportError:
-            from landing_guide import render_guide
-        guide_url = f"{LANDING_BASE_PATH}guide/"
-        guide = render_guide(
-            env,
-            landing_dir / "guide",
-            strings["en"],
-            {"urls": urls, "default_lang": DEFAULT_LANGUAGE, "css_href": css_href, "guide_url": guide_url},
-            LANDING_BASE_PATH,
-        )
-    except Exception as exc:
-        guide, guide_url = None, None
-        print(f"[LANDING] Guide skipped: {exc}", file=sys.stderr)
+            plain = landing_guide.render_pages(
+                env, landing_dir / "pages", strings["de"], {**shared, "guide_url": f"{LANDING_BASE_PATH}guide/"}, LANDING_BASE_PATH
+            )
+            legal_urls = plain["urls"]
+        except Exception as exc:
+            plain = None
+            print(f"[LANDING] Pages skipped: {exc}", file=sys.stderr)
+        try:
+            guide_url = f"{LANDING_BASE_PATH}guide/"
+            guide = landing_guide.render_guide(
+                env,
+                landing_dir / "guide",
+                strings["en"],
+                {**shared, "guide_url": guide_url, "legal_urls": legal_urls},
+                LANDING_BASE_PATH,
+            )
+        except Exception as exc:
+            guide, guide_url = None, None
+            print(f"[LANDING] Guide skipped: {exc}", file=sys.stderr)
+        if plain and not guide:
+            # Pages were rendered with a guide link; re-render without it.
+            plain = landing_guide.render_pages(env, landing_dir / "pages", strings["de"], {**shared, "guide_url": None}, LANDING_BASE_PATH)
 
     pages = {}
     for lang in LANGUAGES:
@@ -493,6 +517,7 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
             guide_url=guide_url,
             alt_url=urls[s["lang_switch_lang"]],
             current="landing",
+            legal_urls=legal_urls,
             n=len(current),
             total=total,
             stand=stand.strftime(fmt) if stand else s["progress"]["no_date"],
@@ -514,6 +539,12 @@ def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_c
         target.mkdir(parents=True, exist_ok=True)
         (target / "index.html").write_text(html, encoding="utf-8")
 
+    if plain:
+        for rel, html in plain["pages"].items():
+            target = out_dir / rel
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(html, encoding="utf-8")
+        print(f"[LANDING] Pages written: {', '.join(sorted(plain['urls']))}")
     if guide:
         for rel, html in guide["pages"].items():
             target = out_dir / rel

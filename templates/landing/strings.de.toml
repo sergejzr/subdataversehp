@@ -186,6 +186,9 @@ next = "Weiter:"
 draft_note = "Entwurf, noch nicht abgenommen. Markierte Stellen sind offen."
 todo_count = "Auf dieser Seite: {n}."
 
+[pages]
+draft_note = "Entwurf, noch nicht abgestimmt. Markierte Stellen sind offen."
+
 [footer]
 guide = "User Guide (englisch)"
 heading = "DataPublication.nrw"

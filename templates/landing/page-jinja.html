@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+{%- set base = urls[default_lang] %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{ page.title }} · {{ s.title }}</title>
+  <link rel="icon" href="{{ base }}assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="{{ base }}assets/fonts/open-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ css_href }}">
+</head>
+<body class="plain-page">
+  <a class="skip-link" href="#main">{{ s.skip_link }}</a>
+  {% include "_header.html" %}
+
+  <main id="main" class="band">
+    <div class="wrap">
+      <article class="plain-article">
+        <p class="draft-note">{{ s.pages.draft_note }}{% if todo_count %} {{ s.guide.todo_count.format(n=todo_count) }}{% endif %}</p>
+        <h1>{{ page.title }}</h1>
+        <div class="guide-content">
+          {{ page.html }}
+        </div>
+      </article>
+    </div>
+  </main>
+
+  {% include "_footer.html" %}
+</body>
+</html>

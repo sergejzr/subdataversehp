@@ -1,6 +1,9 @@
-"""User guide for the landing preview: a Markdown wiki rendered in the landing layout.
+"""User guide and plain pages (legal notice, privacy, accessibility) for the landing preview.
 
-Source: templates/landing/guide/, a GitLab-wiki tree:
+Both are Markdown rendered in the landing layout.
+
+Guide
+ source: templates/landing/guide/, a GitLab-wiki tree:
   - one .md per page with YAML front matter `title:`; children of Foo.md live in Foo/
   - images under uploads/<hash>/<file>
   - page links as root links (/Path/Page, braces may be URL-encoded)
@@ -14,7 +17,10 @@ Rendering rules:
     the URL instead
   - broken internal links are reported, never fatal
 
-render_guide() only returns HTML; landing.render_landing() writes it.
+Plain pages: templates/landing/pages/<slug>.md -> <base>/<slug>/ (German only).
+
+render_guide() and render_pages() only return HTML; landing.render_landing()
+writes it.
 """
 from __future__ import annotations
 
@@ -32,7 +38,7 @@ _FRONT = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
 _TITLE = re.compile(r"^title:\s*(.+?)\s*$", re.M)
 _CODE = re.compile(r"(```.*?```|`[^`\n]*`)", re.S)
 _PLACEHOLDER = re.compile(r"<{1,2}(DP-[A-Z][A-Z-]*)>{1,2}")
-_TODO = re.compile(r"\[(DP-TODO-\d+)\]")
+_TODO = re.compile(r"\[(DP-TODO-[A-Z]?\d+)\]")
 _ROOT_LINK = re.compile(r"\]\((/[^)\s]+)\)")
 _EXT_IMG_MD = re.compile(r"!\[([^\]]*)\]\((https?://[^)\s]+)\)")
 _EXT_IMG_HTML = re.compile(r'<img\b[^>]*\bsrc="(https?://[^"]+)"[^>]*>')
@@ -180,10 +186,11 @@ def render_guide(env, guide_dir: Path, s: dict, context: dict, base_path: str) -
         html = _TODO_QUOTE.sub(r'<blockquote class="todo-note">\1', html)
         html = html.replace("<img ", '<img loading="lazy" ')
         out[page["out"]] = template.render(
-            **context,
+            **{k: v for k, v in context.items() if k != "legal_urls"},
             s=s,
             lang="en",
             current="guide",
+            legal_urls=context.get("legal_urls", {}),
             alt_url=None,
             nav=nav,
             page={
@@ -197,3 +204,34 @@ def render_guide(env, guide_dir: Path, s: dict, context: dict, base_path: str) -
             todo_count=html.count('<mark class="todo">'),
         )
     return {"pages": out, "uploads": guide_dir / "uploads", "warnings": warnings}
+
+
+def _markers(text: str) -> str:
+    text = _PLACEHOLDER.sub(r'<mark class="todo">\1</mark>', text)
+    return _TODO.sub(r'<mark class="todo">\1</mark>', text)
+
+
+def render_pages(env, pages_dir: Path, s: dict, context: dict, base_path: str) -> dict:
+    """Render templates/landing/pages/*.md. Returns {"pages": {out_rel: html}, "urls": {slug: url}}."""
+    if not pages_dir.is_dir():
+        return {"pages": {}, "urls": {}}
+    converter = markdown.Markdown(extensions=["extra", "toc", "sane_lists"], output_format="html")
+    sources = sorted(path for path in pages_dir.glob("*.md"))
+    urls = {path.stem: f"{base_path}{path.stem}/" for path in sources}
+    template = env.get_template("page-jinja.html")
+    out = {}
+    for path in sources:
+        title, body = _title_and_body(path.read_text(encoding="utf-8"), path.stem)
+        html = converter.reset().convert(_outside_code(body, _markers))
+        html = _TODO_QUOTE.sub(r'<blockquote class="todo-note">\1', html)
+        out[f"{path.stem}/index.html"] = template.render(
+            **context,
+            s=s,
+            lang="de",
+            current="page",
+            alt_url=None,
+            legal_urls=urls,
+            page={"title": title, "url": urls[path.stem], "html": Markup(html)},
+            todo_count=html.count('<mark class="todo">'),
+        )
+    return {"pages": out, "urls": urls}

@@ -186,6 +186,9 @@ next = "Next:"
 draft_note = "Draft, not yet reviewed. Highlighted passages are open points."
 todo_count = "On this page: {n}."
 
+[pages]
+draft_note = "Draft, not yet agreed. Highlighted passages are open points."
+
 [footer]
 guide = "User Guide"
 heading = "DataPublication.nrw"
