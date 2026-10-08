@@ -6,6 +6,11 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
+# Shown for datasets and collections without an image of their own.
+# DataPublication.nrw mark (Zeichenfassung farbe), byte-identical copy from the CD package
+# 01-Bildmarke/PNG. The SVG original of this variant is not available unaltered.
+FALLBACK_IMAGE_SRC = "/at/webcontent/pagedata/dpnrw-bildmarke-farbe-512.png"
+
 
 class DataverseTemplate:
     def __init__(self, base_url):
@@ -70,7 +75,7 @@ class DataverseTemplate:
         if theme:
             image_src = f"/logos/{item.get('id')}/{theme.get('logo')}"
         else:
-            image_src = "/at/webcontent/pagedata/dp-logo.svg"
+            image_src = FALLBACK_IMAGE_SRC
 
         date = item.get("creationDate", "")
         raw_description = item.get("description", "")

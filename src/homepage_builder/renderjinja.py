@@ -14,11 +14,11 @@ from markupsafe import Markup
 
 try:
     from .dataverse_api import DataverseAPI
-    from .dataverse_template import DataverseTemplate
+    from .dataverse_template import FALLBACK_IMAGE_SRC, DataverseTemplate
     from .svg_manipulator import SVGLinkConfig, SVGManipulator
 except ImportError:
     from dataverse_api import DataverseAPI
-    from dataverse_template import DataverseTemplate
+    from dataverse_template import FALLBACK_IMAGE_SRC, DataverseTemplate
     from svg_manipulator import SVGLinkConfig, SVGManipulator
 
 
@@ -98,7 +98,7 @@ def collect_items(dataverse_api: DataverseAPI, templater: DataverseTemplate, dat
 
         imgsrc = dataverse_api.get_dataset_citation_image_src(dataset[global_id_key])
         if not imgsrc:
-            imgsrc = "/at/webcontent/pagedata/dp-logo.svg"
+            imgsrc = FALLBACK_IMAGE_SRC
 
         items.append(
             templater.get_news_item(
