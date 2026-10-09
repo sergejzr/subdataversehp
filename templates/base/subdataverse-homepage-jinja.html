@@ -269,7 +269,7 @@ Generated: {{ gen_date }}
             <div class="repository-info-block">
                 <nav class="header-breadcrumbs"></nav>
 
-                <div id="repository-title" class="repository-title">
+                <div id="repository-title" class="repository-title" role="heading" aria-level="1">
                     <span class="repository-kicker">DataPublication.nrw</span>{{ main_dataverse_info.name }}
                 </div>
 
@@ -464,10 +464,11 @@ if (firstItem) {
         <div id="dataversePresentation" style="max-width:1100px;width:80%">
             <!-- Content -->
             <div class="col-md-8 repository-description-wrapper">
-                <span class="section-heading">Welcome to {{ main_dataverse_info.name }}</span>
-                <h1 id="hero-title" style="display:none">{{ main_dataverse_info.name }}</h1>
+                {% if main_dataverse_info.sanitized_description %}
+                <span class="section-heading" role="heading" aria-level="2">About this collection</span>
                 <div class="main-description" id="main-description">{{ main_dataverse_info.sanitized_description }}
                 </div>
+                {% endif %}
 
                 <div class="form-group information-box" style="padding-top:30px">
                     <div>
