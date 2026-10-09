@@ -301,6 +301,7 @@ def render(env: Environment, template_name: str, context: dict) -> str:
     payload["uni_ctx"] = context
     payload["gen_date"] = now
     payload["guide_url"] = GUIDE_BASE
+    payload["site_base"] = PUBLIC_SITE_BASE
     payload["dataset_sections"] = [
         {"title": "Popular downloads", "items": context.get("popular_items", [])},
         {"title": "Recent Datasets", "items": context.get("news_items", [])},

@@ -623,7 +623,15 @@ if (firstItem) {
         <div id="dvfooter">
             <div class="container">
                 <div class="row"><div class="col-sm-8 small">
-                        <p>Copyright &#169; 2026 Rheinische Friedrich-Wilhelms-Universität Bonn | <a href="/terms/bonndata_terms_of_use.pdf">Terms of Use</a>  |  <a href="https://www.uni-bonn.de/en/data-protection-policy" rel="noopener" target="_blank">Privacy Policy</a>
+                        <p>DataPublication.nrw is operated by the University of Bonn
+                            | <a href="/terms/bonndata_terms_of_use.pdf">Terms of Use</a>
+                            {% if site_base %}
+                            | <a href="{{ site_base|e }}impressum/">Legal notice</a>
+                            | <a href="{{ site_base|e }}datenschutz/">Privacy Policy</a>
+                            | <a href="{{ site_base|e }}barrierefreiheit/">Accessibility</a>
+                            {% else %}
+                            | <a href="https://www.uni-bonn.de/en/data-protection-policy" rel="noopener" target="_blank">Privacy Policy</a>
+                            {% endif %}
                         </p></div>
                     <div class="col-sm-4 text-right">
                         <div class="poweredbylogo dpnrw-partof">
