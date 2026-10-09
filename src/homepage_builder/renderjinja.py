@@ -22,6 +22,63 @@ except ImportError:
     from svg_manipulator import SVGLinkConfig, SVGManipulator
 
 
+# ---------------------------------------------------------------------------
+# Sidebar box on every /at/<label>/ page ("Before your first dataset").
+# Audience: researchers of the university who are about to publish for the
+# first time. The box links into the user guide instead of repeating it.
+#
+# GUIDE_BASE must follow landing.LANDING_BASE_PATH + "guide/". It is not
+# imported from landing.py on purpose: a problem in the landing code must
+# never break the university pages.
+# ---------------------------------------------------------------------------
+GUIDE_BASE = "/at/_vorschau/guide/"
+SUPPORT_EMAIL = "support@datapublication.nrw"
+PAGEDATA = "/at/webcontent/pagedata"
+
+
+def build_more_information() -> list[dict]:
+    """Entries of the sidebar box: icon, title, text (lines), links."""
+    return [
+        {
+            "icon": f"{PAGEDATA}/icon-policies.svg",
+            "title": "Good to know",
+            "text": [
+                "Nothing is public until a trained reviewer has checked your dataset.",
+                "Published datasets get a DOI and stay citable. Changes become new versions.",
+                "No personal data: only sufficiently anonymised data can be published.",
+            ],
+            "links": [
+                {"text": "What can I publish here?",
+                 "href": f"{GUIDE_BASE}scope-of-datapublication/"},
+                {"text": "Which licence fits my data?",
+                 "href": f"{GUIDE_BASE}dataset-preparation-workflow/"
+                         "choosing-appropriate-licenses-for-your-research-data/"},
+            ],
+        },
+        {
+            "icon": f"{PAGEDATA}/icon-research-service.svg",
+            "title": "Preparing your data",
+            "text": [],
+            "links": [
+                {"text": "Step-by-step guide",
+                 "href": f"{GUIDE_BASE}dataset-preparation-workflow/"},
+                {"text": "README template (University of Bonn)",
+                 "href": "https://www.forschungsdaten.uni-bonn.de/en/media/"
+                         "author_dataset_readmetemplate.txt"},
+                {"text": "Naming files (Data Crunch handout)",
+                 "href": "https://zenodo.org/records/10275946"},
+                {"text": "FAIR spreadsheets (Data Crunch handout)",
+                 "href": "https://zenodo.org/records/8380347"},
+            ],
+        },
+        {
+            "icon": f"{PAGEDATA}/icon-contact.svg",
+            "title": "Questions?",
+            "text": ["Ask the DataPublication.nrw team at any time, even before you start."],
+            "links": [{"text": SUPPORT_EMAIL, "href": f"mailto:{SUPPORT_EMAIL}"}],
+        },
+    ]
+
 def project_root_from_file() -> Path:
     return Path(__file__).resolve().parents[2]
 
@@ -150,25 +207,7 @@ def build_page_data(dataverse_api: DataverseAPI, templater: DataverseTemplate, b
     news_items = collect_items(dataverse_api, templater, filtered_recent)
     popular_items = collect_items(dataverse_api, templater, popular_datasets)
 
-    more_information = [
-        {
-            "icon": "/at/webcontent/pagedata/icon-research-service.svg",
-            "links": [{"text": "The Research Data Service Center", "href": "https://www.forschungsdaten.uni-bonn.de/"}],
-        },
-        {
-            "icon": "/at/webcontent/pagedata/icon-policies.svg",
-            "links": [
-                {"text": "Policies & Community Sharing Norms", "href": "https://www.ulb.uni-bonn.de/de/datenschutz"},
-                {"text": 'Data Crunch handout "DIY: File naming"', "href": "https://zenodo.org/records/10275946"},
-                {"text": 'Data Crunch handout "DIY: FAIR Spreadsheet"', "href": "https://zenodo.org/records/8380347"},
-                {"text": "ReadMe file template", "href": "https://www.forschungsdaten.uni-bonn.de/en/media/author_dataset_readmetemplate.txt"},
-            ],
-        },
-        {
-            "icon": "/at/webcontent/pagedata/icon-contact.svg",
-            "links": [{"text": "Need help? Send us an email!", "href": "mailto:forschungsdaten@uni-bonn.de"}],
-        },
-    ]
+    more_information = build_more_information()
 
     stat_info = {
         "downloads_lastmonth": popular_info.get("overallcount", 0),

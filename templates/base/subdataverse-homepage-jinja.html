@@ -102,6 +102,25 @@
                 }
                 .dpnrw-partof { margin-bottom: 10px; }
                 .dpnrw-partof img { height: 32px; width: auto; vertical-align: middle; }
+
+                /* Sidebar "Before your first dataset". homepage.css styles every
+                   li in .informative-list (flex, centred, black rule) and loads
+                   later; the ul.dp-first-steps prefix outranks it without
+                   !important. Colour and font stay with the university CSS. */
+                ul.dp-first-steps > li { align-items: flex-start; }
+                ul.dp-first-steps .icon-span { flex: 0 0 auto; }
+                ul.dp-first-steps .link-div { flex: 1 1 auto; min-width: 0; }
+                ul.dp-first-steps .dp-info-title { font-weight: 600; margin: 0 0 6px; }
+                ul.dp-first-steps .dp-info-text { font-size: 15px; line-height: 1.4; margin: 0 0 6px; }
+                ul.dp-first-steps .link-div ul { list-style: none; padding: 0; margin: 0; }
+                ul.dp-first-steps .link-div li {
+                    display: block;
+                    border: 0;
+                    padding: 0;
+                    margin: 0 0 4px;
+                    font-size: 15px;
+                    line-height: 1.4;
+                }
             </style></head><body>
 	<a href="#content" class="sr-only">Skip to main content</a>
     <!-- Load web component along with Polymer shim in case browser support not there yet. -->
@@ -495,17 +514,21 @@ if (firstItem) {
             <!-- Sidebar -->
             <div class="col-md-4">
                 <div style="padding-left:10px">
-                    <h3>More Information:</h3>
-                    <ul class="informative-list interactive-list">
+                    <h3>Before your first dataset</h3>
+                    <ul class="informative-list interactive-list dp-first-steps">
     {% for info in more_information %}
     <li>
-        <span class="icon-span"><img class="navigate-icon" src="{{ info.icon }}"></span>
+        <span class="icon-span"><img class="navigate-icon" src="{{ info.icon|e }}" alt="" /></span>
         <div class="link-div">
+            {% if info.title %}<p class="dp-info-title">{{ info.title|e }}</p>{% endif %}
+            {% for line in info.text %}<p class="dp-info-text">{{ line|e }}</p>{% endfor %}
+            {% if info.links %}
             <ul>
             {% for link in info.links %}
-            <li><a href="{{ link.href }}">{{ link.text }}</a></li>
+            <li><a href="{{ link.href|e }}">{{ link.text|e }}</a></li>
             {% endfor %}
-              </ul>
+            </ul>
+            {% endif %}
         </div>
     </li>
     {% endfor %}
