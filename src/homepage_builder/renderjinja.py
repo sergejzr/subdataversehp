@@ -23,17 +23,26 @@ except ImportError:
 
 
 # ---------------------------------------------------------------------------
+# The new landing page, the user guide and the legal pages are built under
+# landing.LANDING_BASE_PATH but stay unlinked until they are approved. Set
+# PUBLIC_SITE_BASE to their public path (ending in "/") once they are; until
+# then no university page links into that area. Not imported from
+# landing.py on purpose: a problem in the landing code must never break the
+# university pages.
+# ---------------------------------------------------------------------------
+PUBLIC_SITE_BASE: str | None = None
+GUIDE_BASE = f"{PUBLIC_SITE_BASE}guide/" if PUBLIC_SITE_BASE else None
+
 # Sidebar box on every /at/<label>/ page ("Before your first dataset").
 # Audience: researchers of the university who are about to publish for the
 # first time. The box links into the user guide instead of repeating it.
-#
-# GUIDE_BASE must follow landing.LANDING_BASE_PATH + "guide/". It is not
-# imported from landing.py on purpose: a problem in the landing code must
-# never break the university pages.
-# ---------------------------------------------------------------------------
-GUIDE_BASE = "/at/_vorschau/guide/"
 SUPPORT_EMAIL = "support@datapublication.nrw"
 PAGEDATA = "/at/webcontent/pagedata"
+
+
+def _guide_link(text: str, slug: str) -> list[dict]:
+    """A link into the user guide, or nothing while the guide is not public."""
+    return [{"text": text, "href": f"{GUIDE_BASE}{slug}"}] if GUIDE_BASE else []
 
 
 def build_more_information(uni_name: str = "", contact: dict | None = None) -> list[dict]:
@@ -53,11 +62,10 @@ def build_more_information(uni_name: str = "", contact: dict | None = None) -> l
                 "No personal data: only sufficiently anonymised data can be published.",
             ],
             "links": [
-                {"text": "What can I publish here?",
-                 "href": f"{GUIDE_BASE}scope-of-datapublication/"},
-                {"text": "Which licence fits my data?",
-                 "href": f"{GUIDE_BASE}dataset-preparation-workflow/"
-                         "choosing-appropriate-licenses-for-your-research-data/"},
+                *_guide_link("What can I publish here?", "scope-of-datapublication/"),
+                *_guide_link("Which licence fits my data?",
+                             "dataset-preparation-workflow/"
+                             "choosing-appropriate-licenses-for-your-research-data/"),
             ],
         },
         {
@@ -65,8 +73,7 @@ def build_more_information(uni_name: str = "", contact: dict | None = None) -> l
             "title": "Preparing your data",
             "text": [],
             "links": [
-                {"text": "Step-by-step guide",
-                 "href": f"{GUIDE_BASE}dataset-preparation-workflow/"},
+                *_guide_link("Step-by-step guide", "dataset-preparation-workflow/"),
                 {"text": "README template (University of Bonn)",
                  "href": "https://www.forschungsdaten.uni-bonn.de/en/media/"
                          "author_dataset_readmetemplate.txt"},
@@ -293,6 +300,7 @@ def render(env: Environment, template_name: str, context: dict) -> str:
     payload = dict(context)
     payload["uni_ctx"] = context
     payload["gen_date"] = now
+    payload["guide_url"] = GUIDE_BASE
     payload["dataset_sections"] = [
         {"title": "Popular downloads", "items": context.get("popular_items", [])},
         {"title": "Recent Datasets", "items": context.get("news_items", [])},
