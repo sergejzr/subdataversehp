@@ -470,9 +470,11 @@ def main():
         favicon = row.get("favicon", "")
         uni_ctx["favicon"] = favicon.strip() if isinstance(favicon, str) else ""
 
+        # Empty cell (NaN reads as "nan") -> no image; the template then paints
+        # the hero in DataPublication.nrw Nachtblau instead of the bonndata photo.
         background = str(row.get("background", "")).strip()
         if len(background) < 5:
-            background = "/homepage/img/backgrounds/collection_root.jpg"
+            background = ""
         uni_ctx["background"] = background
 
         uni_ctx["css"] = str(row.get("css", "")).strip()

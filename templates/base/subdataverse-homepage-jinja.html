@@ -255,8 +255,15 @@ for (let element of elements) {
 Generated: {{ gen_date }}
 -->
 <div class="repository-header-container">
-<!-- TODO: here background setzen -->
-    <div id="repository-header" class="repository-header-background lozad" data-background-image="{{uni_ctx.background}}"  >
+<!-- Background set directly, not lazy-loaded: the hero is always on screen,
+     and with lozad the bonndata default photo from homepage.css showed until
+     the swap (or for good in a background tab). No image: DataPublication.nrw
+     Nachtblau instead of that photo. -->
+    {% if uni_ctx.background %}
+    <div id="repository-header" class="repository-header-background" style="background-image: url('{{ uni_ctx.background|e }}');">
+    {% else %}
+    <div id="repository-header" class="repository-header-background" style="background-image: none; background-color: #003064;">
+    {% endif %}
         <div class="repository-header-overlay"></div>
         <div class="repository-header-content">
             <div class="repository-info-block">
