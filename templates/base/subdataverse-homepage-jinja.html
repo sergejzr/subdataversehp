@@ -213,8 +213,10 @@
 
 <link type="text/css" rel="stylesheet" href="/homepage/css/homepage.css">
 <script src="/homepage/js/homepage.js" async=""></script>
-<script src="/homepage/js/lozad.min.js" async="false"></script>
-<script src="https://cdn.jsdelivr.net/npm/lozad@1.14.0/dist/lozad.min.js"></script>
+<!-- Synchronous on purpose: lozad() is called on DOMContentLoaded below.
+     (async="false" still meant async; it only worked because a second copy
+     came synchronously from cdn.jsdelivr.net, byte-identical v1.14.0.) -->
+<script src="/homepage/js/lozad.min.js"></script>
 
 <script>
  document.addEventListener('DOMContentLoaded', () => {
@@ -654,8 +656,6 @@ if (firstItem) {
         <script defer="defer" src="/jakarta.faces.resource/js/jquery.matchHeight.js.xhtml?version=6.7.1"></script>
         <script src="/jakarta.faces.resource/js/jquery.sharrre.js.xhtml?version=6.7.1"></script>
         <script src="/jakarta.faces.resource/js/clipboard.min.js.xhtml?version=6.7.1"></script>
-            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <style>
 #feedbackTab {position:fixed; bottom:0; right:50px;}
