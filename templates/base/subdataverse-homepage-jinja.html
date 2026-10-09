@@ -121,6 +121,7 @@
                     font-size: 15px;
                     line-height: 1.4;
                 }
+                ul.dp-first-steps .dp-info-label { display: block; margin-top: 8px; }
             </style></head><body>
 	<a href="#content" class="sr-only">Skip to main content</a>
     <!-- Load web component along with Polymer shim in case browser support not there yet. -->
@@ -525,7 +526,7 @@ if (firstItem) {
             {% if info.links %}
             <ul>
             {% for link in info.links %}
-            <li><a href="{{ link.href|e }}">{{ link.text|e }}</a></li>
+            <li>{% if link.href %}<a href="{{ link.href|e }}">{{ link.text|e }}</a>{% else %}<span class="dp-info-label">{{ link.text|e }}</span>{% endif %}</li>
             {% endfor %}
             </ul>
             {% endif %}

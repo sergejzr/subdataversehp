@@ -36,8 +36,13 @@ SUPPORT_EMAIL = "support@datapublication.nrw"
 PAGEDATA = "/at/webcontent/pagedata"
 
 
-def build_more_information() -> list[dict]:
-    """Entries of the sidebar box: icon, title, text (lines), links."""
+def build_more_information(uni_name: str = "", contact: dict | None = None) -> list[dict]:
+    """Entries of the sidebar box: icon, title, text (lines), links.
+
+    A link without href is rendered as a plain label line. contact comes
+    from load_uni_contact(); without it the last entry names the
+    DataPublication.nrw team only.
+    """
     return [
         {
             "icon": f"{PAGEDATA}/icon-policies.svg",
@@ -71,13 +76,68 @@ def build_more_information() -> list[dict]:
                  "href": "https://zenodo.org/records/8380347"},
             ],
         },
-        {
+        _contact_entry(uni_name, contact),
+    ]
+
+
+def _contact_entry(uni_name: str, contact: dict | None) -> dict:
+    team = {"text": SUPPORT_EMAIL, "href": f"mailto:{SUPPORT_EMAIL}"}
+    if not contact:
+        return {
             "icon": f"{PAGEDATA}/icon-contact.svg",
             "title": "Questions?",
             "text": ["Ask the DataPublication.nrw team at any time, even before you start."],
-            "links": [{"text": SUPPORT_EMAIL, "href": f"mailto:{SUPPORT_EMAIL}"}],
-        },
-    ]
+            "links": [team],
+        }
+    # The name links to the website if there is one, otherwise it is a label.
+    links = [{"text": contact["name"], "href": contact.get("url", "")}]
+    if contact.get("email"):
+        links.append({"text": contact["email"], "href": f"mailto:{contact['email']}"})
+    links += [{"text": "DataPublication.nrw team", "href": ""}, team]
+    return {
+        "icon": f"{PAGEDATA}/icon-contact.svg",
+        "title": f"Your contact at {uni_name}" if uni_name else "Your contact",
+        "text": ["Ask at any time, even before you start."],
+        "links": links,
+    }
+
+
+def load_uni_contact(uni_dir: Path) -> dict:
+    """The university's own research data contact from txt/contact.toml.
+
+    Optional. Keys: name (required), email, url (https only). The file lives
+    in the templates repo next to css/ and js/ and is copied to /at/<label>/
+    like everything else there, so it is public. A missing, unreadable or
+    implausible file only logs a warning; the box then falls back to the
+    DataPublication.nrw team.
+    """
+    path = uni_dir / "txt" / "contact.toml"
+    if not path.is_file():
+        return {}
+    try:
+        import tomllib  # Python 3.11+, landing.py relies on it as well
+
+        with path.open("rb") as fh:
+            data = tomllib.load(fh)
+    except Exception as exc:  # tomllib missing or invalid TOML
+        print(f"[WARN] {path}: {exc}", file=sys.stderr)
+        return {}
+    if not data:  # comments only, e.g. the example copied from layout-adapted
+        return {}
+
+    name = str(data.get("name", "")).strip()
+    email = str(data.get("email", "")).strip()
+    url = str(data.get("url", "")).strip()
+    if email and (any(c.isspace() for c in email) or email.count("@") != 1):
+        print(f"[WARN] {path}: email {email!r} ignored", file=sys.stderr)
+        email = ""
+    if url and not url.startswith("https://"):
+        print(f"[WARN] {path}: url {url!r} ignored, https:// only", file=sys.stderr)
+        url = ""
+    if not name or not (email or url):
+        print(f"[WARN] {path}: needs name plus email or url, ignored", file=sys.stderr)
+        return {}
+    return {"name": name, "email": email, "url": url}
 
 def project_root_from_file() -> Path:
     return Path(__file__).resolve().parents[2]
@@ -387,6 +447,9 @@ def main():
 
         uni_ctx["uni_label"] = label
         uni_ctx["uni_name"] = str(row.get("Name", "")).strip()
+        uni_ctx["more_information"] = build_more_information(
+            uni_ctx["uni_name"], load_uni_contact(uni_source_dir)
+        )
 
         logo = row.get("logo")
         if isinstance(logo, str) and logo.strip():
