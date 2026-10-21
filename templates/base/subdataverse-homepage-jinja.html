@@ -507,12 +507,17 @@ if (firstItem) {
                 </div>
                 {% endif %}
 
-                <div class="form-group information-box" style="padding-top:30px">
+                {# Per-university switches from txt/landing.toml (renderjinja.LANDING_DEFAULTS).
+                   The order is changed in the markup, not with CSS order, so the
+                   focus order matches what is shown (WCAG 2.4.3). #}
+                {% set landing_opts = landing or {"search_first": false, "other_institution_login": true} %}
+                {% set login_block %}
                     <div>
                         <div class="login-prompt" id="loginActionRequest">
                             Please log in to be able to add datasets to {{ main_dataverse_info.name }} collections.
                         </div>
 
+                        {% if shib_direct_login_url or landing_opts.other_institution_login %}
                         <div class="dp-login-links">
                             {% if shib_direct_login_url %}
                             <a class="dp-login-link dp-login-link-primary" href="{{ shib_direct_login_url }}">
@@ -520,16 +525,21 @@ if (firstItem) {
                             </a>
                             {% endif %}
 
+                            {% if landing_opts.other_institution_login %}
                             {# redirectPage MUST stay an encoded JSF view (/dataverse.xhtml?alias=). Reverting to /at/{{main_dataverse_info.alias}} silently re-breaks login: it dead-ends in the form (see Item 1 fix history). #}
                             <a class="dp-login-link" href="/loginpage.xhtml?redirectPage=%2Fdataverse.xhtml%3Falias%3D{{main_dataverse_info.alias}}">
                                 Log in via another institution
                             </a>
+                            {% endif %}
                         </div>
+                        {% endif %}
 
+                        {% if landing_opts.other_institution_login %}
                         <div class="dp-login-help">
                             Use the first link for direct login with {{ uni_name or main_dataverse_info.name }}.
                             Use the second link if you want to choose another identity provider.
                         </div>
+                        {% endif %}
 
                         <a id="mainRepoAddLink" href="/dataset.xhtml?ownerId={{ main_dataverse_info.id }}">
                             <button type="button" name="add_dataverse_button" class="btn btn-default  btn-block">Add
@@ -538,8 +548,8 @@ if (firstItem) {
                             </button>
                         </a>
                     </div>
-                    <div class="search-or-divider">Or</div>
-                    <br/>
+                {% endset %}
+                {% set search_block %}
                     <div class="input-group">
                         <input id="searchall" type="text" class="form-control" size="28" value=""
                                onkeydown="if(event.key==='Enter'){window.location='/dataverse/{{main_dataverse_info.alias}}?q=' + document.getElementById('searchall').value;return false;}"
@@ -554,6 +564,19 @@ if (firstItem) {
                                                 </button>
                                             </span>
                     </div>
+                {% endset %}
+                <div class="form-group information-box" style="padding-top:30px">
+                    {% if landing_opts.search_first %}
+                    {{ search_block }}
+                    <br/>
+                    <div class="search-or-divider">Or</div>
+                    {{ login_block }}
+                    {% else %}
+                    {{ login_block }}
+                    <div class="search-or-divider">Or</div>
+                    <br/>
+                    {{ search_block }}
+                    {% endif %}
 
                 </div>
 

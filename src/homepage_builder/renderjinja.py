@@ -146,6 +146,48 @@ def load_uni_contact(uni_dir: Path) -> dict:
         return {}
     return {"name": name, "email": email, "url": url}
 
+
+# Per-university switches for the login/search box on /at/<label>/. The
+# defaults are the standard page, so a university without txt/landing.toml
+# renders exactly as before.
+LANDING_DEFAULTS = {
+    # Search box above "Add your dataset" instead of below it.
+    "search_first": False,
+    # The link "Log in via another institution" plus its help text. Off for
+    # universities whose depositors all log in via their own institution.
+    "other_institution_login": True,
+}
+
+
+def load_landing_options(uni_dir: Path) -> dict:
+    """Layout switches for the login/search box from txt/landing.toml.
+
+    Optional, public like everything in the folder. Unknown keys and values
+    that are not booleans are ignored with a warning, so a typo can never
+    change a page in a way nobody asked for.
+    """
+    options = dict(LANDING_DEFAULTS)
+    path = uni_dir / "txt" / "landing.toml"
+    if not path.is_file():
+        return options
+    try:
+        import tomllib
+
+        with path.open("rb") as fh:
+            data = tomllib.load(fh)
+    except Exception as exc:  # tomllib missing or invalid TOML
+        print(f"[WARN] {path}: {exc}", file=sys.stderr)
+        return options
+    for key, value in data.items():
+        if key not in LANDING_DEFAULTS:
+            print(f"[WARN] {path}: unknown key {key!r} ignored", file=sys.stderr)
+        elif not isinstance(value, bool):
+            print(f"[WARN] {path}: {key} must be true or false, ignored", file=sys.stderr)
+        else:
+            options[key] = value
+    return options
+
+
 def project_root_from_file() -> Path:
     return Path(__file__).resolve().parents[2]
 
@@ -459,6 +501,7 @@ def main():
         uni_ctx["more_information"] = build_more_information(
             uni_ctx["uni_name"], load_uni_contact(uni_source_dir)
         )
+        uni_ctx["landing"] = load_landing_options(uni_source_dir)
 
         logo = row.get("logo")
         if isinstance(logo, str) and logo.strip():
