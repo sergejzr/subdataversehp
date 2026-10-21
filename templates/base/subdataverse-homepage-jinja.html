@@ -353,6 +353,33 @@ Generated: {{ gen_date }}
  background-color:#929084
     }
 
+    /* Arrows beside the carousel. Fixed side padding instead of a flex row:
+       homepage.js shows the arrows only after Owl has measured the carousel,
+       so their space must already be reserved, or the last box gets cut.
+       flow-root contains the floated .col-md-8 list. */
+    .dp-carousel-nav {
+        display: flow-root;
+        position: relative;
+        margin-top: 15px;
+        padding: 0 44px;
+    }
+    .dp-carousel-nav > .dp-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+    .dp-carousel-nav > .dp-arrow-prev { left: 0; }
+    .dp-carousel-nav > .dp-arrow-next { right: 0; }
+    /* Phones: side padding would squeeze the two boxes to ~50px, so the
+       arrows go as a pair below the boxes instead. */
+    @media (max-width: 600px) {
+        .dp-carousel-nav { padding: 0 0 48px; }
+        .dp-carousel-nav > .dp-arrow { top: auto; bottom: 0; transform: none; }
+        .dp-carousel-nav > .dp-arrow-prev { left: auto; right: calc(50% + 4px); }
+        .dp-carousel-nav > .dp-arrow-next { right: auto; left: calc(50% + 4px); }
+    }
+
 
 </style>
 <div id="carouselBlocksWrapperMainPage" style="display:none" class="repository-carousel">
@@ -360,11 +387,6 @@ Generated: {{ gen_date }}
 
     <div class="col-md-3" style="width:100%;padding-top:15px">
     <div class="customNavigation" style="display: flex; justify-content: space-between; align-items: center;">
-
-        <!-- Left Button -->
-        <a class="btn prev1 navigationarrow" style="color:black;display:none" title="Previous">
-            <span class="glyphicon glyphicon-chevron-left" style="margin-right: 0px; color: rgb(7, 82, 154);"></span>
-        </a>
 
 {% if dataverse_items|length > 1 %}
     <!-- Title and Icon in the center -->
@@ -380,16 +402,25 @@ Generated: {{ gen_date }}
         </span>
     </div>
 {% endif %}
-
-        <!-- Right Button -->
-        <a class="btn next1 navigationarrow" style="color:black;display:none" title="Next">
-            <span class="glyphicon glyphicon-chevron-right" style="margin-right: 0px; color: rgb(7, 82, 154);"></span>
-        </a>
     </div>
 </div>
 
 
-        <div id="featuredDataversesList" class="owl-carousel owl-theme col-md-8" style="margin-top:15px;opacity: 1; display: block; width:100%;">
+        {# The arrows sit beside the boxes, not beside the heading, so it is
+           clear what they move and the heading has the full width.
+           Each arrow keeps its own .customNavigation parent: homepage.js
+           (Ansible repo) shows and hides them via
+           "#carouselBlocksWrapperMainPage .customNavigation a.btn", and
+           homepage.css styles them through it. The class must NOT go on the
+           wrapper: ".customNavigation a" (40x40, flex, white) would then hit
+           the links inside the boxes. #}
+        <div class="dp-carousel-nav">
+        <div class="customNavigation dp-arrow dp-arrow-prev">
+        <a class="btn prev1 navigationarrow" style="color:black;display:none" title="Previous">
+            <span class="glyphicon glyphicon-chevron-left" style="margin-right: 0px; color: rgb(7, 82, 154);"></span>
+        </a>
+        </div>
+        <div id="featuredDataversesList" class="owl-carousel owl-theme col-md-8" style="opacity: 1; display: block; width:100%;">
             {% for item in dataverse_items %}
 {% if not loop.first %}
 
@@ -448,6 +479,12 @@ if (firstItem) {
 }
 
     </script>
+        </div>
+        <div class="customNavigation dp-arrow dp-arrow-next">
+        <a class="btn next1 navigationarrow" style="color:black;display:none" title="Next">
+            <span class="glyphicon glyphicon-chevron-right" style="margin-right: 0px; color: rgb(7, 82, 154);"></span>
+        </a>
+        </div>
         </div>
 
     </div>
