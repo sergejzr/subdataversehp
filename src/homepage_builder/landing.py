@@ -6,6 +6,7 @@ Inputs live in templates/landing/:
   strings.<lang>.toml  all visible text
   news.toml            [[news]] entries
   status.csv           append-only log: label,status,datum
+  map/DP.landing.svg   SVGO derivative of the shared map DP.svg (map/svgo.config.mjs)
 
 The caller wraps render_landing() so that bad landing data only skips the
 preview; nothing is written unless both languages render.
@@ -13,6 +14,7 @@ preview; nothing is written unless both languages render.
 from __future__ import annotations
 
 import csv
+import hashlib
 import re
 import shutil
 import struct
@@ -46,6 +48,14 @@ LOGO_SUFFIXES = (".svg", ".png")
 # marks carry similar weight, then capped to the cell (max width, max height).
 LOGO_AREA = {"partner": 4400, "org": 4200}
 LOGO_MAX = {"partner": (150, 58), "org": (166, 48)}
+
+# The map is a size-optimized derivative of the shared DP.svg, made with SVGO
+# (a local dev tool) and checked in. The .sha256 file records which DP.svg it
+# was made from; the regeneration command is the "// $ " line of the config.
+MAP_SOURCE = Path("templates/assets/pagedata/DP.svg")
+MAP_DERIVATIVE = Path("templates/landing/map/DP.landing.svg")
+MAP_SOURCE_HASH = Path("templates/landing/map/DP.landing.svg.sha256")
+MAP_SVGO_CONFIG = Path("templates/landing/map/svgo.config.mjs")
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _RECT_LABEL = re.compile(r'inkscape:label="rect_([a-z0-9-]+)"')
@@ -345,15 +355,30 @@ def _check_all_marked(what: str, marked: list[str], partners: list[str]) -> None
         )
 
 
+def landing_map_svg(generator_root: Path) -> str:
+    """Text of the landing map derivative, refused when DP.svg has changed since it was made."""
+    source = generator_root / MAP_SOURCE
+    recorded = (generator_root / MAP_SOURCE_HASH).read_text(encoding="utf-8").strip()
+    actual = hashlib.sha256(source.read_bytes()).hexdigest()
+    if recorded != actual:
+        config = (generator_root / MAP_SVGO_CONFIG).read_text(encoding="utf-8")
+        command = next((line[len("// $ "):] for line in config.splitlines() if line.startswith("// $ ")), None)
+        raise LandingDataError(
+            f"{MAP_DERIVATIVE} is stale: made from DP.svg {recorded[:12]}, current DP.svg is {actual[:12]}. "
+            f"Regenerate from the subdataversehp root: {command or f'see {MAP_SVGO_CONFIG}'}"
+        )
+    return (generator_root / MAP_DERIVATIVE).read_text(encoding="utf-8")
+
+
 def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
-    """The shared linked map with landing-only edits on a copy of its text.
+    """The landing map derivative with landing-only edits on a copy of its text.
 
     Each partner box gets data-status (partner or external, not the progress
-    status), and each partner label is (re)linked by
-    partner_href(): the shared file links every enabled partner, the landing
-    page only set-up spaces that exist in this build and external repositories. Text-level edits because the source SVG
+    status), and each partner label is (re)linked by partner_href(): DP.svg
+    links some partners, the landing page only set-up spaces that exist in
+    this build and external repositories. Text-level edits because DP.svg
     carries an invalid xmlns that lxml only reads in recover mode, and the
-    original page inlines the file verbatim.
+    original page inlines that file verbatim.
     """
     by_label = {p["label"]: p for p in partners}
     labels = [p["label"] for p in partners]
@@ -373,7 +398,7 @@ def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
     svg = _RECT_LABEL.sub(mark, svg)
     _check_all_marked("partner boxes", marked_rects, labels)
 
-    # Drop the links the generator put around partner labels ...
+    # Drop the links DP.svg has around partner labels ...
     svg = re.sub(
         r'<a\b[^>]*>(\s*<text\b[^>]*\binkscape:label="text_[a-z0-9-]+"[^>]*>.*?</text>\s*)</a>',
         r"\1",
@@ -407,13 +432,13 @@ def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
     return Markup(svg)
 
 
-def render_landing(generator_root: Path, at_root: Path, linked_svg: Path, unis_csv: Path) -> Path:
+def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     landing_dir = generator_root / "templates" / "landing"
     if not LANDING_BASE_PATH.startswith("/at/") or not LANDING_BASE_PATH.endswith("/"):
         raise LandingDataError(f"LANDING_BASE_PATH must start with /at/ and end with /: {LANDING_BASE_PATH!r}")
     out_dir = at_root / LANDING_BASE_PATH.removeprefix("/at/")
 
-    svg_text = linked_svg.read_text(encoding="utf-8")
+    svg_text = landing_map_svg(generator_root)
     partners = partner_labels(svg_text)
 
     with unis_csv.open(encoding="utf-8-sig", newline="") as fh:

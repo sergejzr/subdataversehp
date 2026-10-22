@@ -457,7 +457,7 @@ def main():
             local_test=True,
         ),
     )
-    linked_svg = svg_manip.ensure_linked_svg()
+    svg_manip.ensure_linked_svg()  # inlined by the old landing page
 
     env_index = build_env(base_templates_dir)
     index_ctx = build_page_data(dataverse_api, templater, base_dataverse=base_dataverse)
@@ -547,7 +547,7 @@ def main():
             from .landing import render_landing
         except ImportError:
             from landing import render_landing
-        render_landing(project_root, at_root, linked_svg, config_dir / "unis.csv")
+        render_landing(project_root, at_root, config_dir / "unis.csv")
     except Exception as exc:
         print(f"[LANDING] ERROR: {exc}", file=sys.stderr)
         print("[LANDING] Preview skipped; all other pages were rendered.", file=sys.stderr)
