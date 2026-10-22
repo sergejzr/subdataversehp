@@ -18,11 +18,15 @@ import hashlib
 import re
 import shutil
 import struct
+import subprocess
 import sys
 import tomllib
 import unicodedata
-from datetime import date
+from datetime import date, datetime
+from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import unquote, urljoin, urlsplit
+from zoneinfo import ZoneInfo
 
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 from markupsafe import Markup
@@ -56,6 +60,10 @@ MAP_SOURCE = Path("templates/assets/pagedata/DP.svg")
 MAP_DERIVATIVE = Path("templates/landing/map/DP.landing.svg")
 MAP_SOURCE_HASH = Path("templates/landing/map/DP.landing.svg.sha256")
 MAP_SVGO_CONFIG = Path("templates/landing/map/svgo.config.mjs")
+
+# Build line in the footer: render date in this zone.
+BUILD_TIMEZONE = ZoneInfo("Europe/Berlin")
+BUILD_INFO_SEPARATOR = " · "
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _RECT_LABEL = re.compile(r'inkscape:label="rect_([a-z0-9-]+)"')
@@ -432,6 +440,157 @@ def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
     return Markup(svg)
 
 
+def generator_revision(generator_root: Path) -> str | None:
+    """`git rev-parse --short HEAD` of the generator checkout, "-dirty" if tracked files differ.
+
+    None (with a warning) without git. The server and build.sh build in a copy
+    without .git; that copy may sit inside another checkout, whose HEAD must
+    not be shown, hence the toplevel check.
+    """
+    def git(*args: str) -> str:
+        return subprocess.run(
+            ["git", "-C", str(generator_root), *args], capture_output=True, text=True, check=True, timeout=10
+        ).stdout.strip()
+
+    try:
+        toplevel = Path(git("rev-parse", "--show-toplevel")).resolve()
+        if toplevel != generator_root.resolve():
+            raise subprocess.SubprocessError(f"{generator_root} is not a checkout (enclosing repository {toplevel})")
+        revision = git("rev-parse", "--short", "HEAD")
+        if git("status", "--porcelain", "--untracked-files=no"):
+            revision += "-dirty"
+    except subprocess.CalledProcessError as exc:
+        reason = exc.stderr.strip().splitlines()[0] if exc.stderr.strip() else exc
+        print(f"[LANDING] Warning: build line without hash: {reason}", file=sys.stderr)
+        return None
+    except (OSError, subprocess.SubprocessError) as exc:
+        print(f"[LANDING] Warning: build line without hash: {exc}", file=sys.stderr)
+        return None
+    return revision
+
+
+def build_info_segments(template: str, day: date, date_format: str, revision: str | None) -> list[Markup]:
+    """Footer build line from strings: {date} as <time>, the {hash} segment dropped without a revision."""
+    when = Markup('<time datetime="{}">{}</time>').format(day.isoformat(), day.strftime(date_format))
+    segments = []
+    for segment in template.split(BUILD_INFO_SEPARATOR):
+        if "{hash}" in segment and revision is None:
+            continue
+        segments.append(Markup.escape(segment).replace("{date}", when).replace("{hash}", revision or ""))
+    return segments
+
+
+# Attributes, <link rel> values and SVG elements whose URLs the browser fetches while loading the page.
+_LOADING_ATTRS = {"src", "srcset", "poster", "data", "imagesrcset"}
+_LOADING_RELS = {"stylesheet", "preload", "modulepreload", "prefetch", "icon", "apple-touch-icon", "mask-icon", "manifest"}
+_SVG_HREF_ELEMENTS = {"image", "feimage", "use"}
+_CSS_URL = re.compile(r"""url\(\s*(?:"([^"]*)"|'([^']*)'|([^)\s]*))\s*\)|@import\s+(?:"([^"]*)"|'([^']*)')""")
+
+
+def _css_urls(css: str) -> list[str]:
+    return [next(group for group in match.groups() if group is not None) for match in _CSS_URL.finditer(css)]
+
+
+class _PageScan(HTMLParser):
+    """Claim violations and loaded resources (url, base) of one rendered page."""
+
+    def __init__(self, page_url: str):
+        super().__init__(convert_charrefs=True)
+        self.page_url = page_url
+        self.violations: list[str] = []
+        self.resources: list[tuple[str, str]] = []
+        self._in_style = False
+
+    def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        if tag == "script" and (values.get("type") or "").strip().lower() != "application/ld+json":
+            self.violations.append(f"<script type={values.get('type')!r}>")
+        for name, value in attrs:
+            if name.startswith("on"):
+                self.violations.append(f"<{tag} {name}=...> event attribute")
+            if value and re.sub(r"[\x00-\x20]", "", value).lower().startswith("javascript:"):
+                self.violations.append(f"<{tag} {name}={value[:40]!r}> javascript: URL")
+        urls = []
+        for name, value in attrs:
+            if not value:
+                continue
+            if name in ("srcset", "imagesrcset"):
+                urls += [candidate.split()[0] for candidate in value.split(",") if candidate.strip()]
+            elif name in _LOADING_ATTRS:
+                urls.append(value)
+            elif name == "style":
+                urls += _css_urls(value)
+        if tag == "link" and set((values.get("rel") or "").lower().split()) & _LOADING_RELS and values.get("href"):
+            urls.append(values["href"])
+        if tag in _SVG_HREF_ELEMENTS:
+            urls += [value for name, value in attrs if name in ("href", "xlink:href") and value]
+        self.resources += [(url.strip(), self.page_url) for url in urls]
+        self._in_style = tag == "style"
+
+    def handle_endtag(self, tag):
+        self._in_style = False
+
+    def handle_data(self, data):
+        if self._in_style:
+            self.resources += [(url.strip(), self.page_url) for url in _css_urls(data)]
+
+
+def _is_local(url: str) -> bool:
+    """Relative or root-relative: no scheme, no host (browsers read a backslash as a slash)."""
+    parts = urlsplit(url.replace("\\", "/"))
+    return not parts.scheme and not parts.netloc
+
+
+def check_page(html: str, page_url: str, css_files: dict[str, str]) -> tuple[list[str], list[str]]:
+    """Enforce the footer claims on one rendered page; returns (violations, loaded paths).
+
+    "No JavaScript": no <script> other than JSON-LD, no on* attributes, no
+    javascript: URLs. "No third-party requests": every loaded resource (src,
+    srcset, <link> stylesheet/preload/icon, CSS url() in landing.css and inline
+    styles) is relative or root-relative. "No cookies" cannot be checked at
+    build time: the page cannot set one without JavaScript, and the server sent
+    no Set-Cookie for the preview when checked by hand on 2026-10-21
+    (curl -sI <url> | grep -i set-cookie -> empty).
+    """
+    scan = _PageScan(page_url)
+    scan.feed(html)
+    scan.close()
+    pending = list(scan.resources)
+    violations = list(scan.violations)
+    loaded: list[str] = []
+    while pending:
+        url, base = pending.pop(0)
+        if url.startswith("#"):  # same-document reference (<use href="#…">, url(#…)), nothing loaded
+            continue
+        if not _is_local(url):
+            violations.append(f"external resource {url!r}")
+            continue
+        absolute = urlsplit(urljoin(base, url)).path
+        if absolute in loaded:
+            continue
+        loaded.append(absolute)
+        if absolute in css_files:
+            pending += [(nested, absolute) for nested in _css_urls(css_files[absolute])]
+    return violations, loaded
+
+
+def page_weight(html: str, loaded: list[str], landing_dir: Path) -> tuple[int, int, int]:
+    """(total, html, files) in bytes: the page plus every file it loads, each once.
+
+    The files are counted at their source in templates/landing/, of which
+    landing.css and assets/ are copied unchanged next to the pages.
+    """
+    files = 0
+    for path in loaded:
+        relative = unquote(path).removeprefix(LANDING_BASE_PATH) if path.startswith(LANDING_BASE_PATH) else None
+        source = landing_dir / relative if relative and (relative == "landing.css" or relative.startswith("assets/")) else None
+        if source is None or not source.is_file():
+            raise LandingDataError(f"page loads {path}, which the build does not publish")
+        files += source.stat().st_size
+    html_bytes = len(html.encode("utf-8"))
+    return html_bytes + files, html_bytes, files
+
+
 def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     landing_dir = generator_root / "templates" / "landing"
     if not LANDING_BASE_PATH.startswith("/at/") or not LANDING_BASE_PATH.endswith("/"):
@@ -457,7 +616,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
 
     # "Stand" never runs ahead of the build: future-dated news stay listed but
     # do not count. The chart's x-axis likewise ends at the build date.
-    build_date = date.today()
+    build_date = datetime.now(BUILD_TIMEZONE).date()
     dates = [row["datum"] for row in rows] + [item["datum"] for item in news]
     past = [d for d in dates if d <= build_date]
     stand = max(past) if past else None
@@ -534,6 +693,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             # Pages were rendered with a guide link; re-render without it.
             plain = landing_guide.render_pages(env, landing_dir / "pages", strings["de"], {**shared, "guide_url": None}, LANDING_BASE_PATH)
 
+    revision = generator_revision(generator_root)
     pages = {}
     for lang in LANGUAGES:
         s = strings[lang]
@@ -559,7 +719,16 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             shots=own_space_shots(s["own_space"]["shots"], lang_partners, landing_dir / "assets" / "shots"),
             map_svg=map_markup,
             logos=logos,
+            build_info=build_info_segments(s["footer"]["build_info"], build_date, s["footer"]["build_date_format"], revision),
         )
+
+    css_files = {css_href: (landing_dir / "landing.css").read_text(encoding="utf-8")}
+    weights = {}
+    for lang, html in pages.items():
+        violations, loaded = check_page(html, urls[lang], css_files)
+        if violations:
+            raise LandingDataError(f"{lang} page breaks its footer claims: " + "; ".join(violations))
+        weights[lang] = page_weight(html, loaded, landing_dir)
 
     out_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(landing_dir / "landing.css", out_dir / "landing.css")
@@ -587,5 +756,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
         for warning in guide["warnings"]:
             print(f"[LANDING] Guide warning: {warning}")
 
+    for lang, (weight, html_bytes, files) in weights.items():
+        print(f"[LANDING] page weight {lang}: {weight} B (HTML {html_bytes} B + files {files} B)")
     print(f"[LANDING] Preview written to {out_dir} ({len(current)}/{total} partners with status, Stand {stand})")
     return out_dir

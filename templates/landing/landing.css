@@ -1256,6 +1256,22 @@ ol {
   font-size: 0.9375rem;
 }
 
+/* Build line (landing.py checks the claims at render time). Muted mix of the
+   two footer tokens: ~#B6BDC4 on Anthrazitblau = 8.47:1 (DESIGN-NOTES.md).
+   Segments never break inside; the line wraps only between them. */
+.site-footer .build-info {
+  grid-column: 1 / -1;
+  max-width: none;
+  margin: 0.75rem 0 0;
+  color: color-mix(in srgb, var(--dp-on-dark) 70%, var(--dp-dark));
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.build-info > span {
+  white-space: nowrap;
+}
+
 /* ---------- Motion ---------- */
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,4 +1,4 @@
-{#- Shared site footer. Context: s, guide_url, alt_url, legal_urls. #}
+{#- Shared site footer. Context: s, guide_url, alt_url, legal_urls; build_info (landing only). #}
   <footer id="footer" class="band band-dark site-footer">
     <div class="wrap footer-inner">
       <div>
@@ -16,5 +16,10 @@
         <li><a href="{{ alt_url }}" hreflang="{{ s.lang_switch_lang }}" lang="{{ s.lang_switch_lang }}">{{ s.lang_switch }}</a></li>
         {%- endif %}
       </ul>
+      {%- if build_info is defined and build_info %}
+      <p class="build-info">
+        {%- for segment in build_info %}<span>{{ segment }}{% if not loop.last %}<span aria-hidden="true"> ·</span>{% endif %}</span>{% if not loop.last %} {% endif %}{% endfor -%}
+      </p>
+      {%- endif %}
     </div>
   </footer>
