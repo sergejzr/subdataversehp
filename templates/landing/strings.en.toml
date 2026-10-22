@@ -191,10 +191,12 @@ imprint = "Legal notice"
 imprint_url = "https://www.hrz.uni-bonn.de/de/impressum"
 privacy = "Privacy"
 accessibility = "Accessibility"
-# Build line, segments separated by " · ". landing.py fills in {date} and {hash} and checks
-# the claims at render time; without git the {hash} segment is dropped.
-build_info = "No JavaScript · no cookies · no third-party requests · Build {date} · {hash}"
+# Build line, segments separated by " · ". landing.py fills in {size}, {date} and {hash} and
+# checks the claims at render time; without git the {hash} segment is dropped. {size} is the
+# weight of the final page: HTML plus every loaded file once, in kB (1000 bytes, rounded up).
+build_info = "No JavaScript · no cookies · no third-party requests · Page weight {size} · Build {date} · {hash}"
 build_date_format = "%Y-%m-%d"
+build_thousands_separator = ","
 
 # Display names in the list, captions and alt texts. The map keeps the names from DP.svg.
 

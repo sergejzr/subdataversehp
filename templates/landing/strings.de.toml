@@ -191,10 +191,12 @@ imprint = "Impressum"
 imprint_url = "https://www.hrz.uni-bonn.de/de/impressum"
 privacy = "Datenschutz"
 accessibility = "Barrierefreiheit"
-# Build-Zeile, Segmente durch " · " getrennt. landing.py setzt {date} und {hash} ein und prüft
-# die Aussagen beim Rendern; ohne git entfällt das {hash}-Segment.
-build_info = "Kein JavaScript · keine Cookies · keine externen Anfragen · Build {date} · {hash}"
+# Build-Zeile, Segmente durch " · " getrennt. landing.py setzt {size}, {date} und {hash} ein und
+# prüft die Aussagen beim Rendern; ohne git entfällt das {hash}-Segment. {size} ist das Gewicht
+# der fertigen Seite: HTML plus jede geladene Datei einmal, in kB (1000 Byte, aufgerundet).
+build_info = "Kein JavaScript · keine Cookies · keine externen Anfragen · Seitengewicht {size} · Build {date} · {hash}"
 build_date_format = "%d.%m.%Y"
+build_thousands_separator = "."
 
 
 # Namen für Logos von Betrieb und Förderung; stehen als Platzhalter, solange das Logo fehlt.

@@ -64,6 +64,9 @@ MAP_SVGO_CONFIG = Path("templates/landing/map/svgo.config.mjs")
 # Build line in the footer: render date in this zone.
 BUILD_TIMEZONE = ZoneInfo("Europe/Berlin")
 BUILD_INFO_SEPARATOR = " · "
+# The page weight in the build line is part of the page it measures: render
+# until the shown value is the value of the page that shows it.
+WEIGHT_PASSES = 3
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _RECT_LABEL = re.compile(r'inkscape:label="rect_([a-z0-9-]+)"')
@@ -469,14 +472,21 @@ def generator_revision(generator_root: Path) -> str | None:
     return revision
 
 
-def build_info_segments(template: str, day: date, date_format: str, revision: str | None) -> list[Markup]:
-    """Footer build line from strings: {date} as <time>, the {hash} segment dropped without a revision."""
+def kilobytes(size: int, thousands_separator: str) -> str:
+    """Bytes as whole kB (1000 bytes, rounded up): 1028989 -> "1.029 kB" with "."."""
+    return f"{-(-size // 1000):,} kB".replace(",", thousands_separator)
+
+
+def build_info_segments(template: str, day: date, date_format: str, revision: str | None, size: str) -> list[Markup]:
+    """Footer build line from strings: {size}, {date} as <time>, the {hash} segment dropped without a revision."""
     when = Markup('<time datetime="{}">{}</time>').format(day.isoformat(), day.strftime(date_format))
     segments = []
     for segment in template.split(BUILD_INFO_SEPARATOR):
         if "{hash}" in segment and revision is None:
             continue
-        segments.append(Markup.escape(segment).replace("{date}", when).replace("{hash}", revision or ""))
+        segments.append(
+            Markup.escape(segment).replace("{size}", size).replace("{date}", when).replace("{hash}", revision or "")
+        )
     return segments
 
 
@@ -694,12 +704,12 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             plain = landing_guide.render_pages(env, landing_dir / "pages", strings["de"], {**shared, "guide_url": None}, LANDING_BASE_PATH)
 
     revision = generator_revision(generator_root)
-    pages = {}
-    for lang in LANGUAGES:
+
+    def render_page(lang: str, size: str) -> str:
         s = strings[lang]
         fmt = s["date_format"]
         lang_partners = localized_partners(partner_list, s.get("names", {}))
-        pages[lang] = template.render(
+        return template.render(
             lang=lang,
             s=s,
             urls=urls,
@@ -719,16 +729,36 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             shots=own_space_shots(s["own_space"]["shots"], lang_partners, landing_dir / "assets" / "shots"),
             map_svg=map_markup,
             logos=logos,
-            build_info=build_info_segments(s["footer"]["build_info"], build_date, s["footer"]["build_date_format"], revision),
+            build_info=build_info_segments(
+                s["footer"]["build_info"], build_date, s["footer"]["build_date_format"], revision, size
+            ),
         )
 
+    # Render, weigh, substitute the weight, and repeat until the shown kB are
+    # those of the page that shows them. The first pass shows "0 kB".
     css_files = {css_href: (landing_dir / "landing.css").read_text(encoding="utf-8")}
+    pages = {}
     weights = {}
-    for lang, html in pages.items():
-        violations, loaded = check_page(html, urls[lang], css_files)
-        if violations:
-            raise LandingDataError(f"{lang} page breaks its footer claims: " + "; ".join(violations))
-        weights[lang] = page_weight(html, loaded, landing_dir)
+    for lang in LANGUAGES:
+        separator = strings[lang]["footer"]["build_thousands_separator"]
+        size = kilobytes(0, separator)
+        shown = []
+        for _ in range(WEIGHT_PASSES):
+            shown.append(size)
+            html = render_page(lang, size)
+            violations, loaded = check_page(html, urls[lang], css_files)
+            if violations:
+                raise LandingDataError(f"{lang} page breaks its footer claims: " + "; ".join(violations))
+            weight = page_weight(html, loaded, landing_dir)
+            measured = kilobytes(weight[0], separator)
+            if measured == size:
+                pages[lang], weights[lang] = html, weight
+                break
+            size = measured
+        else:
+            raise LandingDataError(
+                f"{lang} page weight did not settle in {WEIGHT_PASSES} passes (shown {', '.join(shown)}, measured {size})"
+            )
 
     out_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(landing_dir / "landing.css", out_dir / "landing.css")
