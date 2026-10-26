@@ -541,14 +541,17 @@ ol {
   align-items: start;
 }
 
+/* Both cards take the row height; the chart card centres its content.
+   Not a flex column: that collapsed the chart. */
 @media (min-width: 900px) {
   .progress-grid {
     grid-template-columns: 2fr 1fr;
-    align-items: start;
+    align-items: stretch;
   }
 
   .progress-main {
     grid-template-columns: auto 1fr;
+    align-content: center;
   }
 }
 
