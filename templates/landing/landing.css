@@ -1041,16 +1041,20 @@ ol {
 
 @media (min-width: 1000px) {
   .contact-funding {
-    grid-template-columns: 5fr 7fr;
     gap: 1.5rem;
-    align-items: start;
   }
 }
 
 .contact-col {
   display: grid;
   gap: 1rem;
-  align-content: start;
+}
+
+/* Kontakt | Impressum, stretched to the same height. */
+@media (min-width: 768px) {
+  .contact-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 1000px) {
@@ -1067,8 +1071,14 @@ ol {
   margin-top: 0.75rem;
 }
 
+/* Same subhead as .funding-block h3 (h3 plus its margin), so all three cards share one. */
 .contact-list dt {
+  margin-bottom: 0.25rem;
+  color: var(--dp-heading);
+  font-size: 1.125rem;
   font-weight: 600;
+  line-height: 1.2;
+  hyphens: auto;
 }
 
 .contact-list dd {
@@ -1091,6 +1101,32 @@ ol {
 
 .funding-block p {
   margin-bottom: 0.75rem;
+}
+
+/* Three columns; the logo rows take the free space above them and line up at the bottom. */
+@media (min-width: 1000px) {
+  .funding {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .funding-block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .funding-block + .funding-block {
+    margin-top: 0;
+    padding-top: 0;
+    padding-left: 24px;
+    border-top: 0;
+    border-left: 1px solid var(--dp-line);
+  }
+
+  .funding-block .org-logos {
+    margin-top: auto;
+  }
 }
 
 /* ---------- Logos: partner strip under the hero, operation and funding logos ----------
