@@ -281,16 +281,12 @@
               <h3>{{ s.funding[key ~ '_title'] }}</h3>
               <p>{{ s.funding[key ~ '_text'] }}</p>
               <ul class="org-logos">
-                {%- for org in s.funding[key ~ '_logos'] %}
-                {%- set lg = logos.get(org) %}
+                {%- for org in s.funding[key ~ '_orgs'] %}
+                {%- set lg = logos.get(org.logo) %}
                 <li class="logo-cell{% if not lg %} logo-missing{% endif %}">
-                  {%- if lg %}<img src="{{ lg.src }}" alt="{{ s.org_names[org] }}"{% if lg.org %} width="{{ lg.org[0] }}" height="{{ lg.org[1] }}"{% endif %} loading="lazy">{% else %}<span>{{ s.org_names[org] }}</span>{% endif %}
+                  {%- if lg %}<a class="logo-link" href="{{ org.url }}"><img src="{{ lg.src }}" alt="{{ s.org_names[org.logo] }}"{% if lg.org %} width="{{ lg.org[0] }}" height="{{ lg.org[1] }}"{% endif %} loading="lazy"></a>
+                  {%- else %}<a class="logo-link" href="{{ org.url }}"><span>{{ s.org_names[org.logo] }}</span></a>{% endif %}
                 </li>
-                {%- endfor %}
-              </ul>
-              <ul class="link-list">
-                {%- for link in s.funding[key ~ '_links'] %}
-                <li><a href="{{ link.url }}">{{ link.text }}</a></li>
                 {%- endfor %}
               </ul>
             </div>

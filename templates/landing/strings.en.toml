@@ -149,25 +149,24 @@ link_text = "Full legal notice (in German)"
 heading = "Operation and funding"
 operation_title = "Operation"
 operation_text = "The University of Bonn leads the consortium. Its Research Data Service Centre handles coordination, quality assurance and the operation of the repository. RWTH Aachen University develops the interfaces to DataStorage.nrw and Coscine.nrw."
-operation_links = [
-  { text = "Research Data Service Centre (German)", url = "https://www.forschungsdaten.uni-bonn.de" },
-  { text = "University of Bonn", url = "https://www.uni-bonn.de" },
-  { text = "RWTH Aachen University", url = "https://www.rwth-aachen.de" },
+operation_orgs = [
+  { logo = "uni-bonn", url = "https://www.uni-bonn.de" },
+  { logo = "sfd", url = "https://www.forschungsdaten.uni-bonn.de" },
+  { logo = "hrz", url = "https://www.hrz.uni-bonn.de/de" },
+  { logo = "ulb", url = "https://www.ulb.uni-bonn.de/de" },
+  { logo = "rwth-aachen", url = "https://www.rwth-aachen.de" },
 ]
 funding_title = "Funding"
 funding_text = "Funded by the Ministry of Culture and Science of the State of North Rhine-Westphalia as part of its digitalisation initiative."
-funding_links = [
-  { text = "Ministry of Culture and Science (German)", url = "https://www.mkw.nrw" },
+funding_orgs = [
+  { logo = "mkw", url = "https://www.mkw.nrw" },
 ]
 embedding_title = "Context"
 embedding_text = "Digitale Hochschule NRW accompanies the project as part of the statewide strategy for higher education. FDM.NRW provides organisational and conceptual support within the university network."
-embedding_links = [
-  { text = "Digitale Hochschule NRW", url = "https://www.dh.nrw" },
-  { text = "FDM.NRW", url = "https://www.fdm.nrw" },
+embedding_orgs = [
+  { logo = "dh-nrw", url = "https://www.dh.nrw" },
+  { logo = "fdm-nrw", url = "https://www.fdm.nrw" },
 ]
-operation_logos = ["uni-bonn", "sfd", "hrz", "ulb", "rwth-aachen"]
-funding_logos = ["mkw"]
-embedding_logos = ["dh-nrw", "fdm-nrw"]
 
 [guide]
 title = "User Guide"
@@ -200,7 +199,7 @@ build_thousands_separator = ","
 
 # Display names in the list, captions and alt texts. The map keeps the names from DP.svg.
 
-# Names for the operation and funding logos; shown as placeholders while a logo is missing.
+# Names of the linked operation and funding logos: alt text of the logo, link text while it is missing.
 [org_names]
 uni-bonn = "University of Bonn"
 sfd = "Research Data Service Centre"

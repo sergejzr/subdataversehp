@@ -149,25 +149,24 @@ link_text = "Vollständiges Impressum"
 heading = "Betrieb und Förderung"
 operation_title = "Betrieb"
 operation_text = "Die Universität Bonn leitet das Konsortium. Ihre Servicestelle Forschungsdaten übernimmt Koordination, Qualitätssicherung und den Betrieb des Repositoriums. Die RWTH Aachen entwickelt die Schnittstellen zu DataStorage.nrw und Coscine.nrw."
-operation_links = [
-  { text = "Servicestelle Forschungsdaten", url = "https://www.forschungsdaten.uni-bonn.de" },
-  { text = "Universität Bonn", url = "https://www.uni-bonn.de" },
-  { text = "RWTH Aachen", url = "https://www.rwth-aachen.de" },
+operation_orgs = [
+  { logo = "uni-bonn", url = "https://www.uni-bonn.de" },
+  { logo = "sfd", url = "https://www.forschungsdaten.uni-bonn.de" },
+  { logo = "hrz", url = "https://www.hrz.uni-bonn.de/de" },
+  { logo = "ulb", url = "https://www.ulb.uni-bonn.de/de" },
+  { logo = "rwth-aachen", url = "https://www.rwth-aachen.de" },
 ]
 funding_title = "Förderung"
 funding_text = "Gefördert vom Ministerium für Kultur und Wissenschaft des Landes Nordrhein-Westfalen im Rahmen der Digitalisierungsoffensive."
-funding_links = [
-  { text = "Ministerium für Kultur und Wissenschaft NRW", url = "https://www.mkw.nrw" },
+funding_orgs = [
+  { logo = "mkw", url = "https://www.mkw.nrw" },
 ]
 embedding_title = "Einbettung"
 embedding_text = "Die Digitale Hochschule NRW begleitet das Vorhaben im Rahmen der landesweiten Hochschulstrategie. FDM.NRW unterstützt organisatorisch und konzeptionell im Hochschulverbund."
-embedding_links = [
-  { text = "Digitale Hochschule NRW", url = "https://www.dh.nrw" },
-  { text = "FDM.NRW", url = "https://www.fdm.nrw" },
+embedding_orgs = [
+  { logo = "dh-nrw", url = "https://www.dh.nrw" },
+  { logo = "fdm-nrw", url = "https://www.fdm.nrw" },
 ]
-operation_logos = ["uni-bonn", "sfd", "hrz", "ulb", "rwth-aachen"]
-funding_logos = ["mkw"]
-embedding_logos = ["dh-nrw", "fdm-nrw"]
 
 [guide]
 title = "User Guide"
@@ -199,7 +198,7 @@ build_date_format = "%d.%m.%Y"
 build_thousands_separator = "."
 
 
-# Namen für Logos von Betrieb und Förderung; stehen als Platzhalter, solange das Logo fehlt.
+# Namen der verlinkten Logos von Betrieb und Förderung: Alt-Text des Logos, solange es fehlt Linktext.
 [org_names]
 uni-bonn = "Universität Bonn"
 sfd = "Servicestelle Forschungsdaten"

@@ -1090,14 +1090,7 @@ ol {
 }
 
 .funding-block p {
-  margin-bottom: 0.375rem;
-}
-
-.link-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.125rem 1.25rem;
-  font-size: 0.9375rem;
+  margin-bottom: 0.75rem;
 }
 
 /* ---------- Logos: partner strip under the hero, operation and funding logos ----------
@@ -1123,13 +1116,13 @@ ol {
 
 .logo-grid,
 .org-logos {
-  display: grid;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .logo-grid {
+  display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.75rem 1rem;
 }
@@ -1204,14 +1197,23 @@ ol {
   text-align: center;
 }
 
+/* Operation and funding logos: a wrapping row, left-aligned with the text,
+   each logo at its width/height attributes (flex: none, never squeezed). */
 .org-logos {
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.5rem 0.75rem;
-  margin: 0.5rem 0 0.625rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
 }
 
 .org-logos .logo-cell {
-  height: 64px;
+  flex: none;
+  height: auto;
+  padding: 0;
+}
+
+.org-logos .logo-missing {
+  padding: 4px 10px;
 }
 
 .org-logos .logo-cell img:not([width]) {

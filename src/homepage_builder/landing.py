@@ -52,6 +52,9 @@ LOGO_SUFFIXES = (".svg", ".png")
 # marks carry similar weight, then capped to the cell (max width, max height).
 LOGO_AREA = {"partner": 4400, "org": 4200}
 LOGO_MAX = {"partner": (150, 58), "org": (166, 48)}
+# Fixed display width per (kind, key), instead of area and caps:
+# the ministry name inside the MKW mark is unreadable at the area size.
+LOGO_WIDTH = {("org", "mkw"): 220}
 
 # The map is a size-optimized derivative of the shared DP.svg, made with SVGO
 # (a local dev tool) and checked in. The .sha256 file records which DP.svg it
@@ -311,10 +314,13 @@ def _intrinsic_size(path: Path) -> tuple[float, float] | None:
     return None
 
 
-def _logo_size(size: tuple[float, float] | None, kind: str) -> tuple[int, int] | None:
+def _logo_size(size: tuple[float, float] | None, kind: str, key: str) -> tuple[int, int] | None:
     if not size:
         return None
     ratio = size[0] / size[1]
+    if (kind, key) in LOGO_WIDTH:
+        width = LOGO_WIDTH[kind, key]
+        return width, round(width / ratio)
     width = (LOGO_AREA[kind] * ratio) ** 0.5
     height = width / ratio
     max_w, max_h = LOGO_MAX[kind]
@@ -337,8 +343,8 @@ def logo_files(logo_dir: Path) -> dict[str, dict]:
         size = _intrinsic_size(path)
         logos[path.stem] = {
             "src": f"{LANDING_BASE_PATH}assets/logos/{path.name}",
-            "partner": _logo_size(size, "partner"),
-            "org": _logo_size(size, "org"),
+            "partner": _logo_size(size, "partner", path.stem),
+            "org": _logo_size(size, "org", path.stem),
         }
     return logos
 
