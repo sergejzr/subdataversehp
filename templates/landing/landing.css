@@ -1175,22 +1175,25 @@ ol {
   }
 }
 
-@media (min-width: 1000px) {
+/* Six columns only from 1200px, where the wrap is at its max width and a column
+   is 166.67px: from 768px no partner logo is squeezed below its width attribute. */
+@media (min-width: 1200px) {
   .logo-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 1rem 1.5rem;
   }
 }
 
+/* 4px sides: the widest partner logo (158px, LOGO_MAX in landing.py) fits that column. */
 .logo-cell {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 84px;
-  padding: 8px 10px;
+  padding: 8px 4px;
 }
 
-/* Display sizes come from landing.py (same visible area per logo). */
+/* Display sizes come from landing.py (same visible area, optical factor, caps). */
 .logo-cell img {
   display: block;
   max-width: 100%;
@@ -1243,6 +1246,7 @@ ol {
 }
 
 .logo-missing {
+  padding-inline: 10px;
   border: 1px dashed var(--dp-line);
   border-radius: var(--dp-radius-small);
   font-size: 0.8125rem;

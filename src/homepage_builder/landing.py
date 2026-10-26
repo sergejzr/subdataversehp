@@ -51,8 +51,25 @@ LOGO_SUFFIXES = (".svg", ".png")
 # Logos are scaled to the same visible area (px^2) so that wide and compact
 # marks carry similar weight, then capped to the cell (max width, max height).
 LOGO_AREA = {"partner": 4400, "org": 4200}
-LOGO_MAX = {"partner": (150, 58), "org": (166, 48)}
-# Fixed display width per (kind, key), instead of area and caps:
+LOGO_MAX = {"partner": (158, 58), "org": (166, 48)}
+# Equal area still left a 3.4x spread in visual weight, so the area-based size
+# is multiplied by an optical factor per key before the caps. Measured
+# 2026-10-26 on a6832df: ink = sum of (1 - luma) over pixels with luma < 0.92,
+# each logo rendered at 2x at its displayed partner size; factor =
+# clamp((median / ink) ** (1/3), 0.85, 1.15), median over the partner strip;
+# kept only where |factor - 1| >= 0.05. Table: DESIGN-NOTES.md (landing-preview).
+LOGO_OPTICAL: dict[str, float] = {
+    "h-brs": 1.13,
+    "hs-bochum": 1.07,
+    "uni-koeln": 1.06,
+    "th-koeln": 0.95,
+    "uni-wuppertal": 0.87,
+    "uni-siegen": 0.87,
+    "hsbi": 0.85,
+    "uni-bielefeld": 0.85,
+    "rwth-aachen": 0.88,
+}
+# Fixed display width per (kind, key), instead of area, factor and caps:
 # the ministry name inside the MKW mark is unreadable at the area size.
 LOGO_WIDTH = {("org", "mkw"): 220}
 
@@ -321,7 +338,7 @@ def _logo_size(size: tuple[float, float] | None, kind: str, key: str) -> tuple[i
     if (kind, key) in LOGO_WIDTH:
         width = LOGO_WIDTH[kind, key]
         return width, round(width / ratio)
-    width = (LOGO_AREA[kind] * ratio) ** 0.5
+    width = (LOGO_AREA[kind] * ratio) ** 0.5 * LOGO_OPTICAL.get(key, 1.0)
     height = width / ratio
     max_w, max_h = LOGO_MAX[kind]
     scale = min(1.0, max_w / width, max_h / height)
