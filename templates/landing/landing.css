@@ -1211,8 +1211,25 @@ ol {
   border-radius: var(--dp-radius-small);
 }
 
-.logo-link:hover {
-  box-shadow: inset 0 0 0 1px var(--dp-line);
+/* Linked logos grow a little on hover and keyboard focus; unlinked ones stay still. */
+.logo-link img {
+  transition: transform 0.15s ease-out;
+}
+
+@media (hover: hover) {
+  .logo-link:hover img {
+    transform: scale(1.08);
+  }
+}
+
+.logo-link:focus-visible img {
+  transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-link img {
+    transition: none;
+  }
 }
 
 .logo-missing .logo-link {
@@ -1254,6 +1271,11 @@ ol {
 
 .org-logos .logo-cell img:not([width]) {
   max-height: 44px;
+}
+
+/* Grow to the right only, never past the text edge. */
+.org-logos .logo-link img {
+  transform-origin: left center;
 }
 
 /* ---------- 11 Footer ---------- */
