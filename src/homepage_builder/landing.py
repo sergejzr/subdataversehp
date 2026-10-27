@@ -6,6 +6,7 @@ Inputs live in templates/landing/:
   strings.<lang>.toml  all visible text
   news.toml            [[news]] entries
   status.csv           append-only log: label,status,datum
+  shots.toml           capture date per screenshot in assets/shots/ (label = date)
   map/DP.landing.svg   SVGO derivative of the shared map DP.svg (map/svgo.config.mjs)
 
 The caller wraps render_landing() so that bad landing data only skips the
@@ -288,17 +289,48 @@ def localized_partners(partners: list[dict], display_names: dict) -> list[dict]:
     return sorted(named, key=lambda p: _sort_key(p["name"]))
 
 
-def own_space_shots(labels: list[str], partners: list[dict], shots_dir: Path) -> list[dict]:
-    """Screenshot slots; src is None when the image is missing (neutral box)."""
+def read_shot_dates(path: Path) -> dict[str, date]:
+    """Capture date per screenshot label; a missing file means no dates.
+
+    Kept next to strings and news, not in assets/, so it is not published.
+    """
+    if not path.is_file():
+        return {}
+    with path.open("rb") as fh:
+        data = tomllib.load(fh)
+
+    errors = []
+    dates = {}
+    for label, value in data.items():
+        try:
+            dates[label] = _parse_iso_date(value)
+        except ValueError as exc:
+            errors.append(f"{label}: {exc}")
+    if errors:
+        raise LandingDataError(f"{path.name}: " + "; ".join(errors))
+    return dates
+
+
+def own_space_shots(
+    labels: list[str], partners: list[dict], shots_dir: Path, dates: dict[str, date], fmt: str
+) -> list[dict]:
+    """Screenshot slots; src is None when the image is missing (neutral box).
+
+    The capture date is shown only for an image that exists and has a date.
+    """
     by_label = {p["label"]: p for p in partners}
-    return [
-        {
+    slots = []
+    for label in labels:
+        exists = (shots_dir / f"{label}.webp").is_file()
+        day = dates.get(label) if exists else None
+        slots.append({
             "label": label,
             "name": by_label[label]["name"] if label in by_label else label,
-            "src": f"{LANDING_BASE_PATH}assets/shots/{label}.webp" if (shots_dir / f"{label}.webp").is_file() else None,
-        }
-        for label in labels
-    ]
+            "src": f"{LANDING_BASE_PATH}assets/shots/{label}.webp" if exists else None,
+            "date": day.strftime(fmt) if day else None,
+            "date_iso": day.isoformat() if day else None,
+        })
+    return slots
 
 
 _SVG_ROOT = re.compile(r"<svg\b[^>]*>", re.S)
@@ -641,7 +673,14 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
 
     rows = read_status_log(landing_dir / "status.csv", partners, external)
     news = read_news(landing_dir / "news.toml")
+    shot_dates = read_shot_dates(landing_dir / "shots.toml")
     strings = read_strings(landing_dir)
+    for lang in LANGUAGES:
+        progress = strings[lang]["roadmap"].get("current_progress")
+        if isinstance(progress, bool) or not isinstance(progress, (int, float)) or not 0 <= progress < 1:
+            raise LandingDataError(
+                f"strings.{lang}.toml: roadmap.current_progress must be a number from 0 to below 1, got {progress!r}"
+            )
 
     current: dict[str, str] = {}
     for row in rows:
@@ -749,7 +788,9 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             step_chart=step_chart_svg(steps, total, build_date, fmt, s["progress"]["chart_title"]),
             news=[{**item, "datum": item["datum"].strftime(fmt)} for item in news[:3]],
             partners=lang_partners,
-            shots=own_space_shots(s["own_space"]["shots"], lang_partners, landing_dir / "assets" / "shots"),
+            shots=own_space_shots(
+                s["own_space"]["shots"], lang_partners, landing_dir / "assets" / "shots", shot_dates, fmt
+            ),
             map_svg=map_markup,
             logos=logos,
             build_info=build_info_segments(

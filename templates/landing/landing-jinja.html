@@ -205,7 +205,12 @@
             {%- else %}
             <div class="shot-missing" role="img" aria-label="{{ s.own_space.shot_alt.format(name=shot.name) }}"></div>
             {%- endif %}
-            <figcaption>{{ shot.name }}</figcaption>
+            <figcaption>
+              <span class="shot-name">{{ shot.name }}</span>
+              {%- if shot.date %}
+              <span class="shot-date">{{ s.progress.stand }}: <time datetime="{{ shot.date_iso }}">{{ shot.date }}</time></span>
+              {%- endif %}
+            </figcaption>
           </figure>
           {%- endfor %}
         </div>
@@ -239,10 +244,13 @@
         <ol class="timeline">
           {%- for i in range(1, 5) %}
           {%- set current = (i == s.roadmap.current_phase) %}
-          <li class="phase{% if current %} is-current{% endif %}"{% if current %} aria-current="step"{% endif %}>
-            <p class="phase-when">{{ s.roadmap['phase_%d_when' % i] }}{% if current %} <span class="current-label">{{ s.roadmap.current_label }}</span>{% endif %}</p>
+          <li class="phase{% if i < s.roadmap.current_phase %} is-done{% elif current %} is-current{% endif %}"{% if current %} aria-current="step" style="--progress: {{ s.roadmap.current_progress }}"{% endif %}>
+            <p class="phase-when">{{ s.roadmap['phase_%d_when' % i] }}</p>
             <h3>{{ s.roadmap['phase_%d_title' % i] }}</h3>
-            <p>{{ s.roadmap['phase_%d_text' % i] }}</p>
+            <p class="phase-text">{{ s.roadmap['phase_%d_text' % i] }}</p>
+            {%- if current %}
+            <p class="now"><span class="current-label">{{ s.roadmap.current_label }}</span></p>
+            {%- endif %}
           </li>
           {%- endfor %}
         </ol>

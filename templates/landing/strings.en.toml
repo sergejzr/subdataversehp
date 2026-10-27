@@ -113,6 +113,8 @@ cta_link = "Write to us"
 heading = "Timeline"
 lead = "The state of North Rhine-Westphalia funds DataPublication.nrw from January 2026 to the end of 2029."
 current_phase = 2
+# Position of the arrow between the current and the next phase (0 to 1).
+current_progress = 0.8
 current_label = "We are here"
 phase_1_when = "2025"
 phase_1_title = "Concept and proposal"

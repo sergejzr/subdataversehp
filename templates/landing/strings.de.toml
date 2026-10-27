@@ -113,6 +113,8 @@ cta_link = "Schreiben Sie uns"
 heading = "Zeitplan"
 lead = "Das Land fördert DataPublication.nrw von Januar 2026 bis Ende 2029."
 current_phase = 2
+# Position of the arrow between the current and the next phase (0 to 1).
+current_progress = 0.8
 current_label = "Wir sind hier"
 phase_1_when = "2025"
 phase_1_title = "Konzept und Antrag"
