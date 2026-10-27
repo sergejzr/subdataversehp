@@ -235,41 +235,42 @@ def progress_steps(rows: list[dict]) -> list[dict]:
 def step_chart_svg(steps: list[dict], total: int, until: date, fmt: str, title: str) -> Markup:
     """Minimal step chart; the template shows the same data as a table.
 
-    The margins leave room for labels up to 22 user units (landing.css
-    enlarges them on narrow screens): the "0" label ends left of the axis,
-    the date labels sit fully below the "0" label, the end date is
-    right-aligned so the two dates never meet.
+    The SVG holds only the two axes and the step line and stretches to the
+    box CSS gives it (preserveAspectRatio="none"; landing.css keeps the
+    strokes at their pixel width). The four axis labels are HTML around it,
+    so they keep the page's text size however large the chart gets.
     """
     if not steps:
         return Markup("")
 
     width, height = 400, 200
-    left, right, top, bottom = 46, 8, 14, 42
     start = steps[0]["datum"]
     span = max((until - start).days, 1)
 
     def x(day: date) -> float:
-        return left + (day - start).days / span * (width - left - right)
+        return (day - start).days / span * width
 
     def y(n: int) -> float:
-        return top + (1 - n / total) * (height - top - bottom)
+        return (1 - n / total) * height
 
     path = [f"M{x(start):.1f},{y(0):.1f}"]
     for step in steps:
         path.append(f"H{x(step['datum']):.1f}V{y(step['n']):.1f}")
     path.append(f"H{x(max(until, steps[-1]['datum'])):.1f}")
 
-    base = height - bottom
+    esc = Markup.escape
     parts = [
-        f'<svg class="step-chart" viewBox="0 0 {width} {height}" role="img" aria-label="{Markup.escape(title)}">',
-        f'<line x1="{left}" y1="{base}" x2="{width - right}" y2="{base}" stroke="currentColor"/>',
-        f'<line x1="{left}" y1="{top}" x2="{left}" y2="{base}" stroke="currentColor"/>',
-        f'<text class="axis-y" x="{left - 8}" y="{y(0):.1f}" text-anchor="end" dominant-baseline="middle" font-size="14">0</text>',
-        f'<text class="axis-y" x="{left - 8}" y="{y(total):.1f}" text-anchor="end" dominant-baseline="middle" font-size="14">{total}</text>',
-        f'<text class="axis-x" x="{left}" y="{height - 4}" font-size="14">{start.strftime(fmt)}</text>',
-        f'<text class="axis-x" x="{width - right}" y="{height - 4}" text-anchor="end" font-size="14">{until.strftime(fmt)}</text>',
-        f'<path d="{"".join(path)}" fill="none" stroke="currentColor" stroke-width="3"/>',
+        f'<div class="step-chart" role="img" aria-label="{esc(title)}">',
+        f'<span class="axis-y axis-max" aria-hidden="true">{total}</span>',
+        '<span class="axis-y axis-min" aria-hidden="true">0</span>',
+        f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="none" aria-hidden="true" focusable="false">',
+        f'<line x1="0" y1="{height}" x2="{width}" y2="{height}"/>',
+        f'<line x1="0" y1="0" x2="0" y2="{height}"/>',
+        f'<path d="{"".join(path)}"/>',
         "</svg>",
+        f'<span class="axis-x" aria-hidden="true"><span>{esc(start.strftime(fmt))}</span>'
+        f"<span>{esc(until.strftime(fmt))}</span></span>",
+        "</div>",
     ]
     return Markup("".join(parts))
 
