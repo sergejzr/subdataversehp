@@ -5,9 +5,17 @@
 datum = 2026-10-06
 titel_de = "DataPublication.nrw beim TRA-Workshop in Bonn"
 titel_en = "DataPublication.nrw at the TRA workshop in Bonn"
-text_de = "Beim Workshop „Great Data, Great Science“ im Wissenschaftszentrum Bonn stellen wir den Dienst mit einem Poster vor."
-text_en = "At the workshop “Great Data, Great Science” at the Wissenschaftszentrum Bonn we present the service with a poster."
+text_de = "Beim Workshop „Great Data, Great Science“ im Wissenschaftszentrum Bonn waren wir vor Ort und haben mit Teilnehmenden über DataPublication.nrw gesprochen."
+text_en = "We attended the workshop “Great Data, Great Science” at the Wissenschaftszentrum Bonn and talked to participants about DataPublication.nrw."
 link = "https://indico.hiskp.uni-bonn.de/event/1445/"
+
+[[news]]
+datum = 2026-09-28
+titel_de = "DataPublication.nrw beim DSgG-Treffen in Köln"
+titel_en = "DataPublication.nrw at the DSgG meeting in Cologne"
+text_de = "Beim Community-Treffen „Data Stewardship in Germany“ an der Universität zu Köln waren wir dabei und haben uns mit Data Stewards anderer Einrichtungen über DataPublication.nrw ausgetauscht."
+text_en = "We took part in the “Data Stewardship in Germany” community meeting at the University of Cologne and talked to data stewards from other institutions about DataPublication.nrw."
+link = "https://fdm.uni-koeln.de/dsgg26/"
 
 [[news]]
 datum = 2026-09-22
