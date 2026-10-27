@@ -788,6 +788,8 @@ ol {
 }
 
 .partners li {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -795,6 +797,18 @@ ol {
   gap: 0.125rem 0.75rem;
   padding-block: 0.4rem;
   border-bottom: 1px solid var(--dp-line);
+}
+
+/* Highlight band behind a row (map <-> list hover, see .uni-grid below),
+   a little wider than the row so the text keeps its alignment. */
+.partners li::before {
+  content: "";
+  position: absolute;
+  inset: 0 -0.5rem;
+  z-index: -1;
+  border-radius: var(--dp-radius-small);
+  background: var(--row-bg, transparent);
+  transition: background-color 0.15s ease-out;
 }
 
 .partners a,
@@ -805,11 +819,13 @@ ol {
 /* Palette shared by map boxes, legend swatches and list badges. The page
    shows no per-university progress (landing.py, PARTNER): every consortium
    university looks the same, only "own repository" differs.
-   Text colour keeps >= 4.5:1 on its fill (DESIGN-NOTES.md). */
+   Map labels are small (about 12 px at 1440, 6 px on phones), so the text
+   pairs aim well above 4.5:1: white on Mittelblau 6.97:1 (APCA Lc 89),
+   Nachtblau on white 13.07:1; boxes against the land >= 6:1 (DESIGN-NOTES.md). */
 [data-status="partner"] {
-  --st-fill: var(--dp-cyanblau);
-  --st-stroke: var(--dp-nachtblau);
-  --st-text: var(--dp-nachtblau);
+  --st-fill: var(--dp-mittelblau);
+  --st-stroke: var(--dp-mittelblau);
+  --st-text: var(--dp-weiss);
 }
 
 [data-status="external"] {
@@ -818,34 +834,83 @@ ol {
   --st-text: var(--dp-nachtblau);
 }
 
-.dp-map rect[data-status],
-.swatch rect[data-status] {
-  fill: var(--st-fill);
-  stroke: var(--st-stroke);
+/* Map artwork, flat and in brand colours: classes from landingStyleHooks
+   (map/svgo.config.mjs), which also drops DP.svg's shadow and rounds the
+   partner boxes. Land a light Cyanblau tint, rivers cut out in white,
+   outline and dots in Nachtblau. */
+.dp-map .map-land {
+  fill: var(--dp-weiss);
+  fill: color-mix(in srgb, var(--dp-cyanblau) 10%, var(--dp-weiss));
+  fill-opacity: 1;
 }
 
-.dp-map rect[data-status] {
+.dp-map .map-border {
+  stroke: var(--dp-nachtblau);
+  stroke-opacity: 0.5;
+  stroke-width: 3;
+}
+
+.dp-map .map-river {
+  stroke: var(--dp-weiss);
+  stroke-opacity: 1;
+}
+
+.dp-map .map-marker {
+  fill: var(--dp-nachtblau);
+  stroke: var(--dp-weiss);
+  stroke-width: 5;
+  paint-order: stroke;
+}
+
+/* Map <-> list highlight without JavaScript: highlight_css() in landing.py
+   puts one rule into the page that sets --chip-fill, --chip-text and --row-bg
+   on the hovered or focused partner's chip and row. The values: */
+.uni-grid {
+  --hl-chip-fill: var(--dp-nachtblau);
+  --hl-chip-text: var(--dp-weiss);
+  --hl-row-bg: var(--dp-weiss);
+  --hl-row-bg: color-mix(in srgb, var(--dp-cyanblau) 15%, var(--dp-weiss));
+}
+
+.dp-map rect[data-status],
+.swatch rect[data-status] {
+  fill: var(--chip-fill, var(--st-fill));
+  stroke: var(--chip-fill, var(--st-stroke));
+}
+
+/* Not by colour alone: partner boxes are filled without outline, own
+   repository is white with an outline. */
+.dp-map rect[data-status="partner"],
+.swatch rect[data-status="partner"] {
+  stroke-width: 0;
+}
+
+.dp-map rect[data-status="external"] {
   stroke-width: 4;
 }
 
-.swatch rect[data-status] {
-  stroke-width: 2;
-}
-
-/* Not by colour alone: own repository = white fill and double-weight outline. */
-.dp-map rect[data-status="external"] {
-  stroke-width: 8;
-}
-
 .swatch rect[data-status="external"] {
-  stroke-width: 3.5;
+  stroke-width: 2;
 }
 
 /* Map labels: brand font and colour; sized so every label fits its box
    (DP.svg sets 37px Exo 2 inline). */
 .dp-map text {
-  fill: var(--dp-nachtblau);
+  fill: var(--chip-text, var(--st-text, var(--dp-nachtblau)));
   font-size: 34px;
+}
+
+.map-chip rect,
+.map-chip text {
+  transition: fill 0.15s ease-out, stroke 0.15s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-chip rect,
+  .map-chip text,
+  .partners li::before {
+    transition: none;
+  }
 }
 
 .dp-map text,

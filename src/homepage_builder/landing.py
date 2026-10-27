@@ -441,11 +441,12 @@ def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
     """The landing map derivative with landing-only edits on a copy of its text.
 
     Each partner box gets data-status (partner or external, not the progress
-    status), and each partner label is (re)linked by partner_href(): DP.svg
-    links some partners, the landing page only set-up spaces that exist in
-    this build and external repositories. Text-level edits because DP.svg
-    carries an invalid xmlns that lxml only reads in recover mode, and the
-    original page inlines that file verbatim.
+    status). Box and label become one chip with data-label (for
+    highlight_css), linked by partner_href(): DP.svg links some partners, the
+    landing page only set-up spaces that exist in this build and external
+    repositories; an unlinked chip is a plain group. Text-level edits because
+    DP.svg carries an invalid xmlns that lxml only reads in recover mode, and
+    the original page inlines that file verbatim.
     """
     by_label = {p["label"]: p for p in partners}
     labels = [p["label"] for p in partners]
@@ -473,30 +474,54 @@ def map_with_status(svg_text: str, partners: list[dict]) -> Markup:
         flags=re.DOTALL,
     )
 
-    # ... and link only where the landing rule says so.
-    marked_texts = []
+    # ... and wrap box and label into one chip, so the whole box is the link
+    # target. DP.svg puts every partner box directly before its label.
+    marked_chips = []
 
-    def relink(match: re.Match) -> str:
-        label = match.group(1)
+    def chip(match: re.Match) -> str:
+        label = match.group(2)
         if label not in by_label:
             return match.group(0)
-        marked_texts.append(label)
+        marked_chips.append(label)
         partner = by_label[label]
+        inner = match.group(1) + match.group(3)
+        # data-status here too: the label text takes its colour from it.
+        attrs = f'class="map-chip" data-label="{label}" data-status="{partner["shown"]}"'
         if not partner["href"]:
-            return match.group(0)
+            return f"<g {attrs}>{inner}</g>"
         href = Markup.escape(partner["href"])
         title = Markup.escape(partner["name"])
-        return f'<a xlink:href="{href}" xlink:title="{title}">{match.group(0)}</a>'
+        return f'<a {attrs} xlink:href="{href}" xlink:title="{title}">{inner}</a>'
 
     svg = re.sub(
-        r'<text\b[^>]*\binkscape:label="text_([a-z0-9-]+)"[^>]*>.*?</text>',
-        relink,
+        r'(<rect\b[^>]*\binkscape:label="rect_([a-z0-9-]+)"[^>]*/>)\s*'
+        r'(<text\b[^>]*\binkscape:label="text_\2"[^>]*>.*?</text>)',
+        chip,
         svg,
         flags=re.DOTALL,
     )
-    _check_all_marked("partner labels", marked_texts, labels)
+    _check_all_marked("partner chips (box directly before its label)", marked_chips, labels)
 
     return Markup(svg)
+
+
+def highlight_css(labels: list[str]) -> Markup:
+    """Hover/focus on a map chip or a list row highlights both, without JavaScript.
+
+    CSS cannot compare attribute values across elements, so there is one
+    selector per partner. The rule only switches custom properties on; how a
+    highlighted chip or row looks is defined in landing.css (--hl-*).
+    """
+    bad = [label for label in labels if not re.fullmatch(r"[a-z0-9-]+", label)]
+    if bad:
+        raise LandingDataError(f"labels unfit for a CSS selector: {', '.join(bad)}")
+    selectors = ",\n".join(
+        f'.uni-grid:has([data-label="{label}"]:is(:hover, :focus-within)) [data-label="{label}"]' for label in labels
+    )
+    return Markup(
+        f"{selectors} {{\n  --chip-fill: var(--hl-chip-fill);\n  --chip-text: var(--hl-chip-text);\n"
+        f"  --row-bg: var(--hl-row-bg);\n}}"
+    )
 
 
 def generator_revision(generator_root: Path) -> str | None:
@@ -719,6 +744,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
 
     urls = {lang: LANDING_BASE_PATH if lang == DEFAULT_LANGUAGE else f"{LANDING_BASE_PATH}{lang}/" for lang in LANGUAGES}
     map_markup = map_with_status(svg_text, partner_list)
+    highlight = highlight_css([p["label"] for p in partner_list])
     logos = logo_files(landing_dir / "assets" / "logos")
 
     # Plain pages (legal notice, privacy, accessibility; German) and the user
@@ -793,6 +819,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
                 s["own_space"]["shots"], lang_partners, landing_dir / "assets" / "shots", shot_dates, fmt
             ),
             map_svg=map_markup,
+            highlight_css=highlight,
             logos=logos,
             build_info=build_info_segments(
                 s["footer"]["build_info"], build_date, s["footer"]["build_date_format"], revision, size

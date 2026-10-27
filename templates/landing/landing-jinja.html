@@ -14,6 +14,9 @@
   <link rel="icon" href="{{ base }}assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="{{ base }}assets/fonts/open-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ css_href }}">
+  <style>
+{{ highlight_css }}
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main">{{ s.skip_link }}</a>
@@ -169,7 +172,7 @@
               <ul>
                 {%- for key in ['partner', 'external'] %}
                 <li>
-                  <svg class="swatch" viewBox="0 0 36 20" width="36" height="20" aria-hidden="true" focusable="false"><rect class="status-box" data-status="{{ key }}" x="2" y="2" width="32" height="16" rx="3"/></svg>
+                  <svg class="swatch" viewBox="0 0 36 20" width="36" height="20" aria-hidden="true" focusable="false"><rect class="status-box" data-status="{{ key }}" x="2" y="2" width="32" height="16" rx="8"/></svg>
                   <span><strong>{{ s.status[key] }}</strong> <span class="legend-desc">{{ s.status_desc[key] }}</span></span>
                 </li>
                 {%- endfor %}
@@ -180,7 +183,7 @@
             <h3>{{ s.universities.list_heading }}</h3>
             <ul class="partners">
               {%- for p in partners %}
-              <li data-status="{{ p.shown }}">
+              <li data-status="{{ p.shown }}" data-label="{{ p.label }}">
                 {%- if p.href %}<a href="{{ p.href }}">{{ p.name }}</a>{% else %}<span class="partner-name">{{ p.name }}</span>{% endif %}
                 {%- if p.shown == 'external' %}
                 <span class="badge" data-status="external">{{ s.status.external }}</span>
