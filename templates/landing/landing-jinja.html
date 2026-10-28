@@ -4,7 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- if noindex %}
   <meta name="robots" content="noindex, nofollow">
+  {%- endif %}
   <title>{{ s.title }}</title>
   <meta name="description" content="{{ s.description }}">
   {%- for alt_lang, href in urls.items() %}
@@ -218,6 +220,10 @@
           {%- endfor %}
         </div>
         <p class="note">{{ s.own_space.note }}</p>
+        <p class="cta">
+          <span>{{ s.own_space.demo_text }}</span>
+          <a class="button button-primary" href="{{ s.own_space.demo_url }}">{{ s.own_space.demo_link }}</a>
+        </p>
       </div>
     </section>
 

@@ -9,12 +9,12 @@ lang_switch = "English"
 lang_switch_lang = "en"
 
 [status]
-partner = "Partnerhochschule"
-external = "eigenes Repositorium"
+partner = "Teilnehmende Hochschule"
+external = "Konsortialpartner"
 
 [status_desc]
 partner = "Erhält einen eigenen Bereich bei DataPublication.nrw."
-external = "Die Hochschule betreibt ein eigenes Repositorium."
+external = "Trägt DataPublication.nrw und betreibt daneben ein eigenes Repositorium."
 
 [header]
 wordmark = "DataPublication.nrw"
@@ -22,7 +22,9 @@ nav_label = "Hauptnavigation"
 nav_about = "Dienst"
 nav_progress = "Stand"
 nav_universities = "Hochschulen"
-nav_guide = "User Guide"
+nav_docs = "Hilfe"
+# Dokumentation liegt nur auf dem Testsystem, deshalb absolut.
+docs_url = "https://datapublication-nrw-test.hrz.uni-bonn.de/docs/"
 nav_contact = "Kontakt"
 logo_alt = "DataPublication.nrw – zum Seitenanfang"
 
@@ -30,13 +32,13 @@ logo_alt = "DataPublication.nrw – zum Seitenanfang"
 eyebrow = "Connecting Research Data Across NRW"
 claim = "Das landesweite Repositorium für Forschungsdaten in NRW"
 explanation = "DataPublication.nrw ist ein gemeinsamer Dienst für die öffentlich-rechtlichen Hochschulen in Nordrhein-Westfalen. Forschende veröffentlichen hier ihre Daten mit DOI, gut beschrieben und dauerhaft zitierbar."
-status_line = "Technisch startbereit · Die Bereiche der Partnerhochschulen werden eingerichtet"
+status_line = "Technisch startbereit · Die Bereiche der teilnehmenden Hochschulen werden eingerichtet"
 counter = "{n} von {total} Bereichen eingerichtet"
 link_universities = "Beteiligte Hochschulen"
 link_contact = "Kontakt aufnehmen"
 
 [partners]
-heading = "Partnerhochschulen"
+heading = "Teilnehmende Hochschulen"
 
 [about]
 heading = "Was ist DataPublication.nrw?"
@@ -69,7 +71,7 @@ cite_text = "Der Datensatz erhält einen DOI und eine Zitationsempfehlung. Spät
 
 [progress]
 heading = "Stand des Aufbaus"
-lead = "Seit Januar 2026 entsteht DataPublication.nrw. Für jede Partnerhochschule richten wir einen eigenen Bereich ein, zunächst auf dem Testsystem. Nach dem Start des Produktivbetriebs zeigt diese Seite auch die veröffentlichten Datensätze."
+lead = "Seit Januar 2026 entsteht DataPublication.nrw. Für jede teilnehmende Hochschule richten wir einen eigenen Bereich ein, zunächst auf dem Testsystem. Nach dem Start des Produktivbetriebs zeigt diese Seite auch die veröffentlichten Datensätze."
 chart_title = "Eingerichtete Bereiche im Zeitverlauf"
 table_date = "Datum"
 table_count = "Eingerichtete Bereiche"
@@ -83,7 +85,7 @@ big_label = "Bereiche eingerichtet"
 
 [universities]
 heading = "Beteiligte Hochschulen"
-lead = "Zwölf Hochschulen haben schon in der Antragsphase ihre Beteiligung erklärt und gestalten Workflows, Policies und Austauschformate mit. Die Universität Bonn und die RWTH Aachen tragen den Dienst und betreiben daneben eigene Repositorien."
+lead = "Zwölf Hochschulen haben schon in der Antragsphase ihre Teilnahme erklärt und gestalten Workflows, Policies und Austauschformate mit. Die Konsortialpartner Universität Bonn und RWTH Aachen tragen den Dienst und betreiben daneben eigene Repositorien."
 map_label = "Karte der beteiligten Hochschulen in NRW"
 list_heading = "Alle Hochschulen"
 legend_heading = "Legende"
@@ -94,6 +96,10 @@ lead = "Jede Hochschule erhält bei DataPublication.nrw eine eigene Startseite m
 shots = ["fh-muenster", "hsbi", "fernuni-hagen"]
 shot_alt = "Startseite des Bereichs der {name} bei DataPublication.nrw"
 note = "Ansichten aus dem Testsystem"
+demo_text = "Ohne Konto an einer teilnehmenden Hochschule reinschauen?"
+demo_link = "Demo-Bereich ansehen"
+# Der Demo-Bereich bleibt dauerhaft auf dem Testsystem (keine echten DOIs), deshalb absolut.
+demo_url = "https://datapublication-nrw-test.hrz.uni-bonn.de/at/demo/"
 
 [onboarding]
 heading = "Mitmachen"
@@ -118,10 +124,10 @@ current_progress = 0.8
 current_label = "Wir sind hier"
 phase_1_when = "2025"
 phase_1_title = "Konzept und Antrag"
-phase_1_text = "Projektantrag in der Digitalisierungsoffensive des Landes, Letters of Intent der Partnerhochschulen."
+phase_1_text = "Projektantrag in der Digitalisierungsoffensive des Landes, Letters of Intent der teilnehmenden Hochschulen."
 phase_2_when = "2026"
 phase_2_title = "Aufbau"
-phase_2_text = "Test- und Produktivsystem, Anbindung an DataStorage.nrw, Qualitätsprozesse, Onboarding-Materialien und die Bereiche der Partnerhochschulen."
+phase_2_text = "Test- und Produktivsystem, Anbindung an DataStorage.nrw, Qualitätsprozesse, Onboarding-Materialien und die Bereiche der teilnehmenden Hochschulen."
 phase_3_when = "ab Produktivstart"
 phase_3_title = "Betrieb und Onboarding"
 phase_3_text = "Erste Veröffentlichungen, Begleitung der Hochschulen, Aufnahme weiterer Hochschulen."
@@ -185,7 +191,6 @@ todo_count = "Auf dieser Seite: {n}."
 draft_note = "Entwurf, noch nicht abgestimmt. Markierte Stellen sind offen."
 
 [footer]
-guide = "User Guide (englisch)"
 heading = "DataPublication.nrw"
 text = "Ein Landesdienst der Universität Bonn und der RWTH Aachen, gefördert vom Ministerium für Kultur und Wissenschaft des Landes Nordrhein-Westfalen."
 imprint = "Impressum"

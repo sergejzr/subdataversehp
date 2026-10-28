@@ -35,15 +35,20 @@ from markupsafe import Markup
 # Public URL of the landing page. Output goes to the same path below at/.
 # At go-live this becomes "/at/".
 LANDING_BASE_PATH = "/at/_vorschau/"
+# Robots meta on landing and plain pages. The preview is never indexed. After
+# go-live prod may be indexed; the test host stays out of every index through
+# its vhost-wide X-Robots-Tag (Ansible), independent of this flag. The guide
+# is a draft and always carries noindex (guide-jinja.html).
+NOINDEX = LANDING_BASE_PATH != "/at/"
 
 LANGUAGES = ("de", "en")
 DEFAULT_LANGUAGE = "de"
 STATUSES = ("eingerichtet", "abgenommen", "live")
 NO_STATUS = "none"
-EXTERNAL = "external"  # partner runs its own repository (unis.csv repourl)
+EXTERNAL = "external"  # consortium partner with its own repository (unis.csv repourl)
 # Shown on map and list instead of the progress status: per-university progress
 # stays internal (links, counter, chart) so the page never singles out who is
-# still waiting. Only "own repository" is a property worth showing.
+# still waiting. Only "consortium partner" is a property worth showing.
 PARTNER = "partner"
 STATUS_HEADER = ["label", "status", "datum"]
 NEWS_KEYS_REQUIRED = {"datum", "titel_de", "titel_en"}
@@ -682,6 +687,24 @@ def page_weight(html: str, loaded: list[str], landing_dir: Path) -> tuple[int, i
     return html_bytes + files, html_bytes, files
 
 
+def reserved_slugs(landing_dir: Path) -> set[str]:
+    """Directory names the landing writes next to the university folders once
+    LANDING_BASE_PATH is "/at/": language subfolders, assets, guide and one
+    folder per plain page."""
+    pages = {path.stem for path in (landing_dir / "pages").glob("*.md")}
+    return {"assets", "guide"} | (set(LANGUAGES) - {DEFAULT_LANGUAGE}) | pages
+
+
+def check_reserved_labels(labels: set[str], landing_dir: Path) -> None:
+    """Checked on every build, not only after go-live, so a clash shows up
+    while the landing is still a preview."""
+    clash = sorted(labels & reserved_slugs(landing_dir))
+    if clash:
+        raise LandingDataError(
+            f"unis.csv labels collide with landing paths below /at/: {', '.join(clash)}"
+        )
+
+
 def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     landing_dir = generator_root / "templates" / "landing"
     if not LANDING_BASE_PATH.startswith("/at/") or not LANDING_BASE_PATH.endswith("/"):
@@ -693,6 +716,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
 
     with unis_csv.open(encoding="utf-8-sig", newline="") as fh:
         registry = {row["label"].strip(): row for row in csv.DictReader(fh)}
+    check_reserved_labels(set(registry), landing_dir)
     names = {label: (row.get("Name") or "").strip() for label, row in registry.items()}
     repourls = {label: (row.get("repourl") or "").strip() for label, row in registry.items()}
     external = {label for label in partners if repourls.get(label)}
@@ -762,7 +786,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
         landing_guide = None
         print(f"[LANDING] Guide and pages skipped: {exc}", file=sys.stderr)
 
-    shared = {"urls": urls, "default_lang": DEFAULT_LANGUAGE, "css_href": css_href}
+    shared = {"urls": urls, "default_lang": DEFAULT_LANGUAGE, "css_href": css_href, "noindex": NOINDEX}
     plain = None
     legal_urls: dict[str, str] = {}
     guide = None
@@ -804,6 +828,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             urls=urls,
             default_lang=DEFAULT_LANGUAGE,
             css_href=css_href,
+            noindex=NOINDEX,
             guide_url=guide_url,
             alt_url=urls[s["lang_switch_lang"]],
             current="landing",

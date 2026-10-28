@@ -9,12 +9,12 @@ lang_switch = "Deutsch"
 lang_switch_lang = "de"
 
 [status]
-partner = "partner university"
-external = "own repository"
+partner = "participating university"
+external = "consortium partner"
 
 [status_desc]
 partner = "Gets a space of its own at DataPublication.nrw."
-external = "The university runs its own repository."
+external = "Runs DataPublication.nrw and also operates a repository of its own."
 
 [header]
 wordmark = "DataPublication.nrw"
@@ -22,7 +22,8 @@ nav_label = "Main navigation"
 nav_about = "Service"
 nav_progress = "Progress"
 nav_universities = "Universities"
-nav_guide = "User Guide"
+nav_docs = "Help"
+docs_url = "https://datapublication-nrw-test.hrz.uni-bonn.de/docs/en/"
 nav_contact = "Contact"
 logo_alt = "DataPublication.nrw – back to top"
 
@@ -30,13 +31,13 @@ logo_alt = "DataPublication.nrw – back to top"
 eyebrow = "Connecting Research Data Across NRW"
 claim = "The statewide research data repository for North Rhine-Westphalia"
 explanation = "DataPublication.nrw is a shared service for the public universities in North Rhine-Westphalia. Researchers publish their data here with a DOI, well described and citable for the long term."
-status_line = "Technically ready · Spaces for the partner universities are being set up"
+status_line = "Technically ready · Spaces for the participating universities are being set up"
 counter = "{n} of {total} university spaces set up"
-link_universities = "Participating universities"
+link_universities = "Universities involved"
 link_contact = "Get in touch"
 
 [partners]
-heading = "Partner universities"
+heading = "Participating universities"
 
 [about]
 heading = "What is DataPublication.nrw?"
@@ -69,7 +70,7 @@ cite_text = "The dataset receives a DOI and a suggested citation. Later changes 
 
 [progress]
 heading = "Progress"
-lead = "DataPublication.nrw has been under construction since January 2026. We are setting up a space for each partner university, first on the test system. Once the service is in production, this page will also show the published datasets."
+lead = "DataPublication.nrw has been under construction since January 2026. We are setting up a space for each participating university, first on the test system. Once the service is in production, this page will also show the published datasets."
 chart_title = "University spaces set up over time"
 table_date = "Date"
 table_count = "Spaces set up"
@@ -82,8 +83,8 @@ table_toggle = "Show data as a table"
 big_label = "spaces set up"
 
 [universities]
-heading = "Participating universities"
-lead = "Twelve universities declared their participation during the proposal phase and help shape workflows, policies and exchange formats. The University of Bonn and RWTH Aachen University run the service and also operate repositories of their own."
+heading = "Universities involved"
+lead = "Twelve universities declared their participation during the proposal phase and help shape workflows, policies and exchange formats. The consortium partners, the University of Bonn and RWTH Aachen University, run the service and also operate repositories of their own."
 map_label = "Map of the participating universities in North Rhine-Westphalia"
 list_heading = "All universities"
 legend_heading = "Key"
@@ -94,6 +95,9 @@ lead = "Each university gets its own start page at DataPublication.nrw, with the
 shots = ["fh-muenster", "hsbi", "fernuni-hagen"]
 shot_alt = "Start page of the {name} space at DataPublication.nrw"
 note = "Views from the test system"
+demo_text = "Not at a participating university but curious?"
+demo_link = "Explore the demo space"
+demo_url = "https://datapublication-nrw-test.hrz.uni-bonn.de/at/demo/"
 
 [onboarding]
 heading = "Get involved"
@@ -118,10 +122,10 @@ current_progress = 0.8
 current_label = "We are here"
 phase_1_when = "2025"
 phase_1_title = "Concept and proposal"
-phase_1_text = "Proposal within the state's digitalisation initiative, letters of intent from the partner universities."
+phase_1_text = "Proposal within the state's digitalisation initiative, letters of intent from the participating universities."
 phase_2_when = "2026"
 phase_2_title = "Build-up"
-phase_2_text = "Test and production systems, connection to DataStorage.nrw, quality processes, onboarding material and the spaces of the partner universities."
+phase_2_text = "Test and production systems, connection to DataStorage.nrw, quality processes, onboarding material and the spaces of the participating universities."
 phase_3_when = "From go-live"
 phase_3_title = "Operation and onboarding"
 phase_3_text = "First publications, support for the universities, onboarding of further universities."
@@ -185,7 +189,6 @@ todo_count = "On this page: {n}."
 draft_note = "Draft, not yet agreed. Highlighted passages are open points."
 
 [footer]
-guide = "User Guide"
 heading = "DataPublication.nrw"
 text = "A statewide service run by the University of Bonn and RWTH Aachen University, funded by the Ministry of Culture and Science of the State of North Rhine-Westphalia."
 imprint = "Legal notice"

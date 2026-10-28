@@ -1,4 +1,4 @@
-{#- Shared site footer. Context: s, guide_url, alt_url, legal_urls; build_info (landing only). #}
+{#- Shared site footer. Context: s, alt_url, legal_urls; build_info (landing only). #}
   <footer id="footer" class="band band-dark site-footer">
     <div class="wrap footer-inner">
       <div>
@@ -6,9 +6,6 @@
         <p>{{ s.footer.text }}</p>
       </div>
       <ul class="footer-links">
-        {%- if guide_url %}
-        <li><a href="{{ guide_url }}">{{ s.footer.guide }}</a></li>
-        {%- endif %}
         <li><a href="{{ legal_urls.get('impressum', s.footer.imprint_url) }}"{% if 'impressum' in legal_urls %} hreflang="de"{% endif %}>{{ s.footer.imprint }}</a></li>
         <li><a href="{{ legal_urls.get('datenschutz', '#footer') }}"{% if 'datenschutz' in legal_urls %} hreflang="de"{% endif %}>{{ s.footer.privacy }}</a></li>
         <li><a href="{{ legal_urls.get('barrierefreiheit', '#footer') }}"{% if 'barrierefreiheit' in legal_urls %} hreflang="de"{% endif %}>{{ s.footer.accessibility }}</a></li>

@@ -818,7 +818,7 @@ ol {
 
 /* Palette shared by map boxes, legend swatches and list badges. The page
    shows no per-university progress (landing.py, PARTNER): every consortium
-   university looks the same, only "own repository" differs.
+   university looks the same, only "consortium partner" differs.
    Map labels are small (about 12 px at 1440, 6 px on phones), so the text
    pairs aim well above 4.5:1: white on Mittelblau 6.97:1 (APCA Lc 89),
    Nachtblau on white 13.07:1; boxes against the land >= 6:1 (DESIGN-NOTES.md). */
