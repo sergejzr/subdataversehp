@@ -14,7 +14,7 @@ external = "Konsortialpartner"
 
 [status_desc]
 partner = "Erhält einen eigenen Bereich bei DataPublication.nrw."
-external = "Trägt DataPublication.nrw und betreibt daneben ein eigenes Repositorium."
+external = "Trägt den Dienst DataPublication.nrw."
 
 [header]
 wordmark = "DataPublication.nrw"
@@ -31,7 +31,7 @@ logo_alt = "DataPublication.nrw – zum Seitenanfang"
 [hero]
 eyebrow = "Connecting Research Data Across NRW"
 claim = "Das landesweite Repositorium für Forschungsdaten in NRW"
-explanation = "DataPublication.nrw ist ein gemeinsamer Dienst für die öffentlich-rechtlichen Hochschulen in Nordrhein-Westfalen. Forschende veröffentlichen hier ihre Daten mit DOI, gut beschrieben und dauerhaft zitierbar."
+explanation = "DataPublication.nrw ist ein gemeinsamer Dienst für die öffentlich-rechtlichen Hochschulen in Nordrhein-Westfalen. Forschende veröffentlichen hier ihre Daten mit DOI, kuratiert und dauerhaft zitierbar."
 status_line = "Technisch startbereit · Die Bereiche der teilnehmenden Hochschulen werden eingerichtet"
 counter = "{n} von {total} Bereichen eingerichtet"
 link_universities = "Beteiligte Hochschulen"
@@ -51,7 +51,7 @@ fact_2_text = "Grundlage ist Dataverse, eine international verbreitete Software 
 fact_3_title = "DOI für jeden Datensatz"
 fact_3_text = "Veröffentlichte Daten bleiben dauerhaft auffindbar und zitierbar."
 fact_4_title = "Vernetzt"
-fact_4_text = "Die Daten liegen in DataStorage.nrw. Über eine Schnittstelle, die gerade entsteht, lässt sich künftig direkt aus Coscine.nrw veröffentlichen. Weitere Dienste lassen sich über die API anbinden."
+fact_4_text = "Die Daten liegen in FDM:Storage.nrw. Über eine Schnittstelle, die gerade entsteht, lässt sich künftig direkt aus Coscine veröffentlichen. Weitere Dienste lassen sich über die API anbinden."
 fact_5_title = "Zentrale Qualitätssicherung"
 fact_5_text = "Formale Prüfung, Review und Betreuung der Forschenden organisiert das Team in Bonn, mit möglichst wenig Mehraufwand für die Hochschulen."
 fact_6_title = "Unterstützung aus Bonn"
@@ -59,7 +59,6 @@ fact_6_text = "Von der Einrichtung des Bereichs über Schulungen bis zum Support
 
 [workflow]
 heading = "Vom Datensatz zur Publikation"
-lead = "Die vier Kacheln im Logo stehen für die vier Schritte einer Veröffentlichung."
 collect = "Collect"
 describe = "Describe"
 publish = "Publish"
@@ -85,7 +84,7 @@ big_label = "Bereiche eingerichtet"
 
 [universities]
 heading = "Beteiligte Hochschulen"
-lead = "Zwölf Hochschulen haben schon in der Antragsphase ihre Teilnahme erklärt und gestalten Workflows, Policies und Austauschformate mit. Die Konsortialpartner Universität Bonn und RWTH Aachen tragen den Dienst und betreiben daneben eigene Repositorien."
+lead = "Zwölf Hochschulen haben schon in der Antragsphase ihre Teilnahme erklärt und gestalten Workflows, Policies und Austauschformate mit. Getragen wird der Dienst von den Konsortialpartnern Universität Bonn und RWTH Aachen."
 map_label = "Karte der beteiligten Hochschulen in NRW"
 list_heading = "Alle Hochschulen"
 legend_heading = "Legende"
@@ -105,13 +104,13 @@ demo_url = "https://datapublication-nrw-test.hrz.uni-bonn.de/at/demo/"
 heading = "Mitmachen"
 lead = "DataPublication.nrw steht allen öffentlich-rechtlichen Hochschulen in Nordrhein-Westfalen offen, auch solchen mit eigenem Repositorium, etwa über Schnittstellen oder gemeinsame Veröffentlichungen. Wie weitere Hochschulen formal dazukommen, stimmen wir derzeit ab. Melden Sie sich gern schon jetzt: Wir nehmen Ihren Bedarf auf und melden uns, sobald der Weg feststeht."
 step_1 = "Kontakt"
-step_1_text = "Sie schreiben uns, wer an Ihrer Hochschule für das Forschungsdatenmanagement zuständig ist und was Sie vorhaben."
+step_1_text = "Sie nennen uns eine Kontaktperson für DataPublication.nrw an Ihrer Hochschule und schreiben, was Sie vorhaben."
 step_2 = "Bedarf klären"
 step_2_text = "Gemeinsam klären wir, welche Daten veröffentlicht werden sollen und wie viel Beratung und Kuratierung Ihre Hochschule selbst übernimmt."
 step_3 = "Rahmen abstimmen"
 step_3_text = "Die rechtlichen und organisatorischen Grundlagen der Teilnahme, etwa Rollen und Verantwortlichkeiten, werden derzeit ausgearbeitet."
 step_4 = "Eigener Bereich"
-step_4_text = "Ihre Hochschule erhält einen Bereich in ihrem Erscheinungsbild, Ihr FDM-Team wird eingeführt und Forschende können veröffentlichen."
+step_4_text = "Ihre Hochschule erhält einen Bereich in ihrem Erscheinungsbild, Ihre Kontaktpersonen werden eingeführt und Forschende können veröffentlichen."
 cta_text = "Ihre Hochschule möchte dabei sein oder hat Fragen?"
 cta_link = "Schreiben Sie uns"
 
@@ -127,13 +126,13 @@ phase_1_title = "Konzept und Antrag"
 phase_1_text = "Projektantrag in der Digitalisierungsoffensive des Landes, Letters of Intent der teilnehmenden Hochschulen."
 phase_2_when = "2026"
 phase_2_title = "Aufbau"
-phase_2_text = "Test- und Produktivsystem, Anbindung an DataStorage.nrw, Qualitätsprozesse, Onboarding-Materialien und die Bereiche der teilnehmenden Hochschulen."
+phase_2_text = "Test- und Produktivsystem, Anbindung an FDM:Storage.nrw, Qualitätsprozesse, Onboarding-Materialien und die Bereiche der teilnehmenden Hochschulen."
 phase_3_when = "ab Produktivstart"
 phase_3_title = "Betrieb und Onboarding"
 phase_3_text = "Erste Veröffentlichungen, Begleitung der Hochschulen, Aufnahme weiterer Hochschulen."
 phase_4_when = "bis Ende 2029"
-phase_4_title = "Evaluation und Verstetigung"
-phase_4_text = "Externe Evaluation und ein Modell für den dauerhaften Betrieb."
+phase_4_title = "Evaluation und Etablierung"
+phase_4_text = "Externe Evaluation und Etablierung des Dienstes an den Hochschulen. Ab 2030 ist eine zweite Projektphase geplant."
 
 [contact]
 heading = "Kontakt"
@@ -156,7 +155,7 @@ link_text = "Vollständiges Impressum"
 [funding]
 heading = "Betrieb und Förderung"
 operation_title = "Betrieb"
-operation_text = "Die Universität Bonn leitet das Konsortium. Ihre Servicestelle Forschungsdaten übernimmt Koordination, Qualitätssicherung und den Betrieb des Repositoriums. Die RWTH Aachen entwickelt die Schnittstellen zu DataStorage.nrw und Coscine.nrw."
+operation_text = "Die Universität Bonn leitet das Konsortium. Ihre Servicestelle Forschungsdaten übernimmt Koordination, Qualitätssicherung und den Betrieb des Repositoriums. Die RWTH Aachen entwickelt die Schnittstelle zu Coscine."
 operation_orgs = [
   { logo = "uni-bonn", url = "https://www.uni-bonn.de" },
   { logo = "sfd", url = "https://www.forschungsdaten.uni-bonn.de" },
@@ -200,7 +199,7 @@ accessibility = "Barrierefreiheit"
 # Build-Zeile, Segmente durch " · " getrennt. landing.py setzt {size}, {date} und {hash} ein und
 # prüft die Aussagen beim Rendern; ohne git entfällt das {hash}-Segment. {size} ist das Gewicht
 # der fertigen Seite: HTML plus jede geladene Datei einmal, in kB (1000 Byte, aufgerundet).
-build_info = "Kein JavaScript · keine Cookies · keine externen Anfragen · Seitengewicht {size} · Build {date} · {hash}"
+build_info = "Kein JavaScript · keine Cookies · keine Drittanbieter · Seitengewicht {size} · Build {date} · {hash}"
 build_date_format = "%d.%m.%Y"
 build_thousands_separator = "."
 
