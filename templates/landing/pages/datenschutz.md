@@ -24,7 +24,7 @@ Beim Aufruf der Seiten speichert der Webserver in Protokolldateien: Zeitpunkt de
 
 Diese Website, also die Startseite von DataPublication.nrw mit ihren Unterseiten, setzt keine Cookies, verwendet keine Analyse- oder Trackingdienste und lädt keine Inhalte von fremden Servern. Schriften und Bilder werden von unserem eigenen Server ausgeliefert.
 
-Die Seiten des Repositoriums laden derzeit einzelne Dateien von fremden Servern: Programmbibliotheken von cdn.jsdelivr.net und Lizenzsymbole von licensebuttons.net. Dabei erhalten diese Anbieter Ihre IP-Adresse und die Angabe, welche Datei abgerufen wurde. Wir arbeiten daran, diese Dateien selbst bereitzustellen.
+Auch die Seiten des Repositoriums laden Schriften, Bilder und Programmbibliotheken von unserem eigenen Server. Eine Ausnahme ist das Eingabefeld für Personen beim Bearbeiten eines Datensatzes: Es fragt die öffentliche Schnittstelle von ORCID ab (pub.orcid.org), um passende ORCID-iDs vorzuschlagen. Dabei erhält ORCID Ihre IP-Adresse und den eingegebenen Suchbegriff.
 
 Rechtsgrundlage ist Art. 6 Abs. 1 Satz 1 lit. e, Abs. 3 Satz 1 lit. b DSGVO in Verbindung mit § 3 Abs. 1 DSG NRW und § 3 Abs. 1 HG NRW.
 
@@ -59,7 +59,7 @@ Die Dateien der Datensätze werden in DataStorage.nrw gespeichert, einem Landesd
 
 ## Wer Ihre Daten sieht
 
-Name, E-Mail-Adresse und Kennung sehen die Administratorinnen und Administratoren von DataPublication.nrw sowie die Verantwortlichen des Bereichs, in dem Sie arbeiten. Mitglieder eines Bereichs sehen, wer außerdem Mitglied ist. Abgesehen von den oben genannten Abrufen von fremden Servern übermitteln wir keine Daten in Drittländer. Veröffentlichte Metadaten sind jedoch weltweit öffentlich abrufbar.
+Name, E-Mail-Adresse und Kennung sehen die Administratorinnen und Administratoren von DataPublication.nrw sowie die Verantwortlichen des Bereichs, in dem Sie arbeiten. Mitglieder eines Bereichs sehen, wer außerdem Mitglied ist. Abgesehen von den Abfragen bei ORCID beim Bearbeiten von Personenangaben werden keine Daten in Drittländer übermittelt. Veröffentlichte Metadaten sind jedoch weltweit öffentlich abrufbar.
 
 ## Kontakt und Mailingliste
 
