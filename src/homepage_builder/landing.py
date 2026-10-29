@@ -33,9 +33,15 @@ from zoneinfo import ZoneInfo
 from jinja2 import Environment, FileSystemLoader, StrictUndefined, select_autoescape
 from markupsafe import Markup
 
+try:
+    from . import site_paths
+except ImportError:
+    import site_paths
+
 # Public URL of the landing page. Output goes to the same path below at/.
-# At go-live this becomes "/at/".
-LANDING_BASE_PATH = "/at/_vorschau/"
+# /at/ on dev and test, the hidden preview on prod until go-live
+# (site_paths.PROD_LIVE).
+LANDING_BASE_PATH = site_paths.landing_base_path()
 # Robots meta on landing and plain pages. The preview is never indexed. After
 # go-live prod may be indexed; the test host stays out of every index through
 # its vhost-wide X-Robots-Tag (Ansible), independent of this flag. The guide
@@ -51,7 +57,7 @@ STATUSES = ("eingerichtet", "abgenommen", "live")
 # spaces set up on the test system, prod only spaces that are live there, so
 # test spaces are never counted on prod. With nothing counted, counter and
 # chart are left out of the page.
-ENVIRONMENT_VARIABLE = "DAPU_SERVER_ENVIRONMENT"
+ENVIRONMENT_VARIABLE = site_paths.ENVIRONMENT_VARIABLE
 COUNTED_STATUSES = {"dev": set(STATUSES), "test": set(STATUSES), "prod": {"live"}}
 NO_STATUS = "none"
 EXTERNAL = "external"  # consortium partner with its own repository (unis.csv repourl)
@@ -103,6 +109,14 @@ BUILD_INFO_SEPARATOR = " · "
 # The page weight in the build line is part of the page it measures: render
 # until the shown value is the value of the page that shows it.
 WEIGHT_PASSES = 3
+# Once the landing is live, the old preview URLs (sent around in mails) forward to it.
+PREVIEW_REDIRECT = (
+    '<!DOCTYPE html>\n<html lang="de">\n<head>\n<meta charset="utf-8">\n'
+    '<meta name="robots" content="noindex">\n'
+    '<meta http-equiv="refresh" content="0; url={url}">\n'
+    '<link rel="canonical" href="{url}">\n<title>DataPublication.nrw</title>\n</head>\n'
+    '<body>\n<p><a href="{url}">DataPublication.nrw</a></p>\n</body>\n</html>\n'
+)
 
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _RECT_LABEL = re.compile(r'inkscape:label="rect_([a-z0-9-]+)"')
@@ -234,7 +248,7 @@ def read_strings(landing_dir: Path) -> dict[str, dict]:
 
 
 def server_environment() -> str:
-    value = os.environ.get(ENVIRONMENT_VARIABLE, "").strip().lower() or "prod"
+    value = site_paths.raw_environment() or "prod"
     if value not in COUNTED_STATUSES:
         raise LandingDataError(
             f"{ENVIRONMENT_VARIABLE} must be one of {', '.join(COUNTED_STATUSES)}, got {value!r}"
@@ -927,6 +941,13 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
         print(f"[LANDING] Guide written: {len(guide['pages'])} pages, {len(guide['warnings'])} warnings")
         for warning in guide["warnings"]:
             print(f"[LANDING] Guide warning: {warning}")
+
+    if LANDING_BASE_PATH != site_paths.PREVIEW_PATH:
+        preview_root = at_root / site_paths.PREVIEW_PATH.removeprefix("/at/")
+        for lang in LANGUAGES:
+            target = preview_root if lang == DEFAULT_LANGUAGE else preview_root / lang
+            target.mkdir(parents=True, exist_ok=True)
+            (target / "index.html").write_text(PREVIEW_REDIRECT.format(url=urls[lang]), encoding="utf-8")
 
     for lang, (weight, html_bytes, files) in weights.items():
         print(f"[LANDING] page weight {lang}: {weight} B (HTML {html_bytes} B + files {files} B)")

@@ -13,25 +13,28 @@ from jinja2 import ChoiceLoader, Environment, FileSystemLoader
 from markupsafe import Markup
 
 try:
+    from . import site_paths
     from .dataverse_api import DataverseAPI
     from .dataverse_template import FALLBACK_IMAGE_SRC, DataverseTemplate
     from .svg_manipulator import SVGLinkConfig, SVGManipulator
 except ImportError:
+    import site_paths
     from dataverse_api import DataverseAPI
     from dataverse_template import FALLBACK_IMAGE_SRC, DataverseTemplate
     from svg_manipulator import SVGLinkConfig, SVGManipulator
 
 
 # ---------------------------------------------------------------------------
-# The new landing page, the user guide and the legal pages are built under
-# landing.LANDING_BASE_PATH but stay unlinked until they are approved. Set
-# PUBLIC_SITE_BASE to their public path (ending in "/") once they are; until
-# then no university page links into that area. Not imported from
-# landing.py on purpose: a problem in the landing code must never break the
-# university pages.
+# The new landing page and the legal pages are built under
+# landing.LANDING_BASE_PATH. Where that is /at/ (dev, test, prod after
+# go-live; site_paths.py), the university pages link the legal pages.
+# landing.py is not imported on purpose: a problem in the landing code must
+# never break the university pages.
+# The old user guide is a draft and replaced by /docs/ (FS7), so the
+# university pages do not link it: GUIDE_BASE stays None.
 # ---------------------------------------------------------------------------
-PUBLIC_SITE_BASE: str | None = None
-GUIDE_BASE = f"{PUBLIC_SITE_BASE}guide/" if PUBLIC_SITE_BASE else None
+PUBLIC_SITE_BASE: str | None = site_paths.public_site_base()
+GUIDE_BASE: str | None = None
 
 # Sidebar box on every /at/<label>/ page ("Before your first dataset").
 # Audience: researchers of the university who are about to publish for the
