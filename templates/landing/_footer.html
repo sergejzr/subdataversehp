@@ -1,14 +1,19 @@
-{#- Shared site footer. Context: s, alt_url, legal_urls; build_info (landing only). #}
+{#- Shared site footer. Context: s, base, alt_url, legal_urls; page (plain pages and guide); build_info (landing only). #}
   <footer id="footer" class="band band-dark site-footer">
     <div class="wrap footer-inner">
       <div>
         <h2>{{ s.footer.heading }}</h2>
         <p>{{ s.footer.text }}</p>
+        {%- if has_asset('dataverse-project-logo.svg') %}
+        <p class="powered-by"><a href="https://dataverse.org/"><span lang="en">Powered by</span> <img src="{{ base }}assets/dataverse-project-logo.svg" alt="Dataverse" width="95" height="32"></a></p>
+        {%- endif %}
       </div>
       <ul class="footer-links">
         <li><a href="{{ legal_urls.get('impressum', s.footer.imprint_url) }}"{% if 'impressum' in legal_urls %} hreflang="de"{% endif %}>{{ s.footer.imprint }}</a></li>
         <li><a href="{{ legal_urls.get('datenschutz', '#footer') }}"{% if 'datenschutz' in legal_urls %} hreflang="de"{% endif %}>{{ s.footer.privacy }}</a></li>
         <li><a href="{{ legal_urls.get('barrierefreiheit', '#footer') }}"{% if 'barrierefreiheit' in legal_urls %} hreflang="de"{% endif %}>{{ s.footer.accessibility }}</a></li>
+        {%- set report_page = page.title if page is defined else s.title %}
+        <li><a href="mailto:{{ s.contact.email }}?subject={{ s.footer.report_subject | urlencode }}&amp;body={{ s.footer.report_body.format(page=report_page) | urlencode }}">{{ s.footer.report }}</a></li>
         {%- if alt_url %}
         <li><a href="{{ alt_url }}" hreflang="{{ s.lang_switch_lang }}" lang="{{ s.lang_switch_lang }}">{{ s.lang_switch }}</a></li>
         {%- endif %}

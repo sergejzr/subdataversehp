@@ -42,7 +42,9 @@
         <h1>{{ s.hero.claim }}</h1>
         <p class="hero-lead">{{ s.hero.explanation }}</p>
         <p class="hero-status">{{ s.hero.status_line }}</p>
+        {%- if n %}
         <p class="counter-hero">{{ (s.hero.counter | e).format(n=count_n, total=total) }}</p>
+        {%- endif %}
         <p class="hero-actions">
           <a class="button button-primary" href="#universities">{{ s.hero.link_universities }}</a>
           <a class="button button-ghost" href="#contact">{{ s.hero.link_contact }}</a>
@@ -73,7 +75,16 @@
           <div class="about-text">
             <p>{{ s.about.text_1 }}</p>
             <p>{{ s.about.text_2 }}</p>
+            {%- set services_link %}<a href="{{ s.about.services_url }}">{{ s.about.services_link }}</a>{% endset %}
+            {%- set concept_link %}<a href="{{ s.about.concept_url }}">{{ s.about.concept_link }}</a>{% endset %}
+            <p>{{ (s.about.text_3 | e).format(services=services_link, concept=concept_link) }}</p>
           </div>
+          {%- if has_asset('figures/fdm-landesdienste.webp') %}
+          <figure class="about-figure">
+            <img src="{{ base }}assets/figures/fdm-landesdienste.webp" width="1280" height="720" loading="lazy" alt="{{ s.about.figure_alt }}">
+            <figcaption>{{ s.about.figure_caption }} {{ s.about.figure_credit }} <a href="{{ s.about.figure_source_url }}">FDM.NRW</a>, <a href="{{ s.about.figure_license_url }}">CC BY 4.0</a></figcaption>
+          </figure>
+          {%- endif %}
           <ul class="facts">
             {%- for i in range(1, 7) %}
             <li class="card">
@@ -88,7 +99,10 @@
 
     <section id="workflow" class="band">
       <div class="wrap">
-        <h2>{{ s.workflow.heading }}</h2>
+        <div class="workflow-head">
+          <h2>{{ s.workflow.heading }}</h2>
+          <img class="workflow-mark" src="{{ base }}assets/dpnrw-bildmarke-farbe.svg" alt="" width="88" height="88">
+        </div>
         <ol class="tiles">
           {%- for key, icon in [('collect', 'sammeln-kachel-navy'), ('describe', 'beschreiben-kachel-navy'), ('publish', 'publizieren-kachel-cyan'), ('cite', 'zitieren-kachel-navy')] %}
           <li class="tile card">
@@ -107,7 +121,8 @@
       <div class="wrap">
         <h2>{{ s.progress.heading }}</h2>
         <p class="lead">{{ s.progress.lead }}</p>
-        <div class="progress-grid">
+        <div class="progress-grid{% if not n %} is-news-only{% endif %}">
+          {%- if n %}
           <div class="card progress-main">
             <p class="big-number"><span class="big-n">{{ n }}</span><span class="big-total">&#8239;/&#8239;{{ total }}</span> <span class="big-label">{{ s.progress.big_label }}</span></p>
             {%- if steps %}
@@ -133,6 +148,7 @@
             <p>{{ s.progress.no_steps }}</p>
             {%- endif %}
           </div>
+          {%- endif %}
           <div class="card progress-news">
             <h3>{{ s.progress.news_heading }}</h3>
             {%- if news %}
@@ -205,7 +221,7 @@
           {%- for shot in shots %}
           <figure class="shot">
             {%- if shot.src %}
-            <img src="{{ shot.src }}" width="960" height="600" loading="lazy" alt="{{ s.own_space.shot_alt.format(name=shot.name) }}">
+            <img src="{{ shot.src }}" width="960" height="720" loading="lazy" alt="{{ s.own_space.shot_alt.format(name=shot.name) }}">
             {%- else %}
             <div class="shot-missing" role="img" aria-label="{{ s.own_space.shot_alt.format(name=shot.name) }}"></div>
             {%- endif %}
@@ -267,28 +283,24 @@
 
     <div class="band">
       <div class="wrap contact-funding">
-        <div class="contact-col">
         <section id="contact" class="card">
           <h2>{{ s.contact.heading }}</h2>
           <p>{{ s.contact.lead }}</p>
           <dl class="contact-list">
-            <dt>{{ s.contact.email_label }}</dt>
-            <dd><a href="mailto:{{ s.contact.email }}">{{ s.contact.email }}</a></dd>
-            <dt>{{ s.contact.list_label }}</dt>
-            <dd>{{ s.contact.list_text }} <a href="{{ s.contact.list_url }}">{{ s.contact.list_link }}</a></dd>
+            <div>
+              <dt>{{ s.contact.email_label }}</dt>
+              <dd><a href="mailto:{{ s.contact.email }}">{{ s.contact.email }}</a></dd>
+            </div>
+            <div>
+              <dt>{{ s.contact.list_label }}</dt>
+              <dd>{{ s.contact.list_text }} <a href="{{ s.contact.list_url }}">{{ s.contact.list_link }}</a></dd>
+            </div>
+            <div id="imprint">
+              <dt>{{ s.imprint.heading }}</dt>
+              <dd><a href="{{ legal_urls.get('impressum', s.footer.imprint_url) }}"{% if 'impressum' in legal_urls %} hreflang="de"{% endif %}>{{ s.imprint.link_text }}</a></dd>
+            </div>
           </dl>
         </section>
-        <section id="imprint" class="card">
-          <h2>{{ s.imprint.heading }}</h2>
-          <dl class="contact-list">
-            <dt>{{ s.imprint.provider_label }}</dt>
-            <dd>{{ s.imprint.provider_text }}</dd>
-            <dt>{{ s.imprint.operator_label }}</dt>
-            <dd>{{ s.imprint.operator_text }}</dd>
-          </dl>
-          <p class="imprint-link"><a href="{{ legal_urls.get('impressum', s.footer.imprint_url) }}">{{ s.imprint.link_text }}</a></p>
-        </section>
-        </div>
         <section id="funding" class="card">
           <h2>{{ s.funding.heading }}</h2>
           <div class="funding">
@@ -296,15 +308,21 @@
             <div class="funding-block">
               <h3>{{ s.funding[key ~ '_title'] }}</h3>
               <p>{{ s.funding[key ~ '_text'] }}</p>
-              <ul class="org-logos">
-                {%- for org in s.funding[key ~ '_orgs'] %}
-                {%- set lg = logos.get(org.logo) %}
-                <li class="logo-cell{% if not lg %} logo-missing{% endif %}">
-                  {%- if lg %}<a class="logo-link" href="{{ org.url }}"><img src="{{ lg.src }}" alt="{{ s.org_names[org.logo] }}"{% if lg.org %} width="{{ lg.org[0] }}" height="{{ lg.org[1] }}"{% endif %} loading="lazy"></a>
-                  {%- else %}<a class="logo-link" href="{{ org.url }}"><span>{{ s.org_names[org.logo] }}</span></a>{% endif %}
-                </li>
+              <div class="org-panel">
+                {%- for row in s.funding[key ~ '_orgs'] %}
+                {%- set kind = 'org' if loop.first else 'org_minor' %}
+                <ul class="org-logos{% if not loop.first %} org-logos-minor{% endif %}">
+                  {%- for org in row %}
+                  {%- set lg = logos.get(org.logo) %}
+                  {%- set size = lg[kind] if lg else None %}
+                  <li class="logo-cell{% if not lg %} logo-missing{% endif %}">
+                    {%- if lg %}<a class="logo-link" href="{{ org.url }}"><img src="{{ lg.src }}" alt="{{ s.org_names[org.logo] }}"{% if size %} width="{{ size[0] }}" height="{{ size[1] }}"{% endif %} loading="lazy"></a>
+                    {%- else %}<a class="logo-link" href="{{ org.url }}"><span>{{ s.org_names[org.logo] }}</span></a>{% endif %}
+                  </li>
+                  {%- endfor %}
+                </ul>
                 {%- endfor %}
-              </ul>
+              </div>
             </div>
             {%- endfor %}
           </div>

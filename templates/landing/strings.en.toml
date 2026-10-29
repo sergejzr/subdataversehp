@@ -43,6 +43,18 @@ heading = "Participating universities"
 heading = "What is DataPublication.nrw?"
 text_1 = "Funders, publishers and universities increasingly expect research data to be published according to the FAIR principles. Building and running a repository of one's own takes a lot of effort, especially for small and medium-sized universities."
 text_2 = "DataPublication.nrw combines infrastructure, quality assurance and advice in one statewide service. Each university gets its own space in its own corporate design and stays visible with its data."
+# {services} and {concept} become links (services_*, concept_*).
+text_3 = "DataPublication.nrw is one of the {services} and part of the {concept}. Together they support researchers through the whole research data lifecycle."
+services_link = "statewide research data management services in NRW (in German)"
+services_url = "https://www.fdm.nrw/technische-fdm-landesdienste"
+concept_link = "state concept for research data management of DH.NRW (in German)"
+concept_url = "https://doi.org/10.5281/zenodo.11242682"
+# Figure from https://www.fdm.nrw/technische-fdm-landesdienste (FDL_LaDi_09-2026-1.png), CC BY 4.0, unchanged apart from size and format.
+figure_alt = "Circular diagram “Infrastructures for research data” (in German). In the centre the research data lifecycle with project planning, collection and generation, analysis and processing, access and discoverability, archiving, and publication and reuse. Around it the statewide services DataPublication.nrw, git.nrw, Coscine, FDM:Storage.nrw with DataStorage.nrw and DataArchive.nrw, JupyterHub.nrw, sciebo and LZV.nrw."
+figure_caption = "Statewide research data management services along the research data lifecycle."
+figure_credit = "Figure:"
+figure_source_url = "https://www.fdm.nrw/technische-fdm-landesdienste"
+figure_license_url = "https://creativecommons.org/licenses/by/4.0/deed.en"
 fact_1_title = "Statewide service"
 fact_1_text = "Funded by the state of North Rhine-Westphalia, run by the University of Bonn together with RWTH Aachen University."
 fact_2_title = "Open source"
@@ -144,33 +156,36 @@ list_url = "https://listen.uni-bonn.de/wws/info/datapublication-nrw-info"
 
 [imprint]
 heading = "Legal notice"
-provider_label = "Provider"
-provider_text = "Rheinische Friedrich-Wilhelms-Universität Bonn (University of Bonn), a corporation under public law, legally represented by the Rector"
-operator_label = "Operated by"
-operator_text = "Hochschulrechenzentrum (IT centre) of the University of Bonn, Wegelerstraße 6, 53115 Bonn, Germany"
-link_text = "Full legal notice (in German)"
+link_text = "Provider details (in German)"
 
 [funding]
 heading = "Operation and funding"
 operation_title = "Operation"
 operation_text = "The University of Bonn leads the consortium. Its Research Data Service Centre handles coordination, quality assurance and the operation of the repository. RWTH Aachen University develops the interface to Coscine."
+# Logos per group as rows: the first row at full size, later rows smaller (org_minor in landing.py).
 operation_orgs = [
-  { logo = "uni-bonn", url = "https://www.uni-bonn.de" },
-  { logo = "sfd", url = "https://www.forschungsdaten.uni-bonn.de" },
-  { logo = "hrz", url = "https://www.hrz.uni-bonn.de/de" },
-  { logo = "ulb", url = "https://www.ulb.uni-bonn.de/de" },
-  { logo = "rwth-aachen", url = "https://www.rwth-aachen.de" },
+  [
+    { logo = "uni-bonn", url = "https://www.uni-bonn.de" },
+    { logo = "rwth-aachen", url = "https://www.rwth-aachen.de" },
+  ],
+  [
+    { logo = "sfd", url = "https://www.forschungsdaten.uni-bonn.de" },
+    { logo = "hrz", url = "https://www.hrz.uni-bonn.de/de" },
+    { logo = "ulb", url = "https://www.ulb.uni-bonn.de/de" },
+  ],
 ]
 funding_title = "Funding"
 funding_text = "Funded by the Ministry of Culture and Science of the State of North Rhine-Westphalia as part of its digitalisation initiative."
 funding_orgs = [
-  { logo = "mkw", url = "https://www.mkw.nrw" },
+  [{ logo = "mkw", url = "https://www.mkw.nrw" }],
 ]
 embedding_title = "Context"
 embedding_text = "Digitale Hochschule NRW accompanies the project as part of the statewide strategy for higher education. FDM.NRW provides organisational and conceptual support within the university network."
 embedding_orgs = [
-  { logo = "dh-nrw", url = "https://www.dh.nrw" },
-  { logo = "fdm-nrw", url = "https://www.fdm.nrw" },
+  [
+    { logo = "dh-nrw", url = "https://www.dh.nrw" },
+    { logo = "fdm-nrw", url = "https://www.fdm.nrw" },
+  ],
 ]
 
 [guide]
@@ -194,6 +209,10 @@ imprint = "Legal notice"
 imprint_url = "https://www.hrz.uni-bonn.de/de/impressum"
 privacy = "Privacy"
 accessibility = "Accessibility"
+# Mail link for reporting barriers; {page} is the page title.
+report = "Report a barrier"
+report_subject = "Accessibility barrier: DataPublication.nrw"
+report_body = "Page: {page}\n\nWhat did you notice?\n"
 # Build line, segments separated by " · ". landing.py fills in {size}, {date} and {hash} and
 # checks the claims at render time; without git the {hash} segment is dropped. {size} is the
 # weight of the final page: HTML plus every loaded file once, in kB (1000 bytes, rounded up).

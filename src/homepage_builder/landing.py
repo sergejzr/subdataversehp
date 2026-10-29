@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import os
 import re
 import shutil
 import struct
@@ -44,6 +45,14 @@ NOINDEX = LANDING_BASE_PATH != "/at/"
 LANGUAGES = ("de", "en")
 DEFAULT_LANGUAGE = "de"
 STATUSES = ("eingerichtet", "abgenommen", "live")
+# Where this build runs, from build-homepage.sh (Ansible server_environment).
+# Unset means prod, so a build that does not know its host never shows test
+# numbers. Counter and chart count the statuses below: dev and test show the
+# spaces set up on the test system, prod only spaces that are live there, so
+# test spaces are never counted on prod. With nothing counted, counter and
+# chart are left out of the page.
+ENVIRONMENT_VARIABLE = "DAPU_SERVER_ENVIRONMENT"
+COUNTED_STATUSES = {"dev": set(STATUSES), "test": set(STATUSES), "prod": {"live"}}
 NO_STATUS = "none"
 EXTERNAL = "external"  # consortium partner with its own repository (unis.csv repourl)
 # Shown on map and list instead of the progress status: per-university progress
@@ -56,8 +65,9 @@ NEWS_KEYS_OPTIONAL = {"text_de", "text_en", "link"}
 LOGO_SUFFIXES = (".svg", ".png")
 # Logos are scaled to the same visible area (px^2) so that wide and compact
 # marks carry similar weight, then capped to the cell (max width, max height).
-LOGO_AREA = {"partner": 4400, "org": 4200}
-LOGO_MAX = {"partner": (158, 58), "org": (166, 48)}
+# org_minor: second and later logo rows of a funding group (strings: *_orgs).
+LOGO_AREA = {"partner": 4400, "org": 4200, "org_minor": 3200}
+LOGO_MAX = {"partner": (158, 58), "org": (166, 48), "org_minor": (140, 40)}
 # Equal area still left a 3.4x spread in visual weight, so the area-based size
 # is multiplied by an optical factor per key before the caps. Measured
 # 2026-10-26 on a6832df: ink = sum of (1 - luma) over pixels with luma < 0.92,
@@ -223,8 +233,17 @@ def read_strings(landing_dir: Path) -> dict[str, dict]:
     return strings
 
 
+def server_environment() -> str:
+    value = os.environ.get(ENVIRONMENT_VARIABLE, "").strip().lower() or "prod"
+    if value not in COUNTED_STATUSES:
+        raise LandingDataError(
+            f"{ENVIRONMENT_VARIABLE} must be one of {', '.join(COUNTED_STATUSES)}, got {value!r}"
+        )
+    return value
+
+
 def progress_steps(rows: list[dict]) -> list[dict]:
-    """Cumulative number of partners with any status, one step per date."""
+    """Cumulative number of partners, one step per date (the first row of each counts)."""
     first_seen: dict[str, date] = {}
     for row in rows:
         first_seen.setdefault(row["label"], row["datum"])
@@ -400,6 +419,7 @@ def logo_files(logo_dir: Path) -> dict[str, dict]:
             "src": f"{LANDING_BASE_PATH}assets/logos/{path.name}",
             "partner": _logo_size(size, "partner", path.stem),
             "org": _logo_size(size, "org", path.stem),
+            "org_minor": _logo_size(size, "org_minor", path.stem),
         }
     return logos
 
@@ -721,7 +741,9 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     repourls = {label: (row.get("repourl") or "").strip() for label, row in registry.items()}
     external = {label for label in partners if repourls.get(label)}
 
+    environment = server_environment()
     rows = read_status_log(landing_dir / "status.csv", partners, external)
+    counted_rows = [row for row in rows if row["status"] in COUNTED_STATUSES[environment]]
     news = read_news(landing_dir / "news.toml")
     shot_dates = read_shot_dates(landing_dir / "shots.toml")
     strings = read_strings(landing_dir)
@@ -739,10 +761,11 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     # "Stand" never runs ahead of the build: future-dated news stay listed but
     # do not count. The chart's x-axis likewise ends at the build date.
     build_date = datetime.now(BUILD_TIMEZONE).date()
-    dates = [row["datum"] for row in rows] + [item["datum"] for item in news]
+    dates = [row["datum"] for row in counted_rows] + [item["datum"] for item in news]
     past = [d for d in dates if d <= build_date]
     stand = max(past) if past else None
-    steps = progress_steps(rows)
+    steps = progress_steps(counted_rows)
+    counted = {row["label"] for row in counted_rows}
     # Partners with their own repository are shown but not counted.
     total = len(partners) - len(external)
 
@@ -763,6 +786,8 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
         undefined=StrictUndefined,
         keep_trailing_newline=True,
     )
+    # Optional assets (third-party figure, Dataverse logo): left out until the file is there.
+    env.globals["has_asset"] = lambda relative: (landing_dir / "assets" / relative).is_file()
     template = env.get_template("landing-jinja.html")
     css_href = f"{LANDING_BASE_PATH}landing.css"
 
@@ -833,7 +858,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             alt_url=urls[s["lang_switch_lang"]],
             current="landing",
             legal_urls=legal_urls,
-            n=len(current),
+            n=len(counted),
             total=total,
             stand=stand.strftime(fmt) if stand else s["progress"]["no_date"],
             steps=[{"datum": st["datum"].strftime(fmt), "n": st["n"]} for st in steps],
@@ -905,5 +930,8 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
 
     for lang, (weight, html_bytes, files) in weights.items():
         print(f"[LANDING] page weight {lang}: {weight} B (HTML {html_bytes} B + files {files} B)")
-    print(f"[LANDING] Preview written to {out_dir} ({len(current)}/{total} partners with status, Stand {stand})")
+    print(
+        f"[LANDING] Preview written to {out_dir} ({environment}: {len(counted)}/{total} partners counted, "
+        f"{len(current)} with status, Stand {stand})"
+    )
     return out_dir

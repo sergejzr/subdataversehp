@@ -44,6 +44,18 @@ heading = "Teilnehmende Hochschulen"
 heading = "Was ist DataPublication.nrw?"
 text_1 = "Förderer, Verlage und Hochschulen erwarten zunehmend, dass Forschungsdaten nach den FAIR-Prinzipien veröffentlicht werden. Ein eigenes Repositorium aufzubauen und zu betreiben ist aber aufwendig, gerade für kleinere und mittelgroße Hochschulen."
 text_2 = "DataPublication.nrw bündelt Technik, Qualitätssicherung und Beratung in einem Landesdienst. Jede Hochschule bekommt darin einen eigenen Bereich in ihrem Erscheinungsbild und bleibt mit ihren Daten sichtbar."
+# {services} and {concept} become links (services_*, concept_*).
+text_3 = "DataPublication.nrw ist einer der {services} und Teil des {concept}. Zusammen begleiten sie Forschende durch den ganzen Forschungsdatenlebenszyklus."
+services_link = "technischen FDM-Landesdienste in NRW"
+services_url = "https://www.fdm.nrw/technische-fdm-landesdienste"
+concept_link = "Landeskonzepts Forschungsdatenmanagement der DH.NRW"
+concept_url = "https://doi.org/10.5281/zenodo.11242682"
+# Figure from https://www.fdm.nrw/technische-fdm-landesdienste (FDL_LaDi_09-2026-1.png), CC BY 4.0, unchanged apart from size and format.
+figure_alt = "Kreisgrafik „Infrastrukturen für Forschungsdaten“. In der Mitte der Forschungsdatenlebenszyklus mit Planung des Projekts, Erhebung und Generierung, Analyse und Verarbeitung, Zugang und Durchsuchbarkeit, Archivierung sowie Publikation und Nachnutzung. Außen die Landesdienste DataPublication.nrw, git.nrw, Coscine, FDM:Storage.nrw mit DataStorage.nrw und DataArchive.nrw, JupyterHub.nrw, sciebo und LZV.nrw."
+figure_caption = "FDM-Landesdienste entlang des Forschungsdatenlebenszyklus."
+figure_credit = "Abbildung:"
+figure_source_url = "https://www.fdm.nrw/technische-fdm-landesdienste"
+figure_license_url = "https://creativecommons.org/licenses/by/4.0/deed.de"
 fact_1_title = "Landesdienst"
 fact_1_text = "Gefördert vom Land NRW, getragen von der Universität Bonn gemeinsam mit der RWTH Aachen."
 fact_2_title = "Open Source"
@@ -146,33 +158,36 @@ list_url = "https://listen.uni-bonn.de/wws/info/datapublication-nrw-info"
 
 [imprint]
 heading = "Impressum"
-provider_label = "Anbieter"
-provider_text = "Rheinische Friedrich-Wilhelms-Universität Bonn, Körperschaft des öffentlichen Rechts, gesetzlich vertreten durch den Rektor"
-operator_label = "Betrieb"
-operator_text = "Hochschulrechenzentrum der Universität Bonn, Wegelerstraße 6, 53115 Bonn"
-link_text = "Vollständiges Impressum"
+link_text = "Angaben zum Anbieter"
 
 [funding]
 heading = "Betrieb und Förderung"
 operation_title = "Betrieb"
 operation_text = "Die Universität Bonn leitet das Konsortium. Ihre Servicestelle Forschungsdaten übernimmt Koordination, Qualitätssicherung und den Betrieb des Repositoriums. Die RWTH Aachen entwickelt die Schnittstelle zu Coscine."
+# Logos per group as rows: the first row at full size, later rows smaller (org_minor in landing.py).
 operation_orgs = [
-  { logo = "uni-bonn", url = "https://www.uni-bonn.de" },
-  { logo = "sfd", url = "https://www.forschungsdaten.uni-bonn.de" },
-  { logo = "hrz", url = "https://www.hrz.uni-bonn.de/de" },
-  { logo = "ulb", url = "https://www.ulb.uni-bonn.de/de" },
-  { logo = "rwth-aachen", url = "https://www.rwth-aachen.de" },
+  [
+    { logo = "uni-bonn", url = "https://www.uni-bonn.de" },
+    { logo = "rwth-aachen", url = "https://www.rwth-aachen.de" },
+  ],
+  [
+    { logo = "sfd", url = "https://www.forschungsdaten.uni-bonn.de" },
+    { logo = "hrz", url = "https://www.hrz.uni-bonn.de/de" },
+    { logo = "ulb", url = "https://www.ulb.uni-bonn.de/de" },
+  ],
 ]
 funding_title = "Förderung"
 funding_text = "Gefördert vom Ministerium für Kultur und Wissenschaft des Landes Nordrhein-Westfalen im Rahmen der Digitalisierungsoffensive."
 funding_orgs = [
-  { logo = "mkw", url = "https://www.mkw.nrw" },
+  [{ logo = "mkw", url = "https://www.mkw.nrw" }],
 ]
 embedding_title = "Einbettung"
 embedding_text = "Die Digitale Hochschule NRW begleitet das Vorhaben im Rahmen der landesweiten Hochschulstrategie. FDM.NRW unterstützt organisatorisch und konzeptionell im Hochschulverbund."
 embedding_orgs = [
-  { logo = "dh-nrw", url = "https://www.dh.nrw" },
-  { logo = "fdm-nrw", url = "https://www.fdm.nrw" },
+  [
+    { logo = "dh-nrw", url = "https://www.dh.nrw" },
+    { logo = "fdm-nrw", url = "https://www.fdm.nrw" },
+  ],
 ]
 
 [guide]
@@ -196,6 +211,10 @@ imprint = "Impressum"
 imprint_url = "https://www.hrz.uni-bonn.de/de/impressum"
 privacy = "Datenschutz"
 accessibility = "Barrierefreiheit"
+# Mail link for reporting barriers; {page} is the page title.
+report = "Barriere melden"
+report_subject = "Barriere melden: DataPublication.nrw"
+report_body = "Seite: {page}\n\nWas ist Ihnen aufgefallen?\n"
 # Build-Zeile, Segmente durch " · " getrennt. landing.py setzt {size}, {date} und {hash} ein und
 # prüft die Aussagen beim Rendern; ohne git entfällt das {hash}-Segment. {size} ist das Gewicht
 # der fertigen Seite: HTML plus jede geladene Datei einmal, in kB (1000 Byte, aufgerundet).
