@@ -23,6 +23,9 @@
         <p class="draft-note">{{ s.pages.draft_note }} {{ s.guide.todo_count.format(n=todo_count) }}</p>
         {%- endif %}
         <h1>{{ page.title }}</h1>
+        {%- if provisional %}
+        <p class="provisional-note" role="note"><strong>{{ s.pages.provisional_title }}</strong> {{ s.pages.provisional_text }}</p>
+        {%- endif %}
         <div class="guide-content">
           {{ page.html }}
         </div>

@@ -1748,6 +1748,16 @@ ol {
   color: var(--dp-weiss);
 }
 
+/* "Vorläufige Fassung" on provisional plain pages: visible, but calmer than a warning. */
+.provisional-note {
+  margin: 0 0 1.5rem;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--dp-cyanblau);
+  border-radius: 0 var(--dp-radius-small) var(--dp-radius-small) 0;
+  background: color-mix(in srgb, var(--dp-cyanblau) 12%, var(--dp-weiss));
+  color: var(--dp-text);
+}
+
 .draft-note {
   margin-bottom: 1rem;
   padding: 0.5rem 0.75rem;

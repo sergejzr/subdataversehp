@@ -203,6 +203,9 @@ todo_count = "Auf dieser Seite: {n}."
 
 [pages]
 draft_note = "Entwurf, noch nicht abgestimmt. Markierte Stellen sind offen."
+# Pages with "provisional: true" in the front matter.
+provisional_title = "Vorläufige Fassung."
+provisional_text = "Diese Erklärung stimmen wir noch mit den zuständigen Stellen der Universität Bonn ab. Einzelne Angaben können sich ändern."
 
 [footer]
 heading = "DataPublication.nrw"

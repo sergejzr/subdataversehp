@@ -201,6 +201,9 @@ todo_count = "On this page: {n}."
 
 [pages]
 draft_note = "Draft, not yet agreed. Highlighted passages are open points."
+# Pages with "provisional: true" in the front matter.
+provisional_title = "Provisional version."
+provisional_text = "We are still agreeing this statement with the responsible offices of the University of Bonn. Some details may change."
 
 [footer]
 heading = "DataPublication.nrw"

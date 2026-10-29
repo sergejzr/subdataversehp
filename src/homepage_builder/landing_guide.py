@@ -36,6 +36,9 @@ REFERENCES = "references"
 
 _FRONT = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
 _TITLE = re.compile(r"^title:\s*(.+?)\s*$", re.M)
+# "provisional: true" in the front matter of a plain page shows the
+# "Vorläufige Fassung" notice (strings: pages.provisional_*).
+_PROVISIONAL = re.compile(r"^provisional:\s*true\s*$", re.M)
 _CODE = re.compile(r"(```.*?```|`[^`\n]*`)", re.S)
 _PLACEHOLDER = re.compile(r"<{1,2}(DP-[A-Z][A-Z-]*)>{1,2}")
 _TODO = re.compile(r"\[(DP-TODO-[A-Z]?\d+)\]")
@@ -221,10 +224,14 @@ def render_pages(env, pages_dir: Path, s: dict, context: dict, base_path: str) -
     template = env.get_template("page-jinja.html")
     out = {}
     for path in sources:
-        title, body = _title_and_body(path.read_text(encoding="utf-8"), path.stem)
+        source = path.read_text(encoding="utf-8")
+        title, body = _title_and_body(source, path.stem)
+        front = _FRONT.match(source)
+        provisional = bool(front and _PROVISIONAL.search(front.group(1)))
         html = converter.reset().convert(_outside_code(body, _markers))
         html = _TODO_QUOTE.sub(r'<blockquote class="todo-note">\1', html)
         out[f"{path.stem}/index.html"] = template.render(
+            provisional=provisional,
             **context,
             s=s,
             lang="de",

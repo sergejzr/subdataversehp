@@ -1,5 +1,6 @@
 ---
 title: Erklärung zur Barrierefreiheit
+provisional: true
 ---
 Die Universität Bonn ist bemüht, DataPublication.nrw im Einklang mit der Barrierefreie-Informationstechnik-Verordnung Nordrhein-Westfalen (BITV NRW) barrierefrei zugänglich zu machen. Diese Erklärung gilt für diese Website und für das Repositorium DataPublication.nrw.
 
@@ -17,18 +18,19 @@ Nach unserem derzeitigen Kenntnisstand sind folgende Inhalte nicht oder nur eing
 - Viele Abbildungen im User Guide haben noch keine aussagekräftigen Alternativtexte.
 - Die Beschriftungen der Karte auf dieser Website sind auf kleinen Bildschirmen sehr klein. Dieselben Angaben stehen als Liste unter der Karte.
 
-Wir arbeiten daran, diese Mängel zu beheben. [DP-TODO-R10]
+Wir arbeiten daran, diese Mängel zu beheben.
 
 ## Erstellung dieser Erklärung
 
-Diese Erklärung beruht auf einer Selbstbewertung. [DP-TODO-R11]
+Diese Erklärung wurde am 29. Oktober 2026 erstellt. Sie beruht auf einer Selbstbewertung durch das Team von DataPublication.nrw, unter anderem mit Kontrastmessungen am 1. und am 29. Oktober 2026.
 
 ## Feedback und Kontakt
 
-Sind Ihnen Mängel beim barrierefreien Zugang aufgefallen? Schreiben Sie uns an [info@datapublication.nrw](mailto:info@datapublication.nrw). Wir antworten in der Regel innerhalb von zwei Wochen.
+Sind Ihnen Mängel beim barrierefreien Zugang aufgefallen? Schreiben Sie uns an [info@datapublication.nrw](mailto:info@datapublication.nrw) oder nutzen Sie den Link „Barriere melden“ im Fuß jeder Seite.
 
 ## Durchsetzungsverfahren
 
-[DP-TODO-R12]
+Wenn Sie auf Ihre Mitteilung keine zufriedenstellende Antwort erhalten, können Sie sich an die Ombudsstelle für barrierefreie Informationstechnik des Landes Nordrhein-Westfalen wenden. Das Verfahren ist kostenlos, ein Rechtsbeistand ist nicht nötig. Grundlage sind §§ 10d und 10e BGG NRW und §§ 9 ff. BITV NRW.
 
-> **Offene Punkte (intern):** **[DP-TODO-R10]** Liste gegen den aktuellen Stand prüfen (Kontrast-Scan vom 01.10.2026, Header-Logos aus `stufe-1-umsetzung.md`). **[DP-TODO-R11]** Datum und Methode der Prüfung eintragen; die PR-Vorlage (4.5) beschreibt nur die Bewertung von Dataverse allgemein. **[DP-TODO-R12]** Zuständige Stellen in NRW (Ombudsstelle, Überwachungsstelle) mit der Beauftragten für Barrierefreiheit der Universität abstimmen und hier eintragen. Antwortfrist „zwei Wochen“ bestätigen.
+E-Mail: [ombudsstelle-barrierefreie-it@mags.nrw.de](mailto:ombudsstelle-barrierefreie-it@mags.nrw.de)  
+Internet: [www.mags.nrw/ombudsstelle-barrierefreie-informationstechnik](https://www.mags.nrw/ombudsstelle-barrierefreie-informationstechnik)
