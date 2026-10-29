@@ -17,7 +17,7 @@ Hochschulrechenzentrum (HRZ) der Universität Bonn, Servicestelle Forschungsdate
 Wegelerstraße 6  
 53115 Bonn  
 E-Mail: [info@datapublication.nrw](mailto:info@datapublication.nrw)  
-Telefon: [DP-TODO-R13]
+Telefon: +49 228 73-2751 (IT-Helpdesk des HRZ)
 
 ## Zuständige Aufsichtsbehörde
 
@@ -31,6 +31,6 @@ DE 122119125 (nach § 27 a Umsatzsteuergesetz)
 
 ## Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV
 
-[DP-TODO-R02]
-
-> **[DP-TODO-R02]** Inhaltlich verantwortliche Person mit Anschrift festlegen. Pflicht nur für journalistisch-redaktionelle Inhalte, mit den Neuigkeiten auf der Startseite eher ja. Mit Justitiariat bzw. Webteam klären. **[DP-TODO-R13]** Telefonnummer für eine schnelle Kontaktaufnahme neben der E-Mail (§ 5 Abs. 1 Nr. 2 DDG), etwa die des HRZ-Servicedesks. **[DP-TODO-R14]** Klären, ob Bildnachweise (Titelbilder, Screenshots) und Logo-Freigaben hier oder im Fußbereich der Bereiche stehen.
+Hochschulrechenzentrum der Universität Bonn, vertreten durch den Direktor Dr. Rainer Bockholt  
+Wegelerstraße 6  
+53115 Bonn

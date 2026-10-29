@@ -19,7 +19,9 @@
   <main id="main" class="band">
     <div class="wrap">
       <article class="plain-article">
-        <p class="draft-note">{{ s.pages.draft_note }}{% if todo_count %} {{ s.guide.todo_count.format(n=todo_count) }}{% endif %}</p>
+        {%- if todo_count %}
+        <p class="draft-note">{{ s.pages.draft_note }} {{ s.guide.todo_count.format(n=todo_count) }}</p>
+        {%- endif %}
         <h1>{{ page.title }}</h1>
         <div class="guide-content">
           {{ page.html }}
