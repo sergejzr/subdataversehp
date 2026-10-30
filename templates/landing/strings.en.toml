@@ -103,9 +103,15 @@ legend_heading = "Key"
 [own_space]
 heading = "A space of its own for every university"
 lead = "Each university gets its own start page at DataPublication.nrw, with the logo, colours and typeface of its corporate design. Faculties, institutes, projects or thematic communities can have sub-spaces of their own below it."
-shots = ["fh-muenster", "hsbi", "fernuni-hagen"]
-shot_alt = "Start page of the {name} space at DataPublication.nrw"
-note = "Views from the test system"
+# Which areas the gallery shows, and in which state, is set in shots.toml.
+full_page = "Full page (image, {size})"
+pending = "View to follow"
+show_all = "Show all {n} spaces"
+show_less = "Show less"
+demo_name = "Demo space"
+demo_open = "Open the space"
+note = "Views from the test system, work in progress as of {date}"
+note_range = "Views from the test system, work in progress from {first} to {last}"
 demo_text = "Not at a participating university but curious?"
 demo_link = "Explore the demo space"
 demo_url = "https://datapublication-nrw-test.hrz.uni-bonn.de/at/demo/"

@@ -6,7 +6,7 @@ Inputs live in templates/landing/:
   strings.<lang>.toml  all visible text
   news.toml            [[news]] entries
   status.csv           append-only log: label,status,datum
-  shots.toml           capture date per screenshot in assets/shots/ (label = date)
+  shots.toml           showcase gallery: areas, release state, capture date
   map/DP.landing.svg   SVGO derivative of the shared map DP.svg (map/svgo.config.mjs)
 
 The caller wraps render_landing() so that bad landing data only skips the
@@ -124,6 +124,12 @@ PREVIEW_REDIRECT = (
 _ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _RECT_LABEL = re.compile(r'inkscape:label="rect_([a-z0-9-]+)"')
 _TEXT_LABEL = re.compile(r'inkscape:label="text_([a-z0-9-]+)"')
+
+# Showcase gallery in "own space": one table per area in shots.toml, files in
+# assets/shots/ (<label>.webp thumbnail, <label>-full.webp full page).
+SHOT_KEYS = {"released", "captured", "blurred"}
+SHOTS_DIR = "assets/shots"
+DEMO_LABEL = "demo"
 
 
 class LandingDataError(ValueError):
@@ -331,9 +337,11 @@ def localized_partners(partners: list[dict], display_names: dict) -> list[dict]:
     return sorted(named, key=lambda p: _sort_key(p["name"]))
 
 
-def read_shot_dates(path: Path) -> dict[str, date]:
-    """Capture date per screenshot label; a missing file means no dates.
+def read_shots(path: Path) -> dict[str, dict]:
+    """Gallery entries from shots.toml, one table per area label.
 
+    released (required): false while the area has not agreed; shots.sh then
+    blurs on capture. captured and blurred are written by shots.sh.
     Kept next to strings and news, not in assets/, so it is not published.
     """
     if not path.is_file():
@@ -342,37 +350,97 @@ def read_shot_dates(path: Path) -> dict[str, date]:
         data = tomllib.load(fh)
 
     errors = []
-    dates = {}
-    for label, value in data.items():
-        try:
-            dates[label] = _parse_iso_date(value)
-        except ValueError as exc:
-            errors.append(f"{label}: {exc}")
+    shots = {}
+    for label, entry in data.items():
+        if not isinstance(entry, dict):
+            errors.append(f"{label}: expected a table [{label}]")
+            continue
+        unknown = set(entry) - SHOT_KEYS
+        if unknown:
+            errors.append(f"{label}: unknown keys {', '.join(sorted(unknown))}")
+        released, blurred = entry.get("released"), entry.get("blurred", False)
+        if not isinstance(released, bool):
+            errors.append(f"{label}: released must be true or false")
+        if not isinstance(blurred, bool):
+            errors.append(f"{label}: blurred must be true or false")
+        captured = None
+        if "captured" in entry:
+            try:
+                captured = _parse_iso_date(entry["captured"])
+            except ValueError as exc:
+                errors.append(f"{label}: captured: {exc}")
+        shots[label] = {"released": released, "blurred": blurred, "captured": captured}
     if errors:
         raise LandingDataError(f"{path.name}: " + "; ".join(errors))
-    return dates
+    return shots
+
+
+def hidden_shots(shots: dict[str, dict]) -> set[str]:
+    """Areas whose files must not be shown or published.
+
+    An area that has not agreed is shown blurred only. Without blurred = true
+    its tile gets the empty box and its files stay out of the output.
+    """
+    hidden = {label for label, entry in shots.items() if not entry["released"] and not entry["blurred"]}
+    for label in sorted(hidden):
+        print(f"[LANDING] Warning: {label} is not released and not blurred, its screenshots are left out", file=sys.stderr)
+    return hidden
+
+
+def _shot_url(path: Path) -> str:
+    """Root-relative URL with a content hash. A new capture is a new URL, so a
+    browser that cached the old image (no Cache-Control under /at/) fetches it."""
+    digest = hashlib.sha256(path.read_bytes()).hexdigest()[:8]
+    return f"{LANDING_BASE_PATH}{SHOTS_DIR}/{path.name}?v={digest}"
 
 
 def own_space_shots(
-    labels: list[str], partners: list[dict], shots_dir: Path, dates: dict[str, date], fmt: str
-) -> list[dict]:
-    """Screenshot slots; src is None when the image is missing (neutral box).
+    shots: dict[str, dict], hidden: set[str], partners: list[dict], shots_dir: Path, s: dict
+) -> tuple[list[dict], Markup | None]:
+    """Gallery tiles sorted by display name with the demo area last, and the date note.
 
-    The capture date is shown only for an image that exists and has a date.
+    A released area links its full-page image (linked, not loaded, so not part
+    of the page weight). An area that has not agreed has no link. The demo area
+    links to itself (FS6). A missing or hidden image leaves the empty box.
     """
+    strings = s["own_space"]
+    separator = s["footer"]["build_thousands_separator"]
     by_label = {p["label"]: p for p in partners}
-    slots = []
-    for label in labels:
-        exists = (shots_dir / f"{label}.webp").is_file()
-        day = dates.get(label) if exists else None
-        slots.append({
-            "label": label,
-            "name": by_label[label]["name"] if label in by_label else label,
-            "src": f"{LANDING_BASE_PATH}assets/shots/{label}.webp" if exists else None,
-            "date": day.strftime(fmt) if day else None,
-            "date_iso": day.isoformat() if day else None,
-        })
-    return slots
+    tiles, dates = [], []
+    for label, entry in shots.items():
+        demo = label == DEMO_LABEL
+        thumb, full = shots_dir / f"{label}.webp", shots_dir / f"{label}-full.webp"
+        has_thumb = label not in hidden and thumb.is_file()
+        tile = {
+            "name": strings["demo_name"] if demo else by_label[label]["name"],
+            "src": _shot_url(thumb) if has_thumb else None,
+            "href": None,
+            "more": None,
+            "demo": demo,
+        }
+        if has_thumb and entry["captured"]:
+            dates.append(entry["captured"])
+        if demo:
+            tile["href"], tile["more"] = strings["demo_url"], strings["demo_open"]
+        elif not entry["released"]:
+            tile["more"] = strings["pending"]
+        elif has_thumb and full.is_file():
+            tile["href"] = _shot_url(full)
+            tile["more"] = strings["full_page"].format(size=kilobytes(full.stat().st_size, separator))
+        tiles.append(tile)
+    tiles.sort(key=lambda t: (t["demo"], _sort_key(t["name"])))
+
+    if not dates:
+        return tiles, None
+    fmt = s["date_format"]
+
+    def when(day: date) -> Markup:
+        return Markup('<time datetime="{}">{}</time>').format(day.isoformat(), day.strftime(fmt))
+
+    first, last = min(dates), max(dates)
+    if first == last:
+        return tiles, Markup.escape(strings["note"]).format(date=when(first))
+    return tiles, Markup.escape(strings["note_range"]).format(first=when(first), last=when(last))
 
 
 _SVG_ROOT = re.compile(r"<svg\b[^>]*>", re.S)
@@ -762,7 +830,17 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     rows = read_status_log(landing_dir / "status.csv", partners, external)
     counted_rows = [row for row in rows if row["status"] in COUNTED_STATUSES[environment]]
     news = read_news(landing_dir / "news.toml")
-    shot_dates = read_shot_dates(landing_dir / "shots.toml")
+    shots = read_shots(landing_dir / "shots.toml")
+    unknown_shots = sorted(set(shots) - (set(partners) - external) - {DEMO_LABEL})
+    if unknown_shots:
+        raise LandingDataError(
+            f"shots.toml: not a participating university with an area, nor {DEMO_LABEL}: {', '.join(unknown_shots)}"
+        )
+    hidden = hidden_shots(shots)
+    # The running band starts at another tile each build day, so no area
+    # is always first (the list itself stays alphabetical).
+    build_day = datetime.now(BUILD_TIMEZONE).date()
+    shot_start = build_day.toordinal() % len(shots) if shots else 0
     strings = read_strings(landing_dir)
     for lang in LANGUAGES:
         progress = strings[lang]["roadmap"].get("current_progress")
@@ -865,6 +943,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
         s = strings[lang]
         fmt = s["date_format"]
         lang_partners = localized_partners(partner_list, s.get("names", {}))
+        shot_tiles, shot_note = own_space_shots(shots, hidden, lang_partners, landing_dir / SHOTS_DIR, s)
         return template.render(
             lang=lang,
             s=s,
@@ -885,9 +964,9 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             step_chart=step_chart_svg(steps, total, build_date, fmt, s["progress"]["chart_title"]),
             news=[{**item, "datum": item["datum"].strftime(fmt)} for item in news[:3]],
             partners=lang_partners,
-            shots=own_space_shots(
-                s["own_space"]["shots"], lang_partners, landing_dir / "assets" / "shots", shot_dates, fmt
-            ),
+            shots=shot_tiles,
+            shot_note=shot_note,
+            shot_start=shot_start,
             map_svg=map_markup,
             highlight_css=highlight,
             logos=logos,
@@ -925,7 +1004,14 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     out_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(landing_dir / "landing.css", out_dir / "landing.css")
     if (landing_dir / "assets").is_dir():
-        shutil.copytree(landing_dir / "assets", out_dir / "assets", dirs_exist_ok=True)
+        shots_dir = landing_dir / SHOTS_DIR
+        published = {f"{label}{suffix}.webp" for label in shots if label not in hidden for suffix in ("", "-full")}
+
+        def unpublished_shots(directory: str, names: list[str]) -> set[str]:
+            # Only the gallery's own files: nothing of a hidden area, nothing left over.
+            return set(names) - published if Path(directory) == shots_dir else set()
+
+        shutil.copytree(landing_dir / "assets", out_dir / "assets", dirs_exist_ok=True, ignore=unpublished_shots)
     for lang, html in pages.items():
         target = out_dir if lang == DEFAULT_LANGUAGE else out_dir / lang
         target.mkdir(parents=True, exist_ok=True)

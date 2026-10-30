@@ -1,8 +1,74 @@
-# Capture date of each screenshot in assets/shots/<label>.webp (YYYY-MM-DD).
-# Shown small below the image ("Stand: …"). Update it together with the image;
-# tooling/landing-preview/shots.sh in the templates repo writes both.
-# Not copied to the output (unlike assets/).
+# Showcase gallery in the "own space" section of the landing page.
+# One table per area; the label is the folder name and URL slug under /at/.
+# Order does not matter: the page sorts by display name, the demo area last.
+#
+#   released  required. false while the area has not agreed: shots.sh blurs
+#             on capture, the tile shows without a link.
+#   captured  date of the files in assets/shots/ (<label>.webp thumbnail,
+#             <label>-full.webp full page), written by shots.sh
+#   blurred   written by shots.sh. An unreleased area without blurred = true
+#             gets the empty box, and its files are not published.
+#
+# Capture with tooling/landing-preview/shots.sh in the templates repo.
+# A new area: add its table with released first, then run shots.sh.
+# Not copied to the output.
 
-fernuni-hagen = 2026-10-29
-fh-muenster = 2026-10-29
-hsbi = 2026-10-29
+[demo]
+released = true  # our own area (FS3, FS4)
+captured = 2026-10-30
+blurred = false
+
+[fernuni-hagen]
+released = true  # agreed by mail, Oct 2026
+captured = 2026-10-30
+blurred = false
+
+[fh-muenster]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[fh-swf]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[h-brs]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[hochschule-rhein-waal]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[hs-bochum]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[hsbi]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[uni-bielefeld]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[uni-koeln]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[uni-siegen]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false
+
+[uni-wuppertal]
+released = true  # opt-out via the partner newsletter of 2026-11-02
+captured = 2026-10-30
+blurred = false

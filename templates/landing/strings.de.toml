@@ -104,9 +104,15 @@ legend_heading = "Legende"
 [own_space]
 heading = "Ein eigener Bereich für jede Hochschule"
 lead = "Jede Hochschule erhält bei DataPublication.nrw eine eigene Startseite mit Logo, Farben und Schrift aus ihrem Corporate Design. Darunter lassen sich Fakultäten, Institute, Projekte oder thematische Communities als Unterbereiche anlegen."
-shots = ["fh-muenster", "hsbi", "fernuni-hagen"]
-shot_alt = "Startseite des Bereichs der {name} bei DataPublication.nrw"
-note = "Ansichten aus dem Testsystem"
+# Welche Bereiche die Galerie zeigt und in welchem Zustand, steht in shots.toml.
+full_page = "Ganze Seite (Bild, {size})"
+pending = "Ansicht folgt"
+show_all = "Alle {n} Bereiche zeigen"
+show_less = "Weniger zeigen"
+demo_name = "Demo-Bereich"
+demo_open = "Bereich öffnen"
+note = "Ansichten aus dem Testsystem, Arbeitsstand vom {date}"
+note_range = "Ansichten aus dem Testsystem, Arbeitsstand vom {first} bis {last}"
 demo_text = "Ohne Konto an einer teilnehmenden Hochschule reinschauen?"
 demo_link = "Demo-Bereich ansehen"
 # Der Demo-Bereich bleibt dauerhaft auf dem Testsystem (keine echten DOIs), deshalb absolut.

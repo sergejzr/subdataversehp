@@ -218,24 +218,62 @@
       <div class="wrap">
         <h2>{{ s.own_space.heading }}</h2>
         <p class="lead">{{ s.own_space.lead }}</p>
-        <div class="shots">
-          {%- for shot in shots %}
-          <figure class="shot">
-            {%- if shot.src %}
-            <img src="{{ shot.src }}" width="960" height="720" loading="lazy" alt="{{ s.own_space.shot_alt.format(name=shot.name) }}">
-            {%- else %}
-            <div class="shot-missing" role="img" aria-label="{{ s.own_space.shot_alt.format(name=shot.name) }}"></div>
-            {%- endif %}
-            <figcaption>
-              <span class="shot-name">{{ shot.name }}</span>
-              {%- if shot.date %}
-              <span class="shot-date">{{ s.progress.stand }}: <time datetime="{{ shot.date_iso }}">{{ shot.date }}</time></span>
+        {%- if shots %}
+        {#- The name sits in the same link as the image, so the image itself is decorative (alt=""). #}
+        {%- macro shot_body(shot, loading) %}
+              {%- if shot.src %}
+              <img src="{{ shot.src }}" width="640" height="480" loading="{{ loading }}" alt="">
+              {%- else %}
+              <span class="shot-missing"></span>
               {%- endif %}
-            </figcaption>
-          </figure>
-          {%- endfor %}
+              <span class="shot-name">{{ shot.name }}</span>
+              {%- if shot.more %}
+              <span class="shot-more">{{ shot.more }}</span>
+              {%- endif %}
+        {%- endmacro %}
+        {%- macro shot_tile(shot, focusable=true, loading="lazy") %}
+                {%- if shot.href %}
+                <a class="shot-link" href="{{ shot.href }}"{% if not focusable %} tabindex="-1"{% endif %}>{{ shot_body(shot, loading) }}
+                </a>
+                {%- else %}
+                <div class="shot-box">{{ shot_body(shot, loading) }}
+                </div>
+                {%- endif %}
+        {%- endmacro %}
+        {#- Without JavaScript: the running band is a CSS animation over two copies of
+            the row, decorative and for pointer users (aria-hidden, links not tabbable).
+            The same tiles as a list behind "show all" serve everyone else, and opening
+            it stops the band, the control WCAG 2.2.2 asks for. Started at a tile that
+            changes with the build date (shot_start). The band loads its images
+            eagerly: lazy images outside its clipped window would only start loading
+            while they move into view. #}
+        <div class="gallery">
+          <details class="gallery-all">
+            <summary><span class="gallery-closed">{{ s.own_space.show_all.format(n=shots|length) }}</span><span class="gallery-open">{{ s.own_space.show_less }}</span></summary>
+            <ul class="shots" role="list">
+              {%- for shot in shots %}
+              <li class="shot">{{ shot_tile(shot) }}
+              </li>
+              {%- endfor %}
+            </ul>
+          </details>
+          <div class="gallery-band" aria-hidden="true">
+            <div class="gallery-track" style="--shots: {{ shots|length }}; --shots-start: {{ shot_start }}">
+              {%- for copy in range(2) %}
+              <ul class="gallery-row">
+                {%- for shot in shots %}
+                <li class="shot">{{ shot_tile(shot, false, "eager") }}
+                </li>
+                {%- endfor %}
+              </ul>
+              {%- endfor %}
+            </div>
+          </div>
         </div>
-        <p class="note">{{ s.own_space.note }}</p>
+        {%- endif %}
+        {%- if shot_note %}
+        <p class="note">{{ shot_note }}</p>
+        {%- endif %}
         <p class="cta">
           <span>{{ s.own_space.demo_text }}</span>
           <a class="button button-primary" href="{{ s.own_space.demo_url }}">{{ s.own_space.demo_link }}</a>
