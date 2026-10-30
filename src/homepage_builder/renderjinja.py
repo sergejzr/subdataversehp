@@ -30,10 +30,15 @@ except ImportError:
 # go-live; site_paths.py), the university pages link the legal pages.
 # landing.py is not imported on purpose: a problem in the landing code must
 # never break the university pages.
+# Where the landing is live at /at/, the old landing page is no longer
+# rendered (it needs the Dataverse API and would be overwritten anyway), and a
+# failed landing fails the build: build-homepage.sh then keeps the last good
+# /at/ instead of switching to a build without a start page.
 # The old user guide is a draft and replaced by /docs/ (FS7), so the
 # university pages do not link it: GUIDE_BASE stays None.
 # ---------------------------------------------------------------------------
 PUBLIC_SITE_BASE: str | None = site_paths.public_site_base()
+LANDING_LIVE: bool = site_paths.landing_base_path() == site_paths.LIVE_PATH
 GUIDE_BASE: str | None = None
 
 # Sidebar box on every /at/<label>/ page ("Before your first dataset").
@@ -448,24 +453,27 @@ def main():
 
     create_overviewjs(config_dir / "unis.csv", webcontent_dir / "js" / "unis_overview.js")
 
-    svg_manip = SVGManipulator(
-        template_root=templates_root,
-        config=SVGLinkConfig(
-            source_svg_rel="assets/pagedata/DP.svg",
-            csv_rel_path="../config/unis.csv",
-            cache_rel_dir="../output/generated/cache/img",
-            out_name="DP.linked.svg",
-            server_name=server,
-            Arecord=False,
-            local_test=True,
-        ),
-    )
-    svg_manip.ensure_linked_svg()  # inlined by the old landing page
+    if LANDING_LIVE:
+        print("[INDEX] Landing is live at /at/: old landing page not rendered.")
+    else:
+        svg_manip = SVGManipulator(
+            template_root=templates_root,
+            config=SVGLinkConfig(
+                source_svg_rel="assets/pagedata/DP.svg",
+                csv_rel_path="../config/unis.csv",
+                cache_rel_dir="../output/generated/cache/img",
+                out_name="DP.linked.svg",
+                server_name=server,
+                Arecord=False,
+                local_test=True,
+            ),
+        )
+        svg_manip.ensure_linked_svg()  # inlined by the old landing page
 
-    env_index = build_env(base_templates_dir)
-    index_ctx = build_page_data(dataverse_api, templater, base_dataverse=base_dataverse)
-    index_html = render(env_index, args.jinja_file, index_ctx)
-    output_html.write_text(index_html, encoding="utf-8")
+        env_index = build_env(base_templates_dir)
+        index_ctx = build_page_data(dataverse_api, templater, base_dataverse=base_dataverse)
+        index_html = render(env_index, args.jinja_file, index_ctx)
+        output_html.write_text(index_html, encoding="utf-8")
 
     df_unis = read_unis_csv(config_dir)
     enabled_rows = df_unis[df_unis["enabled"] == 1]
@@ -543,8 +551,9 @@ def main():
         uni_html = render(env_uni, uni_template_name, uni_ctx)
         (target_dir / "index.html").write_text(uni_html, encoding="utf-8")
 
-    # New landing page preview. Imported here so that neither an import
-    # problem nor bad landing data can break the pages above.
+    # New landing page. Imported here so that neither an import problem nor
+    # bad landing data can break the pages above. Live at /at/ it is the start
+    # page, so a failure fails the build (see LANDING_LIVE).
     try:
         try:
             from .landing import render_landing
@@ -553,6 +562,9 @@ def main():
         render_landing(project_root, at_root, config_dir / "unis.csv")
     except Exception as exc:
         print(f"[LANDING] ERROR: {exc}", file=sys.stderr)
+        if LANDING_LIVE:
+            print("[LANDING] Landing is the start page: build failed, the live /at/ stays as it is.", file=sys.stderr)
+            raise
         print("[LANDING] Preview skipped; all other pages were rendered.", file=sys.stderr)
 
     print(f"Done. Output written to: {output_root}")

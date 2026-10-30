@@ -14,10 +14,13 @@ ENVIRONMENT_VARIABLE = "DAPU_SERVER_ENVIRONMENT"
 ENVIRONMENTS = ("dev", "test", "prod")
 
 # dev and test serve the landing at /at/ (they are never indexed, FS2).
-# Prod keeps the hidden preview until go-live: set PROD_LIVE = True then.
-PROD_LIVE = False
+# Prod serves it at /at/ since the go-live; False brings back the hidden preview.
+PROD_LIVE = True
 LIVE_PATH = "/at/"
 PREVIEW_PATH = "/at/_vorschau/"
+# hreflang and canonical are absolute on prod, the only indexed host.
+# dev and test keep them root-relative.
+PROD_ORIGIN = "https://datapublication.nrw"
 
 
 def raw_environment() -> str:
@@ -31,6 +34,11 @@ def environment() -> str:
 
 def landing_base_path() -> str:
     return LIVE_PATH if environment() != "prod" or PROD_LIVE else PREVIEW_PATH
+
+
+def link_origin() -> str:
+    """Origin in front of hreflang and canonical URLs: absolute on prod, empty elsewhere."""
+    return PROD_ORIGIN if environment() == "prod" else ""
 
 
 def public_site_base() -> str | None:

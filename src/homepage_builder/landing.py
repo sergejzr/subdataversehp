@@ -47,6 +47,9 @@ LANDING_BASE_PATH = site_paths.landing_base_path()
 # its vhost-wide X-Robots-Tag (Ansible), independent of this flag. The guide
 # is a draft and always carries noindex (guide-jinja.html).
 NOINDEX = LANDING_BASE_PATH != "/at/"
+# In front of hreflang and canonical: https://datapublication.nrw on prod,
+# empty (root-relative) on dev and test.
+LINK_ORIGIN = site_paths.link_origin()
 
 LANGUAGES = ("de", "en")
 DEFAULT_LANGUAGE = "de"
@@ -114,7 +117,7 @@ PREVIEW_REDIRECT = (
     '<!DOCTYPE html>\n<html lang="de">\n<head>\n<meta charset="utf-8">\n'
     '<meta name="robots" content="noindex">\n'
     '<meta http-equiv="refresh" content="0; url={url}">\n'
-    '<link rel="canonical" href="{url}">\n<title>DataPublication.nrw</title>\n</head>\n'
+    '<link rel="canonical" href="{canonical}">\n<title>DataPublication.nrw</title>\n</head>\n'
     '<body>\n<p><a href="{url}">DataPublication.nrw</a></p>\n</body>\n</html>\n'
 )
 
@@ -806,6 +809,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     css_href = f"{LANDING_BASE_PATH}landing.css"
 
     urls = {lang: LANDING_BASE_PATH if lang == DEFAULT_LANGUAGE else f"{LANDING_BASE_PATH}{lang}/" for lang in LANGUAGES}
+    link_urls = {lang: f"{LINK_ORIGIN}{url}" for lang, url in urls.items()}
     map_markup = map_with_status(svg_text, partner_list)
     highlight = highlight_css([p["label"] for p in partner_list])
     logos = logo_files(landing_dir / "assets" / "logos")
@@ -865,6 +869,8 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             lang=lang,
             s=s,
             urls=urls,
+            link_urls=link_urls,
+            canonical=link_urls[lang],
             default_lang=DEFAULT_LANGUAGE,
             css_href=css_href,
             noindex=NOINDEX,
@@ -947,7 +953,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
         for lang in LANGUAGES:
             target = preview_root if lang == DEFAULT_LANGUAGE else preview_root / lang
             target.mkdir(parents=True, exist_ok=True)
-            (target / "index.html").write_text(PREVIEW_REDIRECT.format(url=urls[lang]), encoding="utf-8")
+            (target / "index.html").write_text(PREVIEW_REDIRECT.format(url=urls[lang], canonical=link_urls[lang]), encoding="utf-8")
 
     for lang, (weight, html_bytes, files) in weights.items():
         print(f"[LANDING] page weight {lang}: {weight} B (HTML {html_bytes} B + files {files} B)")

@@ -9,10 +9,11 @@
   {%- endif %}
   <title>{{ s.title }}</title>
   <meta name="description" content="{{ s.description }}">
-  {%- for alt_lang, href in urls.items() %}
+  <link rel="canonical" href="{{ canonical }}">
+  {%- for alt_lang, href in link_urls.items() %}
   <link rel="alternate" hreflang="{{ alt_lang }}" href="{{ href }}">
   {%- endfor %}
-  <link rel="alternate" hreflang="x-default" href="{{ urls[default_lang] }}">
+  <link rel="alternate" hreflang="x-default" href="{{ link_urls[default_lang] }}">
   <link rel="icon" href="{{ base }}assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="{{ base }}assets/fonts/open-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ css_href }}">
