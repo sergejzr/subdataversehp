@@ -884,7 +884,11 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
     # Optional assets (third-party figure, Dataverse logo): left out until the file is there.
     env.globals["has_asset"] = lambda relative: (landing_dir / "assets" / relative).is_file()
     template = env.get_template("landing-jinja.html")
-    css_href = f"{LANDING_BASE_PATH}landing.css"
+    # Versioned like the gallery images: /at/ has no Cache-Control, and a browser
+    # still holding the old stylesheet would render new markup unstyled.
+    css_path = f"{LANDING_BASE_PATH}landing.css"
+    css_bytes = (landing_dir / "landing.css").read_bytes()
+    css_href = f"{css_path}?v={hashlib.sha256(css_bytes).hexdigest()[:8]}"
 
     urls = {lang: LANDING_BASE_PATH if lang == DEFAULT_LANGUAGE else f"{LANDING_BASE_PATH}{lang}/" for lang in LANGUAGES}
     link_urls = {lang: f"{LINK_ORIGIN}{url}" for lang, url in urls.items()}
@@ -977,7 +981,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
 
     # Render, weigh, substitute the weight, and repeat until the shown kB are
     # those of the page that shows them. The first pass shows "0 kB".
-    css_files = {css_href: (landing_dir / "landing.css").read_text(encoding="utf-8")}
+    css_files = {css_path: css_bytes.decode("utf-8")}
     pages = {}
     weights = {}
     for lang in LANGUAGES:
