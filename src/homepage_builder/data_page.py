@@ -4,9 +4,15 @@ Rendered by landing.render_data_page() after the landing, on dev and test
 only (landing.DATA_ENVIRONMENTS). Two views, each rendered on its own:
 
   snapshot  /at/data/, /at/en/data/                 metrics.json, fetched by hand
-                                                    with scripts/fetch_metrics.py
+            /at/data/<alias>/, /at/en/data/<alias>/ with scripts/fetch_metrics.py
   sample    /at/data/beispiel/, /at/en/data/sample/ metrics.sample.json, made-up
                                                     numbers: how the page may look later
+
+The snapshot view has one page for the whole repository and one per area:
+the participating universities and the demo area, with their sub-areas.
+A menu lists the top level only, so it stays short however many sub-areas
+there are; each area page shows its own sub-areas as a tree. The overview
+names no university with its numbers: there is no table to compare them.
 
 A missing or broken file skips its view, never the landing. The views link to
 each other only when both render. The pages follow the landing's claims and
@@ -31,19 +37,24 @@ except ImportError:
 SLUG = "data"
 TEMPLATE = "data-jinja.html"
 CSS_FILE = "data.css"
-# view -> (file in templates/landing/, path below data/ per language)
-VIEWS = {
-    "snapshot": ("metrics.json", {"de": "", "en": ""}),
-    "sample": ("metrics.sample.json", {"de": "beispiel/", "en": "sample/"}),
-}
+VIEWS = {"snapshot": "metrics.json", "sample": "metrics.sample.json"}
+SAMPLE_PATH = {"de": "beispiel", "en": "sample"}
 # Numbers and curl examples come from this host only, so a test page never
 # shows another system's numbers.
 ALLOWED_SERVERS = {"https://datapublication-nrw-test.hrz.uni-bonn.de"}
-# Area in the examples: the demo area stays on test for good (FS4) and singles
-# out no university.
-EXAMPLE_LABEL = "demo"
+DEMO_LABEL = "demo"
+# Area in the examples of the overview: the demo area stays on test for good
+# (FS4) and singles out no university. Area pages use their own alias.
+EXAMPLE_LABEL = DEMO_LABEL
+# Seed collections (tooling/seed) get no page and no place in the tree; their
+# datasets still count in every number above them.
+HIDDEN_PREFIXES = ("zz-test-",)
+# Test leftovers on the test system (2026-11-24), hidden the same way.
+HIDDEN_ALIASES = {"TestDV", "agrarwirtschaft-hsbi", "testverse"}
+_ALIAS = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_-]*$")
 TOP_SUBJECTS = 8
 OTHER_SUBJECT = "Other"  # Dataverse's catch-all subject, always under "Weitere"
+UNCATEGORIZED = "Uncategorized"  # Dataverse's collection category without a choice, listed last
 CHART_ID = "chart-monthly"
 
 TYPE_GROUPS = ("tables", "code", "images", "text", "other")
@@ -81,19 +92,7 @@ class DataPageError(ValueError):
     """A view cannot be rendered."""
 
 
-def type_group(contenttype: str) -> str:
-    """Group of a MIME type for the file chart; anything unknown is "other"."""
-    mime = contenttype.split(";", 1)[0].strip().lower()
-    if mime in _TABLE_TYPES or mime.startswith(_TABLE_PREFIXES):
-        return "tables"
-    if mime.startswith("image/"):
-        return "images"
-    if mime in _TEXT_TYPES:
-        return "text"
-    if mime in _CODE_TYPES or mime.startswith(_CODE_PREFIXES):
-        return "code"
-    return "other"
-
+# ---------- Formatting ----------
 
 def number(value: int, d: dict) -> str:
     return f"{value:,}".replace(",", d["thousands_separator"])
@@ -111,14 +110,34 @@ def size(value: int, d: dict) -> str:
     return f"{text} {units[unit]}"
 
 
+def plural(n: int, one: str, many: str, d: dict) -> str:
+    return (one if n == 1 else many).format(n=number(n, d))
+
+
 def inline(text: str) -> Markup:
     """Escaped text in which `backticks` become <code>."""
     return Markup(_CODE_SPAN.sub(r"<code>\1</code>", str(Markup.escape(text))))
 
 
 def month_label(month: str, d: dict) -> str:
-    year, number_ = month.split("-")
-    return f"{d['months'][int(number_) - 1]} {year}"
+    year, month_number = month.split("-")
+    return f"{d['months'][int(month_number) - 1]} {year}"
+
+
+# ---------- Charts ----------
+
+def type_group(contenttype: str) -> str:
+    """Group of a MIME type for the file chart; anything unknown is "other"."""
+    mime = contenttype.split(";", 1)[0].strip().lower()
+    if mime in _TABLE_TYPES or mime.startswith(_TABLE_PREFIXES):
+        return "tables"
+    if mime.startswith("image/"):
+        return "images"
+    if mime in _TEXT_TYPES:
+        return "text"
+    if mime in _CODE_TYPES or mime.startswith(_CODE_PREFIXES):
+        return "code"
+    return "other"
 
 
 def with_bars(rows: list[dict]) -> list[dict]:
@@ -169,125 +188,274 @@ def type_rows(items: list[dict], d: dict) -> list[dict]:
     rows = []
     for name in present:
         group = groups[name]
-        files = (t["files_one"] if group["count"] == 1 else t["files_many"]).format(n=number(group["count"], d))
         rows.append({
             "label": d["type_groups"][name],
             "count": group["count"],
             "count_text": number(group["count"], d),
             "size_text": size(group["size"], d),
-            "value": f"{files} · {size(group['size'], d)}",
+            "value": f"{plural(group['count'], t['files_one'], t['files_many'], d)} · {size(group['size'], d)}",
             "types": ", ".join(sorted(group["types"])),
             "rest": name == "other",
         })
     return rows
 
 
-def page_url(view: str, lang: str) -> str:
+def category_rows(items: list[dict], d: dict) -> tuple[list[dict], list[str]]:
+    """Collection categories by count, "Uncategorized" last; (rows, unknown categories)."""
+    names = d["categories"]
+    unknown = sorted({item["category"] for item in items} - set(names))
+    ordered = sorted(
+        items, key=lambda item: (item["category"] == UNCATEGORIZED, -item["count"], item["category"])
+    )
+    rows = [
+        {
+            "label": names.get(item["category"], item["category"]),
+            "count": item["count"],
+            "value": number(item["count"], d),
+            "rest": item["category"] == UNCATEGORIZED,
+        }
+        for item in ordered
+    ]
+    return rows, unknown
+
+
+# ---------- Areas ----------
+
+def visible_areas(tree: dict, partner_labels: list[str]) -> tuple[dict[str, dict], list[str], list[str]]:
+    """Areas that get a page: the participating universities and the demo area
+    at the top, their sub-areas below; seed collections, test leftovers and
+    everything below them left out. Returns (areas by alias, top-level aliases, warnings)."""
+    wanted = set(partner_labels) | {DEMO_LABEL}
+    reserved = set(SAMPLE_PATH.values())
+    areas: dict[str, dict] = {}
+    top: list[str] = []
+    warnings: list[str] = []
+
+    def size(node: dict) -> int:
+        return 1 + sum(size(child) for child in node.get("children", []))
+
+    def add(node: dict, parent: str | None) -> None:
+        alias = node["alias"]
+        hidden = alias.startswith(HIDDEN_PREFIXES) or alias in HIDDEN_ALIASES
+        if not hidden and (alias in reserved or not _ALIAS.match(alias)):
+            warnings.append(f"collection {alias!r} gets no page: the alias cannot be a path below /at/data/")
+            hidden = True
+        if hidden:
+            # Still counted in the numbers above: the page says how many are left out.
+            if parent:
+                areas[parent]["hidden"] += size(node)
+            return
+        areas[alias] = {
+            "alias": alias, "dv_name": node["name"].strip() or alias, "parent": parent, "children": [], "hidden": 0,
+        }
+        if parent:
+            areas[parent]["children"].append(alias)
+        for child in node.get("children", []):
+            add(child, alias)
+
+    for node in tree.get("children", []):
+        if node["alias"] in wanted:
+            top.append(node["alias"])
+            add(node, None)
+    return areas, top, warnings
+
+
+def area_name(area: dict, s: dict) -> str:
+    """Our names for the top level (strings [names]), Dataverse's below."""
+    if area["parent"] is None:
+        if area["alias"] == DEMO_LABEL:
+            return s["data"]["nav"]["demo_name"]
+        return s["names"].get(area["alias"], area["dv_name"])
+    return area["dv_name"]
+
+
+def page_url(lang: str, alias: str | None = None, sample: bool = False) -> str:
     lang_part = "" if lang == landing.DEFAULT_LANGUAGE else f"{lang}/"
-    return f"{landing.LANDING_BASE_PATH}{lang_part}{SLUG}/{VIEWS[view][1][lang]}"
+    url = f"{landing.LANDING_BASE_PATH}{lang_part}{SLUG}/"
+    if sample:
+        url += f"{SAMPLE_PATH[lang]}/"
+    elif alias:
+        url += f"{alias}/"
+    return url
 
 
-def load_view(view: str, landing_dir: Path, areas: dict) -> tuple[dict, list[str]]:
-    """Validated data of one view, with the areas it shows."""
-    filename = VIEWS[view][0]
+# ---------- Page ----------
+
+def page_context(
+    lang: str,
+    data: dict,
+    strings: dict,
+    *,
+    view: str,
+    alias: str | None,
+    areas: dict,
+    top: list[str],
+    with_switch: bool,
+) -> dict:
+    s = strings[lang]
+    d = s["data"]
+    root_alias = data["tree"]["alias"]
+    block = data["collections"][alias or root_alias]
+    counts = block["counts"]
+    fetched = datetime.fromisoformat(data["fetched_at"])
+    suffix = f" ({d['sample_suffix']})" if view == "sample" else ""
+    area = areas.get(alias) if alias else None
+    name = area_name(area, s) if area else None
+
+    def sort_key(a: str) -> tuple:
+        return (a == DEMO_LABEL, landing._sort_key(area_name(areas[a], s)))
+
+    # Menu (top level only) and path, snapshot view only.
+    menu = None
+    breadcrumb = None
+    if view == "snapshot":
+        ancestors = []
+        node = area
+        while node:
+            ancestors.insert(0, node["alias"])
+            node = areas.get(node["parent"]) if node["parent"] else None
+        menu = [{"label": d["nav"]["all_areas"], "href": page_url(lang), "current": "page" if not alias else None}]
+        for a in sorted(top, key=sort_key):
+            current = "page" if a == alias else ("true" if ancestors and ancestors[0] == a else None)
+            menu.append({"label": area_name(areas[a], s), "href": page_url(lang, a), "current": current})
+        if area:
+            breadcrumb = [{"label": d["nav"]["all_areas"], "href": page_url(lang)}]
+            breadcrumb += [{"label": area_name(areas[a], s), "href": page_url(lang, a)} for a in ancestors[:-1]]
+            breadcrumb.append({"label": name, "href": None})
+    switch = None
+    if with_switch and not alias:
+        switch = [
+            {"label": d["switch_snapshot"], "href": page_url(lang), "current": view == "snapshot"},
+            {"label": d["switch_sample"], "href": page_url(lang, sample=True), "current": view == "sample"},
+        ]
+
+    def subtree(aliases: list[str]) -> list[dict]:
+        nodes = []
+        for a in sorted(aliases, key=lambda a: landing._sort_key(area_name(areas[a], s))):
+            n = data["collections"][a]["counts"]["datasets"]
+            nodes.append({
+                "label": area_name(areas[a], s),
+                "href": page_url(lang, a),
+                "value": plural(n, d["tree"]["datasets_one"], d["tree"]["datasets_many"], d),
+                "children": subtree(areas[a]["children"]),
+            })
+        return nodes
+
+    # Monthly series
+    months = block["datasets_monthly"]
+    monthly = None
+    if months:
+        first, last = months[0], months[-1]
+        steps = [{"datum": date(*map(int, item["date"].split("-")), 1), "n": item["count"]} for item in months]
+        until = max(fetched.date(), steps[-1]["datum"])
+        y_max = max(max(item["count"] for item in months), 1)
+        first_month, end_month = month_label(first["date"], d), month_label(f"{until:%Y-%m}", d)
+        if len(months) == 1:
+            description = d["monthly"]["desc_single"].format(
+                last=number(last["count"], d), last_month=month_label(last["date"], d)
+            )
+        else:
+            description = d["monthly"]["desc"].format(
+                first=number(first["count"], d),
+                first_month=first_month,
+                last=number(last["count"], d),
+                last_month=month_label(last["date"], d),
+            )
+        monthly = {
+            "chart": landing.step_chart_svg(
+                steps,
+                y_max,
+                until,
+                s["date_format"],
+                d["monthly"]["caption"] + suffix,
+                axis_labels=(first_month, end_month),
+                description=description,
+                chart_id=CHART_ID,
+            ),
+            "rows": [{"label": month_label(item["date"], d), "count": number(item["count"], d)} for item in months],
+        }
+
+    subject_bars, subject_table, unknown_subjects = subject_rows(block["datasets_by_subject"], d)
+    categories, unknown_categories = category_rows(block["dataverses_by_category"], d)
+    total_size = sum(item["size"] for item in block["files_by_type"])
+    unique = sum(item["count"] for item in block["unique_downloads"])
+    t = d["tiles"]
+    tiles = [
+        {
+            "value": number(counts["datasets"], d),
+            "label": t["datasets"],
+            "sub": t["datasets_recent"].format(n=number(counts["datasets_past_30"], d)) if counts["datasets"] else None,
+        },
+        {"value": number(counts["files"], d), "label": t["files"], "sub": None},
+        {"value": size(total_size, d), "label": t["volume"], "sub": None},
+        {"value": number(unique, d), "label": t["downloads"], "sub": None},
+        {"value": number(counts["dataverses"], d), "label": t["sub_areas"] if alias else t["areas"], "sub": None},
+    ]
+
+    server = data["server"]
+    example = alias or EXAMPLE_LABEL
+    api = f"{server}/api/info/metrics"
+    query = f'?parentAlias={example}"'
+    curl = [
+        f'curl "{api}/datasets',
+        f'curl "{api}/datasets/monthly',
+        # Continued with a backslash, so no line is longer than the others.
+        f'curl -H "Accept: application/json" \\\n  "{api}/files/byType',
+    ]
+    a = d["access"]
+    browse_label = a["browse_this"] if alias else a["browse_example"]
+    browse_link = Markup('<a href="{}">{}</a>').format(f"{server}/dataverse/{example}", browse_label)
+    api_text = a["api_text_area"].replace("{alias}", example) if alias else a["api_text"]
+
+    notice = d["notice"]
+    title = name or d["title"]
+    return {
+        "view": view,
+        "suffix": suffix,
+        "title": title,
+        "page_title": f"{name} · {d['title']}" if name else d["title"],
+        "lead": d["area_lead"].format(name=name) if name else d["lead"],
+        "menu": menu,
+        "breadcrumb": breadcrumb,
+        "switch": switch,
+        "notice_title": notice[f"{view}_title"],
+        "notice_text": notice[f"{view}_text"].format(date=fetched.strftime(s["date_format"])),
+        "tiles": tiles,
+        "empty": counts["datasets"] == 0,
+        "monthly": monthly,
+        "subjects": {"bars": with_bars(subject_bars), "table": subject_table} if subject_bars else None,
+        "types": with_bars(type_rows(block["files_by_type"], d)) or None,
+        "subtree": subtree(area["children"]) if area and area["children"] else None,
+        "hidden_note": (
+            plural(area["hidden"], d["tree"]["hidden_one"], d["tree"]["hidden_many"], d)
+            if area and area["hidden"] else None
+        ),
+        "categories": with_bars(categories) or None,
+        "access": {
+            "browse": inline(a["browse_text"]).replace("{example}", browse_link),
+            "api": inline(api_text),
+            # The query is one unit (span.q, nowrap from 700 px in data.css), so a
+            # long command breaks before it, not inside the alias. Copying gives
+            # the commands unchanged.
+            "curl": Markup("\n\n").join(
+                Markup('{}<wbr><span class="q">{}</span>').format(line, query) for line in curl
+            ),
+            "formats": inline(a["formats"]),
+        },
+        "missing": [inline(item) for item in d["missing"]["items"]],
+        "unknown": [f"subject {x!r}" for x in unknown_subjects] + [f"category {x!r}" for x in unknown_categories],
+    }
+
+
+def load_view(view: str, landing_dir: Path) -> tuple[dict, list[str]]:
+    filename = VIEWS[view]
     try:
         data, warnings = metrics_snapshot.load(landing_dir / filename, view)
     except metrics_snapshot.MetricsSnapshotError as exc:
         raise DataPageError(str(exc)) from None
     if data["server"] not in ALLOWED_SERVERS:
         raise DataPageError(f"{filename}: server {data['server']} is not one of {', '.join(sorted(ALLOWED_SERVERS))}")
-    if view == "snapshot":
-        data = {**data, "areas": areas}
     return data, [f"{filename}: {warning}" for warning in warnings]
-
-
-def page_context(view: str, lang: str, data: dict, strings: dict, switch_views: list[str]) -> dict:
-    s = strings[lang]
-    d = s["data"]
-    fetched = datetime.fromisoformat(data["fetched_at"])
-    suffix = f" ({d['sample_suffix']})" if view == "sample" else ""
-    notice = d["notice"]
-
-    months = data["datasets_monthly"]
-    first, last = months[0], months[-1]
-    steps = [{"datum": date(*map(int, item["date"].split("-")), 1), "n": item["count"]} for item in months]
-    until = max(fetched.date(), steps[-1]["datum"])
-    y_max = max(max(item["count"] for item in months), 1)
-    first_month, last_month = month_label(first["date"], d), month_label(f"{until:%Y-%m}", d)
-    if len(months) == 1:
-        description = d["monthly"]["desc_single"].format(last=number(last["count"], d), last_month=last_month)
-    else:
-        description = d["monthly"]["desc"].format(
-            first=number(first["count"], d),
-            first_month=first_month,
-            last=number(last["count"], d),
-            last_month=month_label(last["date"], d),
-        )
-    chart = landing.step_chart_svg(
-        steps,
-        y_max,
-        until,
-        s["date_format"],
-        d["monthly"]["caption"] + suffix,
-        axis_labels=(first_month, last_month),
-        description=description,
-        chart_id=CHART_ID,
-    )
-
-    subject_bars, subject_table, unknown = subject_rows(data["datasets_by_subject"], d)
-    types = type_rows(data["files_by_type"], d)
-    areas = data["areas"]
-    total_size = sum(item["size"] for item in data["files_by_type"])
-    unique = sum(item["count"] for item in data["unique_downloads"])
-    tiles = [
-        {"value": number(data["counts"]["datasets"], d), "label": d["tiles"]["datasets"], "sub": None},
-        {"value": number(data["counts"]["files"], d), "label": d["tiles"]["files"], "sub": None},
-        {"value": size(total_size, d), "label": d["tiles"]["volume"], "sub": None},
-        {"value": number(unique, d), "label": d["tiles"]["downloads"], "sub": None},
-        {
-            "value": number(areas["set_up"], d),
-            "label": d["tiles"]["areas"],
-            "sub": d["tiles"]["areas_accepted"].format(n=number(areas["accepted"], d)),
-        },
-    ]
-
-    server = data["server"]
-    api = f"{server}/api/info/metrics"
-    curl = [
-        f'curl "{api}/datasets?parentAlias={EXAMPLE_LABEL}"',
-        f'curl "{api}/datasets/monthly?parentAlias={EXAMPLE_LABEL}"',
-        f'curl -H "Accept: application/json" "{api}/files/byType?parentAlias={EXAMPLE_LABEL}"',
-    ]
-    a = d["access"]
-    example_link = Markup('<a href="{}">{}</a>').format(f"{server}/dataverse/{EXAMPLE_LABEL}", a["browse_example"])
-
-    switch = None
-    if len(switch_views) > 1:
-        switch = [
-            {"label": d[f"switch_{other}"], "href": page_url(other, lang), "current": other == view}
-            for other in switch_views
-        ]
-    return {
-        "view": view,
-        "suffix": suffix,
-        "switch": switch,
-        "notice_title": notice[f"{view}_title"],
-        "notice_text": notice[f"{view}_text"].format(date=fetched.strftime(s["date_format"])),
-        "tiles": tiles,
-        "monthly": {
-            "chart": chart,
-            "rows": [{"label": month_label(item["date"], d), "count": number(item["count"], d)} for item in months],
-        },
-        "subjects": {"bars": with_bars(subject_bars), "table": subject_table, "unknown": unknown},
-        "types": with_bars(types),
-        "access": {
-            "browse": inline(a["browse_text"]).replace("{example}", example_link),
-            "api": inline(a["api_text"]),
-            "curl": "\n\n".join(curl),
-            "formats": inline(a["formats"]),
-        },
-        "missing": [inline(item) for item in d["missing"]["items"]],
-    }
 
 
 def render(
@@ -299,7 +467,7 @@ def render(
     css_href: str,
     css_files: dict,
     legal_urls: dict,
-    areas: dict,
+    partner_labels: list[str],
     landing_weights: dict,
 ) -> tuple[dict[str, str], list[tuple[bool, str]]]:
     """Files to write below the landing's output folder, and log lines (is_error, text)."""
@@ -312,60 +480,80 @@ def render(
     all_css = {**css_files, css_path: css_text}
     template = env.get_template(TEMPLATE)
 
-    loaded = {}
+    loaded: dict[str, tuple[dict, dict, list[str]]] = {}
     for view in VIEWS:
         try:
-            loaded[view], warnings = load_view(view, landing_dir, areas)
+            data, warnings = load_view(view, landing_dir)
         except DataPageError as exc:
             log.append((True, f"ERROR: data page {view} skipped: {exc}"))
             continue
         log += [(True, f"Warning: data page {view}: {warning}") for warning in warnings]
+        if view == "snapshot":
+            areas, top, area_warnings = visible_areas(data["tree"], partner_labels)
+            log += [(True, f"Warning: data page {view}: {warning}") for warning in area_warnings]
+        else:
+            areas, top = {}, []
+        loaded[view] = (data, areas, top)
 
-    # Render with the view switch while every remaining view renders; drop a
-    # failing view and render the rest again, so no switch points to a gap.
+    def render_page(view: str, lang: str, alias: str | None, with_switch: bool) -> tuple[str, str, int]:
+        data, areas, top = loaded[view]
+        s = strings[lang]
+        url = page_url(lang, alias, sample=view == "sample")
+        context = page_context(
+            lang, data, strings, view=view, alias=alias, areas=areas, top=top, with_switch=with_switch
+        )
+        if lang == landing.DEFAULT_LANGUAGE:
+            for item in context.pop("unknown"):
+                log.append((True, f"Warning: data page {view}: no German name for {item}"))
+        else:
+            context.pop("unknown")
+        other = s["lang_switch_lang"]
+        html = template.render(
+            lang=lang,
+            s=s,
+            d=s["data"],
+            urls=landing_urls,
+            default_lang=landing.DEFAULT_LANGUAGE,
+            css_href=css_href,
+            data_css_href=data_css_href,
+            alt_url=page_url(other, alias, sample=view == "sample"),
+            legal_urls=legal_urls,
+            page={"title": context["page_title"]},
+            **context,
+        )
+        violations, loaded_paths = landing.check_page(html, url, all_css)
+        if violations:
+            raise DataPageError(f"{url} breaks the landing's claims: " + "; ".join(violations))
+        weight = landing.page_weight(html, loaded_paths, landing_dir, {css_path: css_source})[0]
+        if weight >= landing_weights[lang]:
+            raise DataPageError(f"{url} weighs {weight} B, not less than the landing ({landing_weights[lang]} B)")
+        return url, html, weight
+
+    # Render with the view switch while both views render; drop a failing
+    # view and render the rest again, so no link points to a gap.
     while loaded:
-        views = list(loaded)
         pages: dict[str, str] = {}
-        weights: list[str] = []
+        weights: list[int] = []
         failed = None
-        for view in views:
+        for view in list(loaded):
+            aliases = [None] + (list(loaded[view][1]) if view == "snapshot" else [])
             try:
-                for lang in landing.LANGUAGES:
-                    url = page_url(view, lang)
-                    context = page_context(view, lang, loaded[view], strings, views)
-                    if lang == landing.DEFAULT_LANGUAGE:
-                        for subject in context["subjects"]["unknown"]:
-                            log.append((True, f"Warning: data page {view}: no German name for subject {subject!r}"))
-                    html = template.render(
-                        lang=lang,
-                        s=strings[lang],
-                        d=strings[lang]["data"],
-                        urls=landing_urls,
-                        default_lang=landing.DEFAULT_LANGUAGE,
-                        css_href=css_href,
-                        data_css_href=data_css_href,
-                        alt_url=page_url(view, strings[lang]["lang_switch_lang"]),
-                        legal_urls=legal_urls,
-                        page={"title": strings[lang]["data"]["title"]},
-                        **context,
-                    )
-                    violations, loaded_paths = landing.check_page(html, url, all_css)
-                    if violations:
-                        raise DataPageError(f"{lang} page breaks the landing's claims: " + "; ".join(violations))
-                    weight = landing.page_weight(html, loaded_paths, landing_dir, {css_path: css_source})[0]
-                    if weight >= landing_weights[lang]:
-                        raise DataPageError(
-                            f"{lang} page weighs {weight} B, not less than the landing ({landing_weights[lang]} B)"
-                        )
-                    pages[url.removeprefix(base) + "index.html"] = html
-                    weights.append(f"{url} {weight} B")
+                for alias in aliases:
+                    for lang in landing.LANGUAGES:
+                        url, html, weight = render_page(view, lang, alias, with_switch=len(loaded) > 1)
+                        pages[url.removeprefix(base) + "index.html"] = html
+                        weights.append(weight)
             except Exception as exc:
                 failed = view
                 log.append((True, f"ERROR: data page {view} skipped: {type(exc).__name__}: {exc}"))
                 break
         if failed is None:
             pages[f"{SLUG}/{CSS_FILE}"] = css_text
-            log.append((False, f"Data page written: {', '.join(weights)}"))
+            log.append((
+                False,
+                f"Data page written: {', '.join(loaded)}, {len(weights)} pages, "
+                f"{min(weights)}..{max(weights)} B each",
+            ))
             return pages, list(dict.fromkeys(log))
         del loaded[failed]
     return {}, list(dict.fromkeys(log))

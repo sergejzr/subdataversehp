@@ -66,8 +66,6 @@ STATUSES = ("eingerichtet", "abgenommen", "live")
 # chart are left out of the page.
 ENVIRONMENT_VARIABLE = site_paths.ENVIRONMENT_VARIABLE
 COUNTED_STATUSES = {"dev": set(STATUSES), "test": set(STATUSES), "prod": {"live"}}
-# Statuses a counted area has once its university signed it off.
-ACCEPTED_STATUSES = {"abgenommen", "live"}
 # The data page (/at/data/) shows numbers of the test system: never on prod,
 # and so never in a build that does not know its host.
 DATA_ENVIRONMENTS = {"dev", "test"}
@@ -1108,7 +1106,6 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             print(f"[LANDING] Guide warning: {warning}")
 
     if environment in DATA_ENVIRONMENTS:
-        accepted = sum(1 for label in counted if current.get(label) in ACCEPTED_STATUSES)
         render_data_page(
             landing_dir,
             out_dir,
@@ -1118,7 +1115,7 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
             css_href=css_href,
             css_files=css_files,
             legal_urls=legal_urls,
-            areas={"set_up": len(counted), "accepted": accepted},
+            partner_labels=[label for label in partners if label not in external],
             landing_weights={lang: weight[0] for lang, weight in weights.items()},
         )
 

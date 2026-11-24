@@ -1,159 +1,4825 @@
 {
-  "counts": {
-    "datasets": 118,
-    "files": 355
+ "collections": {
+  "TestDV": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
   },
-  "datasets_by_subject": [
+  "agrarwirtschaft": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [
     {
-      "count": 43,
-      "subject": "Social Sciences"
-    },
-    {
-      "count": 34,
-      "subject": "Computer and Information Science"
-    },
-    {
-      "count": 24,
-      "subject": "Engineering"
-    },
-    {
-      "count": 22,
-      "subject": "Earth and Environmental Sciences"
-    },
-    {
-      "count": 10,
-      "subject": "Medicine, Health and Life Sciences"
-    },
-    {
-      "count": 9,
-      "subject": "Mathematical Sciences"
-    },
-    {
-      "count": 8,
-      "subject": "Agricultural Sciences"
-    },
-    {
-      "count": 8,
-      "subject": "Arts and Humanities"
-    },
-    {
-      "count": 5,
-      "subject": "Chemistry"
-    },
-    {
-      "count": 2,
-      "subject": "Business and Management"
-    },
-    {
-      "count": 2,
-      "subject": "Law"
-    },
-    {
-      "count": 1,
-      "subject": "Astronomy and Astrophysics"
+     "count": 1,
+     "subject": "Agricultural Sciences"
     }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-07"
+    },
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "agrarwirtschaft-hsbi": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-07"
+    },
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "demo": {
+   "counts": {
+    "datasets": 8,
+    "datasets_past_30": 8,
+    "dataverses": 7,
+    "files": 30
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    },
+    {
+     "count": 1,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 8,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 4
+    },
+    {
+     "category": "Research Group",
+     "count": 2
+    },
+    {
+     "category": "Research Project",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 9,
+     "size": 26087
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 13,
+     "size": 166496
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 9,
+     "size": 60182
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 1,
+     "size": 1205
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/7IWKJY"
+    },
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/MIQDXS"
+    },
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/YNGGAS"
+    }
+   ]
+  },
+  "demo-digital-humanities": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 1,
+    "dataverses": 0,
+    "files": 5
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 5544
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 7540
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 2,
+     "size": 13161
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/MIQDXS"
+    }
+   ]
+  },
+  "demo-engineering-sciences": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 1,
+    "dataverses": 1,
+    "files": 4
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Engineering"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Research Group",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 3042
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 3852
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 1,
+     "size": 7059
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 1,
+     "size": 1205
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/7IWKJY"
+    }
+   ]
+  },
+  "demo-life-sciences": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 1,
+    "dataverses": 0,
+    "files": 4
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 2913
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 4861
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 1,
+     "size": 7303
+    }
+   ],
+   "unique_downloads": []
+  },
+  "demo-materials-testing": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 1,
+    "dataverses": 0,
+    "files": 4
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Engineering"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 3042
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 3852
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 1,
+     "size": 7059
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 1,
+     "size": 1205
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/7IWKJY"
+    }
+   ]
+  },
+  "demo-natural-sciences": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 3,
+    "dataverses": 1,
+    "files": 10
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Research Project",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 3,
+     "size": 9192
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 4,
+     "size": 43613
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 3,
+     "size": 20032
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/YNGGAS"
+    }
+   ]
+  },
+  "demo-social-sciences": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 3,
+    "dataverses": 1,
+    "files": 12
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Research Group",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 4,
+     "size": 10940
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 6,
+     "size": 114170
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 4,
+     "size": 25788
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/MIQDXS"
+    }
+   ]
+  },
+  "demo-urban-climate": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 2,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Earth and Environmental Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 6026
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 28032
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 2,
+     "size": 12781
+    }
+   ],
+   "unique_downloads": []
+  },
+  "dev-bridgit": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "dev-coscine": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "dracocre": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "fernuni-hagen": {
+   "counts": {
+    "datasets": 19,
+    "datasets_past_30": 0,
+    "dataverses": 10,
+    "files": 57
+   },
+   "datasets_by_subject": [
+    {
+     "count": 8,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 6,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Arts and Humanities"
+    },
+    {
+     "count": 2,
+     "subject": "Business and Management"
+    },
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 2,
+     "subject": "Law"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 7,
+     "date": "2026-08"
+    },
+    {
+     "count": 7,
+     "date": "2026-09"
+    },
+    {
+     "count": 19,
+     "date": "2026-10"
+    },
+    {
+     "count": 19,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 5
+    },
+    {
+     "category": "Uncategorized",
+     "count": 4
+    },
+    {
+     "category": "Organization or Institution",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 19,
+     "size": 96843
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 22,
+     "size": 183675
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 15,
+     "size": 15883
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 1,
+     "size": 1377
+    }
+   ],
+   "unique_downloads": []
+  },
+  "fernuni-hagen-catalpa": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 6865
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 10908
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2081
+    }
+   ],
+   "unique_downloads": []
+  },
+  "fernuni-hagen-ksw": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 6390
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 11638
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2281
+    }
+   ],
+   "unique_downloads": []
+  },
+  "fernuni-hagen-mi": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 6773
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 11312
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2120
+    }
+   ],
+   "unique_downloads": []
+  },
+  "fernuni-hagen-psy": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 6976
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 10835
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2192
+    }
+   ],
+   "unique_downloads": []
+  },
+  "fernuni-hagen-rewi": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Law"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 6571
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 13879
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2166
+    }
+   ],
+   "unique_downloads": []
+  },
+  "fernuni-hagen-wiwi": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Business and Management"
+    },
+    {
+     "count": 1,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 6818
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 12120
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2163
+    }
+   ],
+   "unique_downloads": []
+  },
+  "fh-muenster": {
+   "counts": {
+    "datasets": 7,
+    "datasets_past_30": 0,
+    "dataverses": 3,
+    "files": 23
+   },
+   "datasets_by_subject": [
+    {
+     "count": 4,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 3,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 7,
+     "date": "2026-08"
+    },
+    {
+     "count": 7,
+     "date": "2026-09"
+    },
+    {
+     "count": 7,
+     "date": "2026-10"
+    },
+    {
+     "count": 7,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 1
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    },
+    {
+     "category": "Research Group",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 7,
+     "size": 42534
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 7,
+     "size": 91873
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 5,
+     "size": 5474
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 2,
+     "size": 2783
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "fh-swf": {
+   "counts": {
+    "datasets": 8,
+    "datasets_past_30": 0,
+    "dataverses": 4,
+    "files": 23
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Engineering"
+    },
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 2,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-07"
+    },
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 8,
+     "date": "2026-10"
+    },
+    {
+     "count": 8,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 2
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    },
+    {
+     "category": "Research Group",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 7,
+     "size": 48723
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 11,
+     "size": 123138
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 4,
+     "size": 4212
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 1,
+     "size": 1377
+    }
+   ],
+   "unique_downloads": []
+  },
+  "h-brs": {
+   "counts": {
+    "datasets": 7,
+    "datasets_past_30": 0,
+    "dataverses": 3,
+    "files": 24
+   },
+   "datasets_by_subject": [
+    {
+     "count": 4,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 3,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 7,
+     "date": "2026-08"
+    },
+    {
+     "count": 7,
+     "date": "2026-09"
+    },
+    {
+     "count": 7,
+     "date": "2026-10"
+    },
+    {
+     "count": 7,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 1
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    },
+    {
+     "category": "Research Group",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 7,
+     "size": 33841
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 8,
+     "size": 103416
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 6,
+     "size": 6811
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 1,
+     "size": 1377
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "hochschule-rhein-waal": {
+   "counts": {
+    "datasets": 7,
+    "datasets_past_30": 0,
+    "dataverses": 3,
+    "files": 21
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 3,
+     "subject": "Engineering"
+    },
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 7,
+     "date": "2026-08"
+    },
+    {
+     "count": 7,
+     "date": "2026-09"
+    },
+    {
+     "count": 7,
+     "date": "2026-10"
+    },
+    {
+     "count": 7,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 1
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    },
+    {
+     "category": "Research Group",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 7,
+     "size": 42495
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 7,
+     "size": 63631
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 3,
+     "size": 2814
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 2,
+     "size": 2783
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "hs-bochum": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 1,
+    "files": 0
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 1
+    }
+   ],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "hsbi": {
+   "counts": {
+    "datasets": 8,
+    "datasets_past_30": 1,
+    "dataverses": 4,
+    "files": 22
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Agricultural Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    },
+    {
+     "count": 1,
+     "subject": "Computer and Information Science"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-07"
+    },
+    {
+     "count": 8,
+     "date": "2026-08"
+    },
+    {
+     "count": 8,
+     "date": "2026-09"
+    },
+    {
+     "count": 8,
+     "date": "2026-10"
+    },
+    {
+     "count": 8,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 1
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    },
+    {
+     "category": "Research Group",
+     "count": 1
+    },
+    {
+     "category": "Uncategorized",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 8,
+     "size": 59706
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 13,
+     "size": 153076
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 3,
+     "size": 3467
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 1,
+     "size": 5691
+    }
+   ],
+   "unique_downloads": []
+  },
+  "layout-adapted": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "layout-custom": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "layout-standard": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 3,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [
+    {
+     "category": "Organization or Institution",
+     "count": 3
+    }
+   ],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "mathfac": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "mock-uni": {
+   "counts": {
+    "datasets": 14,
+    "datasets_past_30": 0,
+    "dataverses": 4,
+    "files": 43
+   },
+   "datasets_by_subject": [
+    {
+     "count": 5,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 4,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 3,
+     "subject": "Engineering"
+    },
+    {
+     "count": 2,
+     "subject": "Medicine, Health and Life Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 14,
+     "date": "2026-08"
+    },
+    {
+     "count": 14,
+     "date": "2026-09"
+    },
+    {
+     "count": 14,
+     "date": "2026-10"
+    },
+    {
+     "count": 14,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Research Group",
+     "count": 2
+    },
+    {
+     "category": "Department",
+     "count": 1
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 14,
+     "size": 92724
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 17,
+     "size": 180432
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 8,
+     "size": 8936
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 2,
+     "size": 2783
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/1UMFNB"
+    }
+   ]
+  },
+  "root": {
+   "counts": {
+    "datasets": 118,
+    "datasets_past_30": 10,
+    "dataverses": 82,
+    "files": 355
+   },
+   "datasets_by_subject": [
+    {
+     "count": 43,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 34,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 24,
+     "subject": "Engineering"
+    },
+    {
+     "count": 22,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 10,
+     "subject": "Medicine, Health and Life Sciences"
+    },
+    {
+     "count": 9,
+     "subject": "Mathematical Sciences"
+    },
+    {
+     "count": 8,
+     "subject": "Agricultural Sciences"
+    },
+    {
+     "count": 8,
+     "subject": "Arts and Humanities"
+    },
+    {
+     "count": 5,
+     "subject": "Chemistry"
+    },
+    {
+     "count": 2,
+     "subject": "Business and Management"
+    },
+    {
+     "count": 2,
+     "subject": "Law"
+    },
+    {
+     "count": 1,
+     "subject": "Astronomy and Astrophysics"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 5,
+     "date": "2026-07"
+    },
+    {
+     "count": 90,
+     "date": "2026-08"
+    },
+    {
+     "count": 90,
+     "date": "2026-09"
+    },
+    {
+     "count": 109,
+     "date": "2026-10"
+    },
+    {
+     "count": 118,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Uncategorized",
+     "count": 26
+    },
+    {
+     "category": "Department",
+     "count": 22
+    },
+    {
+     "category": "Research Group",
+     "count": 17
+    },
+    {
+     "category": "Laboratory",
+     "count": 9
+    },
+    {
+     "category": "Organization or Institution",
+     "count": 6
+    },
+    {
+     "category": "Research Project",
+     "count": 2
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "application/octet-stream",
+     "count": 2,
+     "size": 19756918
+    },
+    {
+     "contenttype": "image/png",
+     "count": 113,
+     "size": 683660
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 140,
+     "size": 1517611
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 64,
+     "size": 70670
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 12,
+     "size": 65889
+    },
+    {
+     "contenttype": "text/tab-separated-values",
+     "count": 2,
+     "size": 143758
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 17,
+     "size": 23440
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 12,
+     "size": 12504
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/1UMFNB"
+    },
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/7IWKJY"
+    },
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/A5D1ON"
+    },
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/HYX8JT"
+    },
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/MIQDXS"
+    },
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/PIOZVL"
+    },
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/SIVYPQ"
+    },
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/YNGGAS"
+    }
+   ]
+  },
+  "rwth-aachen": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "telebrain": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "test": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "test-test": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-07"
+    },
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "testproject": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 1,
+    "dataverses": 0,
+    "files": 2
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Astronomy and Astrophysics"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "application/octet-stream",
+     "count": 2,
+     "size": 19756918
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 2,
+     "size": 16
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/SIVYPQ"
+    }
+   ]
+  },
+  "testprojekt": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "testverse": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 1,
+    "dataverses": 1,
+    "files": 2
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Astronomy and Astrophysics"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Research Project",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "application/octet-stream",
+     "count": 2,
+     "size": 19756918
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 2,
+     "size": 16
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/SIVYPQ"
+    }
+   ]
+  },
+  "th-koeln": {
+   "counts": {
+    "datasets": 7,
+    "datasets_past_30": 0,
+    "dataverses": 3,
+    "files": 21
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 2,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 7,
+     "date": "2026-08"
+    },
+    {
+     "count": 7,
+     "date": "2026-09"
+    },
+    {
+     "count": 7,
+     "date": "2026-10"
+    },
+    {
+     "count": 7,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Research Group",
+     "count": 2
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 7,
+     "size": 59116
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 9,
+     "size": 97059
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 3,
+     "size": 3381
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 2,
+     "size": 2783
+    }
+   ],
+   "unique_downloads": []
+  },
+  "uni-bielefeld": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "uni-bonn": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "uni-koeln": {
+   "counts": {
+    "datasets": 16,
+    "datasets_past_30": 0,
+    "dataverses": 4,
+    "files": 45
+   },
+   "datasets_by_subject": [
+    {
+     "count": 6,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 4,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 4,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 3,
+     "subject": "Engineering"
+    },
+    {
+     "count": 2,
+     "subject": "Medicine, Health and Life Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-07"
+    },
+    {
+     "count": 16,
+     "date": "2026-08"
+    },
+    {
+     "count": 16,
+     "date": "2026-09"
+    },
+    {
+     "count": 16,
+     "date": "2026-10"
+    },
+    {
+     "count": 16,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Research Group",
+     "count": 2
+    },
+    {
+     "category": "Department",
+     "count": 1
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 14,
+     "size": 94794
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 17,
+     "size": 180614
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 8,
+     "size": 8918
+    },
+    {
+     "contenttype": "text/tab-separated-values",
+     "count": 2,
+     "size": 143758
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 2,
+     "size": 2783
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/A5D1ON"
+    },
+    {
+     "count": 0,
+     "pid": "doi:10.83693/DaPu-test.nrw/PIOZVL"
+    }
+   ]
+  },
+  "uni-koeln__sub1": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "uni-muenster": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "uni-siegen": {
+   "counts": {
+    "datasets": 7,
+    "datasets_past_30": 0,
+    "dataverses": 3,
+    "files": 22
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 2,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 7,
+     "date": "2026-08"
+    },
+    {
+     "count": 7,
+     "date": "2026-09"
+    },
+    {
+     "count": 7,
+     "date": "2026-10"
+    },
+    {
+     "count": 7,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Research Group",
+     "count": 2
+    },
+    {
+     "category": "Department",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 7,
+     "size": 46221
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 9,
+     "size": 100161
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 4,
+     "size": 4726
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 2,
+     "size": 2783
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/HYX8JT"
+    }
+   ]
+  },
+  "uni-wuppertal": {
+   "counts": {
+    "datasets": 8,
+    "datasets_past_30": 1,
+    "dataverses": 5,
+    "files": 24
+   },
+   "datasets_by_subject": [
+    {
+     "count": 5,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 3,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 1,
+     "subject": "Arts and Humanities"
+    },
+    {
+     "count": 1,
+     "subject": "Astronomy and Astrophysics"
+    },
+    {
+     "count": 1,
+     "subject": "Mathematical Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 7,
+     "date": "2026-08"
+    },
+    {
+     "count": 7,
+     "date": "2026-09"
+    },
+    {
+     "count": 7,
+     "date": "2026-10"
+    },
+    {
+     "count": 8,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [
+    {
+     "category": "Department",
+     "count": 2
+    },
+    {
+     "category": "Laboratory",
+     "count": 1
+    },
+    {
+     "category": "Research Group",
+     "count": 1
+    },
+    {
+     "category": "Research Project",
+     "count": 1
+    }
+   ],
+   "files_by_type": [
+    {
+     "contenttype": "application/octet-stream",
+     "count": 2,
+     "size": 19756918
+    },
+    {
+     "contenttype": "image/png",
+     "count": 7,
+     "size": 40576
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 7,
+     "size": 74040
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 5,
+     "size": 6048
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 2,
+     "size": 16
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 1,
+     "size": 1406
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/SIVYPQ"
+    }
+   ]
+  },
+  "zz-test-fernuni-hagen-col-bildungsforschung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 1,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 3912
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 23843
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 1327
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-fernuni-hagen-col-umweltdaten": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 9
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-08"
+    },
+    {
+     "count": 3,
+     "date": "2026-09"
+    },
+    {
+     "count": 3,
+     "date": "2026-10"
+    },
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 3,
+     "size": 29657
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 5,
+     "size": 58667
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 803
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-fernuni-hagen-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Engineering"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 8327
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 22555
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-fh-muenster-col-bildungsforschung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 7
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 7533
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 23820
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2077
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-fh-muenster-col-versorgungsforschung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 3274
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 11866
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 1329
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-fh-muenster-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Engineering"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 8644
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 22538
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-fh-swf-col-bildungsforschung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 7
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Computer and Information Science"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 7053
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 41916
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2659
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-fh-swf-col-umweltdaten": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 7
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Earth and Environmental Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 18905
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 4,
+     "size": 45838
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 803
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-fh-swf-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 5
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 12744
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 28819
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-h-brs-col-bildungsforschung": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 11
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-08"
+    },
+    {
+     "count": 3,
+     "date": "2026-09"
+    },
+    {
+     "count": 3,
+     "date": "2026-10"
+    },
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 3,
+     "size": 11433
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 41910
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 3,
+     "size": 3409
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-h-brs-col-versorgungsforschung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 2998
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 11861
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 1329
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-h-brs-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Engineering"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 8843
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 22535
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-hochschule-rhein-waal-col-bildungsforschung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 4
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Computer and Information Science"
+    },
+    {
+     "count": 1,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 3751
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 750
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-hochschule-rhein-waal-col-versorgungsforschung": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  },
+  "zz-test-hochschule-rhein-waal-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 5
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 12997
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 28781
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-hsbi-col-bildungsforschung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 7
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Computer and Information Science"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 7389
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 42076
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2659
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-hsbi-col-umweltdaten": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 1,
+    "dataverses": 0,
+    "files": 10
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-08"
+    },
+    {
+     "count": 3,
+     "date": "2026-09"
+    },
+    {
+     "count": 3,
+     "date": "2026-10"
+    },
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 4,
+     "size": 39599
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 7,
+     "size": 82182
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 808
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 1,
+     "size": 5691
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-hsbi-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 5
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 12718
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 28818
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-mock-uni-col-bildungsforschung": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 11
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-08"
+    },
+    {
+     "count": 3,
+     "date": "2026-09"
+    },
+    {
+     "count": 3,
+     "date": "2026-10"
+    },
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 3,
+     "size": 10883
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 42153
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 3,
+     "size": 3409
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-mock-uni-col-umweltdaten": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 9
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-08"
+    },
+    {
+     "count": 3,
+     "date": "2026-09"
+    },
+    {
+     "count": 3,
+     "date": "2026-10"
+    },
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 3,
+     "size": 29760
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 5,
+     "size": 58594
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 804
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-mock-uni-col-versorgungsforschung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Medicine, Health and Life Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 13587
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 16118
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2651
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-mock-uni-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 5
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 12806
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 28801
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-th-koeln-col-umweltdaten": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 5
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 20253
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 36404
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-th-koeln-col-versorgungsforschung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 10745
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 4471
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 1317
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-th-koeln-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Engineering"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 8856
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 22543
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-koeln-col-bildungsforschung": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 11
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-08"
+    },
+    {
+     "count": 3,
+     "date": "2026-09"
+    },
+    {
+     "count": 3,
+     "date": "2026-10"
+    },
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 3,
+     "size": 10932
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 42051
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 3,
+     "size": 3409
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-koeln-col-umweltdaten": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 9
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-08"
+    },
+    {
+     "count": 3,
+     "date": "2026-09"
+    },
+    {
+     "count": 3,
+     "date": "2026-10"
+    },
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 3,
+     "size": 29923
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 5,
+     "size": 58609
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 799
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-koeln-col-versorgungsforschung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 6
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Medicine, Health and Life Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 12948
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 16276
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 2,
+     "size": 2646
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-koeln-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 5
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Engineering"
+    },
+    {
+     "count": 1,
+     "subject": "Chemistry"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 12953
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 28814
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-siegen-col-bildungsforschung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 4
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 3338
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 2,
+     "size": 18288
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 1332
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-siegen-col-umweltdaten": {
+   "counts": {
+    "datasets": 2,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 5
+   },
+   "datasets_by_subject": [
+    {
+     "count": 2,
+     "subject": "Earth and Environmental Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Agricultural Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 2,
+     "date": "2026-08"
+    },
+    {
+     "count": 2,
+     "date": "2026-09"
+    },
+    {
+     "count": 2,
+     "date": "2026-10"
+    },
+    {
+     "count": 2,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 2,
+     "size": 19653
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 36374
+    }
+   ],
+   "unique_downloads": [
+    {
+     "count": 1,
+     "pid": "doi:10.83693/DaPu-test.nrw/HYX8JT"
+    }
+   ]
+  },
+  "zz-test-uni-siegen-col-versorgungsforschung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 3265
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 11866
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 1329
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-wuppertal-col-bildungsforschung": {
+   "counts": {
+    "datasets": 3,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 11
+   },
+   "datasets_by_subject": [
+    {
+     "count": 3,
+     "subject": "Social Sciences"
+    },
+    {
+     "count": 2,
+     "subject": "Computer and Information Science"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 3,
+     "date": "2026-08"
+    },
+    {
+     "count": 3,
+     "date": "2026-09"
+    },
+    {
+     "count": 3,
+     "date": "2026-10"
+    },
+    {
+     "count": 3,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 3,
+     "size": 10736
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 3,
+     "size": 41966
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 3,
+     "size": 3407
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 2,
+     "size": 2084
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-wuppertal-col-versorgungsforschung": {
+   "counts": {
+    "datasets": 1,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 3
+   },
+   "datasets_by_subject": [
+    {
+     "count": 1,
+     "subject": "Medicine, Health and Life Sciences"
+    },
+    {
+     "count": 1,
+     "subject": "Social Sciences"
+    }
+   ],
+   "datasets_monthly": [
+    {
+     "count": 1,
+     "date": "2026-08"
+    },
+    {
+     "count": 1,
+     "date": "2026-09"
+    },
+    {
+     "count": 1,
+     "date": "2026-10"
+    },
+    {
+     "count": 1,
+     "date": "2026-11"
+    }
+   ],
+   "dataverses_by_category": [],
+   "files_by_type": [
+    {
+     "contenttype": "image/png",
+     "count": 1,
+     "size": 9943
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1,
+     "size": 3758
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 1,
+     "size": 1323
+    }
+   ],
+   "unique_downloads": []
+  },
+  "zz-test-uni-wuppertal-col-werkstoffpruefung": {
+   "counts": {
+    "datasets": 0,
+    "datasets_past_30": 0,
+    "dataverses": 0,
+    "files": 0
+   },
+   "datasets_by_subject": [],
+   "datasets_monthly": [],
+   "dataverses_by_category": [],
+   "files_by_type": [],
+   "unique_downloads": []
+  }
+ },
+ "dataverse_version": "6.12.1",
+ "fetched_at": "2026-11-24T21:10:54+01:00",
+ "kind": "snapshot",
+ "schema": 2,
+ "server": "https://datapublication-nrw-test.hrz.uni-bonn.de",
+ "tree": {
+  "alias": "root",
+  "children": [
+   {
+    "alias": "demo",
+    "children": [
+     {
+      "alias": "demo-engineering-sciences",
+      "children": [
+       {
+        "alias": "demo-materials-testing",
+        "depth": 3,
+        "id": 875,
+        "name": "Example Research Group: Materials Testing",
+        "ownerId": 873
+       }
+      ],
+      "depth": 2,
+      "id": 873,
+      "name": "Engineering Sciences",
+      "ownerId": 834
+     },
+     {
+      "alias": "demo-life-sciences",
+      "depth": 2,
+      "id": 874,
+      "name": "Life Sciences",
+      "ownerId": 834
+     },
+     {
+      "alias": "demo-natural-sciences",
+      "children": [
+       {
+        "alias": "demo-urban-climate",
+        "depth": 3,
+        "id": 837,
+        "name": "Example Project: Urban Climate",
+        "ownerId": 835
+       }
+      ],
+      "depth": 2,
+      "id": 835,
+      "name": "Natural Sciences",
+      "ownerId": 834
+     },
+     {
+      "alias": "demo-social-sciences",
+      "children": [
+       {
+        "alias": "demo-digital-humanities",
+        "depth": 3,
+        "id": 876,
+        "name": "Example Research Group: Digital Humanities",
+        "ownerId": 836
+       }
+      ],
+      "depth": 2,
+      "id": 836,
+      "name": "Humanities and Social Sciences",
+      "ownerId": 834
+     }
+    ],
+    "depth": 1,
+    "id": 834,
+    "name": "Demo Area",
+    "ownerId": 1
+   },
+   {
+    "alias": "dev-bridgit",
+    "depth": 1,
+    "id": 592,
+    "name": "Bridgit Development Environment",
+    "ownerId": 1
+   },
+   {
+    "alias": "dev-coscine",
+    "depth": 1,
+    "id": 593,
+    "name": "Coscine Development Environment",
+    "ownerId": 1
+   },
+   {
+    "alias": "fernuni-hagen",
+    "children": [
+     {
+      "alias": "TestDV",
+      "depth": 2,
+      "id": 85,
+      "name": "TestDV",
+      "ownerId": 10
+     },
+     {
+      "alias": "fernuni-hagen-catalpa",
+      "depth": 2,
+      "id": 586,
+      "name": "Forschungszentrum CATALPA",
+      "ownerId": 10
+     },
+     {
+      "alias": "fernuni-hagen-ksw",
+      "depth": 2,
+      "id": 581,
+      "name": "Fakultät für Kultur- und Sozialwissenschaften",
+      "ownerId": 10
+     },
+     {
+      "alias": "fernuni-hagen-mi",
+      "depth": 2,
+      "id": 582,
+      "name": "Fakultät für Mathematik und Informatik",
+      "ownerId": 10
+     },
+     {
+      "alias": "fernuni-hagen-psy",
+      "depth": 2,
+      "id": 583,
+      "name": "Fakultät für Psychologie",
+      "ownerId": 10
+     },
+     {
+      "alias": "fernuni-hagen-rewi",
+      "depth": 2,
+      "id": 585,
+      "name": "Rechtswissenschaftliche Fakultät",
+      "ownerId": 10
+     },
+     {
+      "alias": "fernuni-hagen-wiwi",
+      "depth": 2,
+      "id": 584,
+      "name": "Fakultät für Wirtschaftswissenschaft",
+      "ownerId": 10
+     },
+     {
+      "alias": "zz-test-fernuni-hagen-col-bildungsforschung",
+      "depth": 2,
+      "id": 398,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 10
+     },
+     {
+      "alias": "zz-test-fernuni-hagen-col-umweltdaten",
+      "depth": 2,
+      "id": 400,
+      "name": "Umwelt- und Klimadaten Südwestfalen",
+      "ownerId": 10
+     },
+     {
+      "alias": "zz-test-fernuni-hagen-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 399,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 10
+     }
+    ],
+    "depth": 1,
+    "id": 10,
+    "name": "FernUniversität in Hagen",
+    "ownerId": 1
+   },
+   {
+    "alias": "fh-muenster",
+    "children": [
+     {
+      "alias": "zz-test-fh-muenster-col-bildungsforschung",
+      "depth": 2,
+      "id": 303,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 4
+     },
+     {
+      "alias": "zz-test-fh-muenster-col-versorgungsforschung",
+      "depth": 2,
+      "id": 304,
+      "name": "Arbeitsgruppe Versorgungsforschung",
+      "ownerId": 4
+     },
+     {
+      "alias": "zz-test-fh-muenster-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 305,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 4
+     }
+    ],
+    "depth": 1,
+    "id": 4,
+    "name": "FH Münster",
+    "ownerId": 1
+   },
+   {
+    "alias": "fh-swf",
+    "children": [
+     {
+      "alias": "agrarwirtschaft",
+      "depth": 2,
+      "id": 43,
+      "name": "Agrarwirtschaft",
+      "ownerId": 9
+     },
+     {
+      "alias": "zz-test-fh-swf-col-bildungsforschung",
+      "depth": 2,
+      "id": 751,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 9
+     },
+     {
+      "alias": "zz-test-fh-swf-col-umweltdaten",
+      "depth": 2,
+      "id": 752,
+      "name": "Umwelt- und Klimadaten Südwestfalen",
+      "ownerId": 9
+     },
+     {
+      "alias": "zz-test-fh-swf-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 753,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 9
+     }
+    ],
+    "depth": 1,
+    "id": 9,
+    "name": "South Westphalia University of Applied Sciences",
+    "ownerId": 1
+   },
+   {
+    "alias": "h-brs",
+    "children": [
+     {
+      "alias": "zz-test-h-brs-col-bildungsforschung",
+      "depth": 2,
+      "id": 460,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 14
+     },
+     {
+      "alias": "zz-test-h-brs-col-versorgungsforschung",
+      "depth": 2,
+      "id": 462,
+      "name": "Arbeitsgruppe Versorgungsforschung",
+      "ownerId": 14
+     },
+     {
+      "alias": "zz-test-h-brs-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 461,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 14
+     }
+    ],
+    "depth": 1,
+    "id": 14,
+    "name": "Hochschule Bonn-Rhein-Sieg",
+    "ownerId": 1
+   },
+   {
+    "alias": "hochschule-rhein-waal",
+    "children": [
+     {
+      "alias": "zz-test-hochschule-rhein-waal-col-bildungsforschung",
+      "depth": 2,
+      "id": 369,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 7
+     },
+     {
+      "alias": "zz-test-hochschule-rhein-waal-col-versorgungsforschung",
+      "depth": 2,
+      "id": 368,
+      "name": "Arbeitsgruppe Versorgungsforschung",
+      "ownerId": 7
+     },
+     {
+      "alias": "zz-test-hochschule-rhein-waal-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 367,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 7
+     }
+    ],
+    "depth": 1,
+    "id": 7,
+    "name": "Rhine-Waal University of Applied Sciences",
+    "ownerId": 1
+   },
+   {
+    "alias": "hs-bochum",
+    "children": [
+     {
+      "alias": "mathfac",
+      "depth": 2,
+      "id": 113,
+      "name": "Faculty of Math",
+      "ownerId": 8
+     }
+    ],
+    "depth": 1,
+    "id": 8,
+    "name": "Bochum University of Applied Sciences",
+    "ownerId": 1
+   },
+   {
+    "alias": "hsbi",
+    "children": [
+     {
+      "alias": "agrarwirtschaft-hsbi",
+      "depth": 2,
+      "id": 111,
+      "name": "DataPublication Admin Dataverse",
+      "ownerId": 6
+     },
+     {
+      "alias": "zz-test-hsbi-col-bildungsforschung",
+      "depth": 2,
+      "id": 336,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 6
+     },
+     {
+      "alias": "zz-test-hsbi-col-umweltdaten",
+      "depth": 2,
+      "id": 337,
+      "name": "Umwelt- und Klimadaten Ostwestfalen-Lippe",
+      "ownerId": 6
+     },
+     {
+      "alias": "zz-test-hsbi-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 338,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 6
+     }
+    ],
+    "depth": 1,
+    "id": 6,
+    "name": "Hochschule Bielefeld",
+    "ownerId": 1
+   },
+   {
+    "alias": "layout-adapted",
+    "depth": 1,
+    "id": 18,
+    "name": "Test Layout Adapted",
+    "ownerId": 1
+   },
+   {
+    "alias": "layout-custom",
+    "depth": 1,
+    "id": 19,
+    "name": "Test Layout Custom",
+    "ownerId": 1
+   },
+   {
+    "alias": "layout-standard",
+    "children": [
+     {
+      "alias": "dracocre",
+      "depth": 2,
+      "id": 22,
+      "name": "DracoCre - Draconology and Powerfull Creatures Center ",
+      "ownerId": 17
+     },
+     {
+      "alias": "telebrain",
+      "depth": 2,
+      "id": 23,
+      "name": "TeleBrain: Collection of Psychic and Telekinetic Phenomena ",
+      "ownerId": 17
+     },
+     {
+      "alias": "testprojekt",
+      "depth": 2,
+      "id": 20,
+      "name": "UfoMe: Scientific Investigation Corpora into UFO Phenomena",
+      "ownerId": 17
+     }
+    ],
+    "depth": 1,
+    "id": 17,
+    "name": "Test Layout Standard",
+    "ownerId": 1
+   },
+   {
+    "alias": "mock-uni",
+    "children": [
+     {
+      "alias": "zz-test-mock-uni-col-bildungsforschung",
+      "depth": 2,
+      "id": 118,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 27
+     },
+     {
+      "alias": "zz-test-mock-uni-col-umweltdaten",
+      "depth": 2,
+      "id": 117,
+      "name": "Umwelt- und Klimadaten Beispielregion",
+      "ownerId": 27
+     },
+     {
+      "alias": "zz-test-mock-uni-col-versorgungsforschung",
+      "depth": 2,
+      "id": 119,
+      "name": "Arbeitsgruppe Versorgungsforschung",
+      "ownerId": 27
+     },
+     {
+      "alias": "zz-test-mock-uni-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 120,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 27
+     }
+    ],
+    "depth": 1,
+    "id": 27,
+    "name": "Flemming Reese Dataverse",
+    "ownerId": 1
+   },
+   {
+    "alias": "rwth-aachen",
+    "depth": 1,
+    "id": 15,
+    "name": "RWTH Aachen",
+    "ownerId": 1
+   },
+   {
+    "alias": "test",
+    "depth": 1,
+    "id": 24,
+    "name": "Sergej Zerr Dataverse",
+    "ownerId": 1
+   },
+   {
+    "alias": "test-test",
+    "depth": 1,
+    "id": 37,
+    "name": "DataPublication Admin Dataverse",
+    "ownerId": 1
+   },
+   {
+    "alias": "th-koeln",
+    "children": [
+     {
+      "alias": "zz-test-th-koeln-col-umweltdaten",
+      "depth": 2,
+      "id": 431,
+      "name": "Umwelt- und Klimadaten Rheinland",
+      "ownerId": 11
+     },
+     {
+      "alias": "zz-test-th-koeln-col-versorgungsforschung",
+      "depth": 2,
+      "id": 429,
+      "name": "Arbeitsgruppe Versorgungsforschung",
+      "ownerId": 11
+     },
+     {
+      "alias": "zz-test-th-koeln-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 430,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 11
+     }
+    ],
+    "depth": 1,
+    "id": 11,
+    "name": "TH Köln",
+    "ownerId": 1
+   },
+   {
+    "alias": "uni-bielefeld",
+    "depth": 1,
+    "id": 5,
+    "name": "Bielefeld University",
+    "ownerId": 1
+   },
+   {
+    "alias": "uni-bonn",
+    "depth": 1,
+    "id": 16,
+    "name": "Universität Bonn",
+    "ownerId": 1
+   },
+   {
+    "alias": "uni-koeln",
+    "children": [
+     {
+      "alias": "zz-test-uni-koeln-col-bildungsforschung",
+      "depth": 2,
+      "id": 243,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 12
+     },
+     {
+      "alias": "zz-test-uni-koeln-col-umweltdaten",
+      "depth": 2,
+      "id": 242,
+      "name": "Umwelt- und Klimadaten Rheinland",
+      "ownerId": 12
+     },
+     {
+      "alias": "zz-test-uni-koeln-col-versorgungsforschung",
+      "depth": 2,
+      "id": 244,
+      "name": "Arbeitsgruppe Versorgungsforschung",
+      "ownerId": 12
+     },
+     {
+      "alias": "zz-test-uni-koeln-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 245,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 12
+     }
+    ],
+    "depth": 1,
+    "id": 12,
+    "name": "University of Cologne",
+    "ownerId": 1
+   },
+   {
+    "alias": "uni-koeln__sub1",
+    "depth": 1,
+    "id": 36,
+    "name": "Subdataverse Test1",
+    "ownerId": 1
+   },
+   {
+    "alias": "uni-muenster",
+    "depth": 1,
+    "id": 2,
+    "name": "Uni Münster",
+    "ownerId": 1
+   },
+   {
+    "alias": "uni-siegen",
+    "children": [
+     {
+      "alias": "zz-test-uni-siegen-col-bildungsforschung",
+      "depth": 2,
+      "id": 529,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 13
+     },
+     {
+      "alias": "zz-test-uni-siegen-col-umweltdaten",
+      "depth": 2,
+      "id": 531,
+      "name": "Umwelt- und Klimadaten Siegerland",
+      "ownerId": 13
+     },
+     {
+      "alias": "zz-test-uni-siegen-col-versorgungsforschung",
+      "depth": 2,
+      "id": 530,
+      "name": "Arbeitsgruppe Versorgungsforschung",
+      "ownerId": 13
+     }
+    ],
+    "depth": 1,
+    "id": 13,
+    "name": "Universität Siegen",
+    "ownerId": 1
+   },
+   {
+    "alias": "uni-wuppertal",
+    "children": [
+     {
+      "alias": "testverse",
+      "children": [
+       {
+        "alias": "testproject",
+        "depth": 3,
+        "id": 588,
+        "name": "Project AstroPhoto Digitalization",
+        "ownerId": 587
+       }
+      ],
+      "depth": 2,
+      "id": 587,
+      "name": "Astrocommunity Testverse",
+      "ownerId": 3
+     },
+     {
+      "alias": "zz-test-uni-wuppertal-col-bildungsforschung",
+      "depth": 2,
+      "id": 494,
+      "name": "Bildungs- und Hochschulforschung",
+      "ownerId": 3
+     },
+     {
+      "alias": "zz-test-uni-wuppertal-col-versorgungsforschung",
+      "depth": 2,
+      "id": 495,
+      "name": "Arbeitsgruppe Versorgungsforschung",
+      "ownerId": 3
+     },
+     {
+      "alias": "zz-test-uni-wuppertal-col-werkstoffpruefung",
+      "depth": 2,
+      "id": 496,
+      "name": "Labor für Werkstoffprüfung",
+      "ownerId": 3
+     }
+    ],
+    "depth": 1,
+    "id": 3,
+    "name": "PublicData.fdm.uni-wuppertal.de",
+    "ownerId": 1
+   }
   ],
-  "datasets_monthly": [
-    {
-      "count": 5,
-      "date": "2026-07"
-    },
-    {
-      "count": 90,
-      "date": "2026-08"
-    },
-    {
-      "count": 90,
-      "date": "2026-09"
-    },
-    {
-      "count": 109,
-      "date": "2026-10"
-    },
-    {
-      "count": 118,
-      "date": "2026-11"
-    }
-  ],
-  "dataverse_version": "6.12.1",
-  "fetched_at": "2026-11-24T11:22:10+01:00",
-  "files_by_type": [
-    {
-      "contenttype": "application/octet-stream",
-      "count": 2,
-      "size": 19756918
-    },
-    {
-      "contenttype": "image/png",
-      "count": 113,
-      "size": 683660
-    },
-    {
-      "contenttype": "text/csv",
-      "count": 140,
-      "size": 1517611
-    },
-    {
-      "contenttype": "text/markdown",
-      "count": 64,
-      "size": 70670
-    },
-    {
-      "contenttype": "text/plain",
-      "count": 12,
-      "size": 65889
-    },
-    {
-      "contenttype": "text/tab-separated-values",
-      "count": 2,
-      "size": 143758
-    },
-    {
-      "contenttype": "text/x-python",
-      "count": 17,
-      "size": 23440
-    },
-    {
-      "contenttype": "type/x-r-syntax",
-      "count": 12,
-      "size": 12504
-    }
-  ],
-  "kind": "snapshot",
-  "schema": 1,
-  "server": "https://datapublication-nrw-test.hrz.uni-bonn.de",
-  "unique_downloads": [
-    {
-      "count": 0,
-      "pid": "doi:10.83693/DaPu-test.nrw/1UMFNB"
-    },
-    {
-      "count": 1,
-      "pid": "doi:10.83693/DaPu-test.nrw/7IWKJY"
-    },
-    {
-      "count": 0,
-      "pid": "doi:10.83693/DaPu-test.nrw/A5D1ON"
-    },
-    {
-      "count": 1,
-      "pid": "doi:10.83693/DaPu-test.nrw/HYX8JT"
-    },
-    {
-      "count": 0,
-      "pid": "doi:10.83693/DaPu-test.nrw/MIQDXS"
-    },
-    {
-      "count": 0,
-      "pid": "doi:10.83693/DaPu-test.nrw/PIOZVL"
-    },
-    {
-      "count": 1,
-      "pid": "doi:10.83693/DaPu-test.nrw/SIVYPQ"
-    },
-    {
-      "count": 0,
-      "pid": "doi:10.83693/DaPu-test.nrw/YNGGAS"
-    }
-  ]
+  "depth": 0,
+  "id": 1,
+  "name": "DataPublication.nrw",
+  "ownerId": 0
+ }
 }

@@ -268,6 +268,8 @@ lead = "Diese Zahlen berichtet DataPublication.nrw ab dem Produktivstart öffent
 decimal_separator = ","
 thousands_separator = "."
 months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+area_lead = "Zahlen des Bereichs {name}, Unterbereiche eingeschlossen. Sie stammen aus der offenen Schnittstelle des Repositoriums."
+empty = "In diesem Bereich gibt es noch keine veröffentlichten Datensätze."
 switch_label = "Datenbasis"
 switch_snapshot = "Testdaten"
 switch_sample = "Beispieldaten"
@@ -279,14 +281,29 @@ snapshot_text = "Stand {date}. Enthalten sind auch Testdaten, der Demo-Bereich u
 sample_title = "Erfundene Beispielzahlen."
 sample_text = "So könnte diese Seite nach dem ersten Betriebsjahr aussehen. Fiktiver Stand {date}, keine echten Daten."
 
+# Auswahl oben (nur oberste Ebene) und Pfad auf den Bereichsseiten.
+[data.nav]
+menu_label = "Bereich wählen"
+all_areas = "Alle Bereiche"
+breadcrumb_label = "Pfad"
+demo_name = "Demo-Bereich"
+
 [data.tiles]
 heading = "Auf einen Blick"
 datasets = "veröffentlichte Datensätze"
+datasets_recent = "+{n} in den letzten 30 Tagen"
 files = "Dateien"
 volume = "Datenvolumen"
 downloads = "eindeutige Downloads"
-areas = "Hochschulbereiche eingerichtet"
-areas_accepted = "davon {n} abgenommen"
+areas = "Bereiche"
+sub_areas = "Unterbereiche"
+
+[data.tree]
+heading = "Unterbereiche"
+datasets_one = "{n} Datensatz"
+datasets_many = "{n} Datensätze"
+hidden_one = "Dazu kommt {n} ausgeblendeter Testbereich. Seine Zahlen sind oben enthalten."
+hidden_many = "Dazu kommen {n} ausgeblendete Testbereiche. Ihre Zahlen sind oben enthalten."
 
 [data.monthly]
 heading = "Veröffentlichte Datensätze je Monat"
@@ -333,6 +350,25 @@ table_count = "Dateien"
 table_size = "Volumen"
 table_formats = "Formate"
 
+[data.categories_chart]
+heading = "Bereiche nach Art"
+note = "Die Art wählt, wer einen Bereich anlegt."
+table_toggle = "Werte als Tabelle"
+table_category = "Art"
+table_count = "Bereiche"
+
+# Kategorien von Dataverse für Bereiche (Collections). Unbekannte bleiben englisch.
+[data.categories]
+"Department" = "Fachbereich oder Institut"
+"Laboratory" = "Labor"
+"Research Group" = "Forschungsgruppe"
+"Research Project" = "Forschungsprojekt"
+"Researcher" = "Person"
+"Organization or Institution" = "Organisation oder Einrichtung"
+"Teaching Course" = "Lehrveranstaltung"
+"Journal" = "Zeitschrift"
+"Uncategorized" = "Ohne Angabe"
+
 [data.type_groups]
 tables = "Tabellen"
 code = "Code"
@@ -346,8 +382,10 @@ lead = "Jede Hochschule kann die Zahlen ihres Bereichs selbst abrufen, ohne Kont
 browse_heading = "Im Browser"
 browse_text = "Die Seite Ihres Bereichs im Repositorium zeigt links bei „Datasets“ die Zahl der veröffentlichten Datensätze, Unterbereiche eingeschlossen ({example}). Rufen Sie die Seite abgemeldet auf: Angemeldet zählen auch Entwürfe mit, die Sie sehen dürfen."
 browse_example = "Beispiel: Demo-Bereich"
+browse_this = "dieser Bereich im Repositorium"
 api_heading = "Über die Schnittstelle"
 api_text = "Für Berichte und Auswertungen. Ersetzen Sie `demo` durch das Kürzel Ihres Bereichs, es steht in dessen Adresse."
+api_text_area = "Für Berichte und Auswertungen. Diese Abfragen liefern die Zahlen dieses Bereichs. Für einen anderen Bereich ersetzen Sie `{alias}` durch dessen Kürzel."
 formats = "Gesamtzahlen kommen als JSON. Monatsreihen und Aufschlüsselungen kommen als CSV, mit dem Header `Accept: application/json` ebenfalls als JSON. Ein unbekanntes Kürzel ergibt den Fehler 404."
 docs = "Alle Abfragen beschreibt die Dataverse-Dokumentation zur Metrics API."
 docs_url = "https://guides.dataverse.org/en/latest/api/metrics.html"

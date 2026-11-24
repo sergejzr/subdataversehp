@@ -1,207 +1,239 @@
 {
-  "areas": {
-    "accepted": 11,
-    "set_up": 12
-  },
-  "comment": "Frei erfundene Beispielzahlen für /at/data/beispiel/ (fiktives erstes Betriebsjahr), keine echten Daten. Prüfen: python3 scripts/fetch_metrics.py --check templates/landing/metrics.sample.json",
-  "counts": {
+ "collections": {
+  "root": {
+   "counts": {
     "datasets": 412,
+    "datasets_past_30": 65,
+    "dataverses": 64,
     "files": 6020
-  },
-  "datasets_by_subject": [
+   },
+   "datasets_by_subject": [
     {
-      "count": 96,
-      "subject": "Medicine, Health and Life Sciences"
+     "count": 96,
+     "subject": "Medicine, Health and Life Sciences"
     },
     {
-      "count": 88,
-      "subject": "Engineering"
+     "count": 88,
+     "subject": "Engineering"
     },
     {
-      "count": 71,
-      "subject": "Social Sciences"
+     "count": 71,
+     "subject": "Social Sciences"
     },
     {
-      "count": 64,
-      "subject": "Computer and Information Science"
+     "count": 64,
+     "subject": "Computer and Information Science"
     },
     {
-      "count": 58,
-      "subject": "Earth and Environmental Sciences"
+     "count": 58,
+     "subject": "Earth and Environmental Sciences"
     },
     {
-      "count": 34,
-      "subject": "Physics"
+     "count": 34,
+     "subject": "Physics"
     },
     {
-      "count": 31,
-      "subject": "Chemistry"
+     "count": 31,
+     "subject": "Chemistry"
     },
     {
-      "count": 29,
-      "subject": "Arts and Humanities"
+     "count": 29,
+     "subject": "Arts and Humanities"
     },
     {
-      "count": 22,
-      "subject": "Mathematical Sciences"
+     "count": 22,
+     "subject": "Mathematical Sciences"
     },
     {
-      "count": 14,
-      "subject": "Agricultural Sciences"
+     "count": 14,
+     "subject": "Agricultural Sciences"
     },
     {
-      "count": 12,
-      "subject": "Business and Management"
+     "count": 12,
+     "subject": "Business and Management"
     },
     {
-      "count": 9,
-      "subject": "Other"
+     "count": 9,
+     "subject": "Other"
     },
     {
-      "count": 6,
-      "subject": "Law"
+     "count": 6,
+     "subject": "Law"
     },
     {
-      "count": 3,
-      "subject": "Astronomy and Astrophysics"
+     "count": 3,
+     "subject": "Astronomy and Astrophysics"
     }
-  ],
-  "datasets_monthly": [
+   ],
+   "datasets_monthly": [
     {
-      "count": 9,
-      "date": "2027-01"
+     "count": 9,
+     "date": "2027-01"
     },
     {
-      "count": 23,
-      "date": "2027-02"
+     "count": 23,
+     "date": "2027-02"
     },
     {
-      "count": 41,
-      "date": "2027-03"
+     "count": 41,
+     "date": "2027-03"
     },
     {
-      "count": 66,
-      "date": "2027-04"
+     "count": 66,
+     "date": "2027-04"
     },
     {
-      "count": 92,
-      "date": "2027-05"
+     "count": 92,
+     "date": "2027-05"
     },
     {
-      "count": 121,
-      "date": "2027-06"
+     "count": 121,
+     "date": "2027-06"
     },
     {
-      "count": 150,
-      "date": "2027-07"
+     "count": 150,
+     "date": "2027-07"
     },
     {
-      "count": 187,
-      "date": "2027-08"
+     "count": 187,
+     "date": "2027-08"
     },
     {
-      "count": 236,
-      "date": "2027-09"
+     "count": 236,
+     "date": "2027-09"
     },
     {
-      "count": 289,
-      "date": "2027-10"
+     "count": 289,
+     "date": "2027-10"
     },
     {
-      "count": 347,
-      "date": "2027-11"
+     "count": 347,
+     "date": "2027-11"
     },
     {
-      "count": 412,
-      "date": "2027-12"
+     "count": 412,
+     "date": "2027-12"
     }
-  ],
-  "dataverse_version": "6.12.1",
-  "fetched_at": "2027-12-31T12:00:00+01:00",
-  "files_by_type": [
+   ],
+   "dataverses_by_category": [
     {
-      "contenttype": "application/octet-stream",
-      "count": 85,
-      "size": 95300000000
+     "category": "Department",
+     "count": 21
     },
     {
-      "contenttype": "application/pdf",
-      "count": 290,
-      "size": 1600000000
+     "category": "Research Group",
+     "count": 15
     },
     {
-      "contenttype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-      "count": 290,
-      "size": 1100000000
+     "category": "Organization or Institution",
+     "count": 12
     },
     {
-      "contenttype": "application/x-hdf5",
-      "count": 120,
-      "size": 540200000000
+     "category": "Laboratory",
+     "count": 8
     },
     {
-      "contenttype": "application/x-ipynb+json",
-      "count": 95,
-      "size": 600000000
+     "category": "Research Project",
+     "count": 5
     },
     {
-      "contenttype": "application/zip",
-      "count": 340,
-      "size": 820400000000
-    },
-    {
-      "contenttype": "image/jpeg",
-      "count": 380,
-      "size": 2700000000
-    },
-    {
-      "contenttype": "image/png",
-      "count": 520,
-      "size": 3900000000
-    },
-    {
-      "contenttype": "image/tiff",
-      "count": 640,
-      "size": 410500000000
-    },
-    {
-      "contenttype": "text/csv",
-      "count": 1620,
-      "size": 48300000000
-    },
-    {
-      "contenttype": "text/markdown",
-      "count": 260,
-      "size": 50000000
-    },
-    {
-      "contenttype": "text/plain",
-      "count": 330,
-      "size": 900000000
-    },
-    {
-      "contenttype": "text/tab-separated-values",
-      "count": 410,
-      "size": 6200000000
-    },
-    {
-      "contenttype": "text/x-python",
-      "count": 410,
-      "size": 210000000
-    },
-    {
-      "contenttype": "type/x-r-syntax",
-      "count": 230,
-      "size": 80000000
+     "category": "Uncategorized",
+     "count": 3
     }
-  ],
-  "kind": "sample",
-  "schema": 1,
-  "server": "https://datapublication-nrw-test.hrz.uni-bonn.de",
-  "unique_downloads": [
+   ],
+   "files_by_type": [
     {
-      "count": 3870,
-      "pid": "beispiel"
+     "contenttype": "application/octet-stream",
+     "count": 85,
+     "size": 95300000000
+    },
+    {
+     "contenttype": "application/pdf",
+     "count": 290,
+     "size": 1600000000
+    },
+    {
+     "contenttype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+     "count": 290,
+     "size": 1100000000
+    },
+    {
+     "contenttype": "application/x-hdf5",
+     "count": 120,
+     "size": 540200000000
+    },
+    {
+     "contenttype": "application/x-ipynb+json",
+     "count": 95,
+     "size": 600000000
+    },
+    {
+     "contenttype": "application/zip",
+     "count": 340,
+     "size": 820400000000
+    },
+    {
+     "contenttype": "image/jpeg",
+     "count": 380,
+     "size": 2700000000
+    },
+    {
+     "contenttype": "image/png",
+     "count": 520,
+     "size": 3900000000
+    },
+    {
+     "contenttype": "image/tiff",
+     "count": 640,
+     "size": 410500000000
+    },
+    {
+     "contenttype": "text/csv",
+     "count": 1620,
+     "size": 48300000000
+    },
+    {
+     "contenttype": "text/markdown",
+     "count": 260,
+     "size": 50000000
+    },
+    {
+     "contenttype": "text/plain",
+     "count": 330,
+     "size": 900000000
+    },
+    {
+     "contenttype": "text/tab-separated-values",
+     "count": 410,
+     "size": 6200000000
+    },
+    {
+     "contenttype": "text/x-python",
+     "count": 410,
+     "size": 210000000
+    },
+    {
+     "contenttype": "type/x-r-syntax",
+     "count": 230,
+     "size": 80000000
     }
-  ]
+   ],
+   "unique_downloads": [
+    {
+     "count": 3870,
+     "pid": "beispiel"
+    }
+   ]
+  }
+ },
+ "comment": "Frei erfundene Beispielzahlen für /at/data/beispiel/ (fiktives erstes Betriebsjahr), keine echten Daten. Prüfen: python3 scripts/fetch_metrics.py --check templates/landing/metrics.sample.json",
+ "dataverse_version": "6.12.1",
+ "fetched_at": "2027-12-31T12:00:00+01:00",
+ "kind": "sample",
+ "schema": 2,
+ "server": "https://datapublication-nrw-test.hrz.uni-bonn.de",
+ "tree": {
+  "alias": "root",
+  "name": "DataPublication.nrw"
+ }
 }

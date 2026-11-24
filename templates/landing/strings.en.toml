@@ -267,6 +267,8 @@ lead = "These are the figures DataPublication.nrw will report publicly once the 
 decimal_separator = "."
 thousands_separator = ","
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+area_lead = "Figures of the area {name}, sub-areas included. They come from the repository's open interface."
+empty = "There are no published datasets in this area yet."
 switch_label = "Data basis"
 switch_snapshot = "Test data"
 switch_sample = "Sample data"
@@ -278,14 +280,29 @@ snapshot_text = "As of {date}. They include test data, the demo area and develop
 sample_title = "Made-up sample figures."
 sample_text = "This is how the page could look after the first year in production. Fictional date {date}, no real data."
 
+# Menu at the top (top level only) and path on the area pages.
+[data.nav]
+menu_label = "Choose an area"
+all_areas = "All areas"
+breadcrumb_label = "Path"
+demo_name = "Demo area"
+
 [data.tiles]
 heading = "At a glance"
 datasets = "published datasets"
+datasets_recent = "+{n} in the last 30 days"
 files = "files"
 volume = "data volume"
 downloads = "unique downloads"
-areas = "university areas set up"
-areas_accepted = "{n} of them signed off"
+areas = "areas"
+sub_areas = "sub-areas"
+
+[data.tree]
+heading = "Sub-areas"
+datasets_one = "{n} dataset"
+datasets_many = "{n} datasets"
+hidden_one = "Plus {n} hidden test area. Its figures are included above."
+hidden_many = "Plus {n} hidden test areas. Their figures are included above."
 
 [data.monthly]
 heading = "Published datasets per month"
@@ -332,6 +349,25 @@ table_count = "Files"
 table_size = "Volume"
 table_formats = "Formats"
 
+[data.categories_chart]
+heading = "Areas by type"
+note = "The type is chosen by whoever creates an area."
+table_toggle = "Values as a table"
+table_category = "Type"
+table_count = "Areas"
+
+# Dataverse categories for collections, shown as is except "Uncategorized".
+[data.categories]
+"Department" = "Department"
+"Laboratory" = "Laboratory"
+"Research Group" = "Research group"
+"Research Project" = "Research project"
+"Researcher" = "Researcher"
+"Organization or Institution" = "Organization or institution"
+"Teaching Course" = "Teaching course"
+"Journal" = "Journal"
+"Uncategorized" = "Not specified"
+
 [data.type_groups]
 tables = "Tables"
 code = "Code"
@@ -345,8 +381,10 @@ lead = "Every university can retrieve the figures for its own area, without an a
 browse_heading = "In the browser"
 browse_text = "The page of your area in the repository shows the number of published datasets on the left under “Datasets”, sub-areas included ({example}). Open the page logged out: when you are logged in, drafts you are allowed to see are counted as well."
 browse_example = "example: demo area"
+browse_this = "this area in the repository"
 api_heading = "Via the interface"
 api_text = "For reports and analyses. Replace `demo` with the short name of your area, which appears in its address."
+api_text_area = "For reports and analyses. These queries return the figures of this area. For another area, replace `{alias}` with its short name."
 formats = "Totals come as JSON. Monthly series and breakdowns come as CSV, or as JSON with the header `Accept: application/json`. An unknown short name returns error 404."
 docs = "All queries are described in the Dataverse documentation of the Metrics API."
 docs_url = "https://guides.dataverse.org/en/latest/api/metrics.html"
