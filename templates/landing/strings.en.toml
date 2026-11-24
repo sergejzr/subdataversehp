@@ -258,3 +258,103 @@ th-koeln = "TH Köln"
 h-brs = "Bonn-Rhein-Sieg University of Applied Sciences"
 uni-bielefeld = "Bielefeld University"
 hsbi = "Bielefeld University of Applied Sciences and Arts"
+
+# Key figures page /at/en/data/ (data_page.py), dev and test only. {date} is the snapshot date,
+# text in `backticks` is set as code.
+[data]
+title = "Key figures"
+lead = "These are the figures DataPublication.nrw will report publicly once the repository is in production. They come from the repository's open interface, and every university can retrieve them for its own area."
+decimal_separator = "."
+thousands_separator = ","
+months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+switch_label = "Data basis"
+switch_snapshot = "Test data"
+switch_sample = "Sample data"
+sample_suffix = "sample"
+
+[data.notice]
+snapshot_title = "Test system: figures are illustrative."
+snapshot_text = "As of {date}. They include test data, the demo area and development areas."
+sample_title = "Made-up sample figures."
+sample_text = "This is how the page could look after the first year in production. Fictional date {date}, no real data."
+
+[data.tiles]
+heading = "At a glance"
+datasets = "published datasets"
+files = "files"
+volume = "data volume"
+downloads = "unique downloads"
+areas = "university areas set up"
+areas_accepted = "{n} of them signed off"
+
+[data.monthly]
+heading = "Published datasets per month"
+caption = "Published datasets, cumulative"
+desc = "From {first} in {first_month} to {last} in {last_month}."
+desc_single = "{last} in {last_month}."
+table_toggle = "Values as a table"
+table_month = "Month"
+table_count = "Datasets"
+
+[data.subjects_chart]
+heading = "Datasets by subject"
+note = "A dataset can have more than one subject, so the bars add up to more than the number of datasets."
+rest = "Others"
+table_toggle = "All subjects as a table"
+table_subject = "Subject"
+table_count = "Datasets"
+
+# Dataverse subject vocabulary (citation block, 14 terms), shown as is.
+[data.subjects]
+"Agricultural Sciences" = "Agricultural Sciences"
+"Arts and Humanities" = "Arts and Humanities"
+"Astronomy and Astrophysics" = "Astronomy and Astrophysics"
+"Business and Management" = "Business and Management"
+"Chemistry" = "Chemistry"
+"Computer and Information Science" = "Computer and Information Science"
+"Earth and Environmental Sciences" = "Earth and Environmental Sciences"
+"Engineering" = "Engineering"
+"Law" = "Law"
+"Mathematical Sciences" = "Mathematical Sciences"
+"Medicine, Health and Life Sciences" = "Medicine, Health and Life Sciences"
+"Physics" = "Physics"
+"Social Sciences" = "Social Sciences"
+"Other" = "Other"
+
+[data.types]
+heading = "Files by type"
+note = "Grouped by file format, with count and volume."
+files_one = "{n} file"
+files_many = "{n} files"
+table_toggle = "Values and formats as a table"
+table_group = "Group"
+table_count = "Files"
+table_size = "Volume"
+table_formats = "Formats"
+
+[data.type_groups]
+tables = "Tables"
+code = "Code"
+images = "Images"
+text = "Text"
+other = "Other"
+
+[data.access]
+heading = "Retrieve the figures yourself"
+lead = "Every university can retrieve the figures for its own area, without an account or a token."
+browse_heading = "In the browser"
+browse_text = "The page of your area in the repository shows the number of published datasets on the left under “Datasets”, sub-areas included ({example}). Open the page logged out: when you are logged in, drafts you are allowed to see are counted as well."
+browse_example = "example: demo area"
+api_heading = "Via the interface"
+api_text = "For reports and analyses. Replace `demo` with the short name of your area, which appears in its address."
+formats = "Totals come as JSON. Monthly series and breakdowns come as CSV, or as JSON with the header `Accept: application/json`. An unknown short name returns error 404."
+docs = "All queries are described in the Dataverse documentation of the Metrics API."
+docs_url = "https://guides.dataverse.org/en/latest/api/metrics.html"
+
+[data.missing]
+heading = "What is (still) missing"
+items = [
+  "Views, citations and cleaned-up downloads following Make Data Count will only come after the start of production.",
+  "We deliberately do not show the number of accounts. It mixes local, inactive and test accounts.",
+  "The University of Bonn and RWTH Aachen University have their own repositories. Their datasets are not included here.",
+]

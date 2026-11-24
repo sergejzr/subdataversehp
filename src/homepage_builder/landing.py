@@ -9,6 +9,10 @@ Inputs live in templates/landing/:
   shots.toml           showcase gallery: areas, release state, capture date
   map/DP.landing.svg   SVGO derivative of the shared map DP.svg (map/svgo.config.mjs)
 
+The data page /at/data/ (data_page.py: metrics.json, metrics.sample.json,
+data-jinja.html, data.css) is rendered after the landing on dev and test only,
+in its own try: a problem there skips the data page, never the landing.
+
 The caller wraps render_landing() so that bad landing data only skips the
 preview; nothing is written unless both languages render.
 """
@@ -62,6 +66,11 @@ STATUSES = ("eingerichtet", "abgenommen", "live")
 # chart are left out of the page.
 ENVIRONMENT_VARIABLE = site_paths.ENVIRONMENT_VARIABLE
 COUNTED_STATUSES = {"dev": set(STATUSES), "test": set(STATUSES), "prod": {"live"}}
+# Statuses a counted area has once its university signed it off.
+ACCEPTED_STATUSES = {"abgenommen", "live"}
+# The data page (/at/data/) shows numbers of the test system: never on prod,
+# and so never in a build that does not know its host.
+DATA_ENVIRONMENTS = {"dev", "test"}
 NO_STATUS = "none"
 EXTERNAL = "external"  # consortium partner with its own repository (unis.csv repourl)
 # Shown on map and list instead of the progress status: per-university progress
@@ -279,16 +288,33 @@ def progress_steps(rows: list[dict]) -> list[dict]:
     return steps
 
 
-def step_chart_svg(steps: list[dict], total: int, until: date, fmt: str, title: str) -> Markup:
+def step_chart_svg(
+    steps: list[dict],
+    total: int,
+    until: date,
+    fmt: str,
+    title: str,
+    *,
+    axis_labels: tuple[str, str] | None = None,
+    description: str | None = None,
+    chart_id: str | None = None,
+) -> Markup:
     """Minimal step chart; the template shows the same data as a table.
 
     The SVG holds only the two axes and the step line and stretches to the
     box CSS gives it (preserveAspectRatio="none"; landing.css keeps the
     strokes at their pixel width). The four axis labels are HTML around it,
     so they keep the page's text size however large the chart gets.
+
+    Landing: the wrapper is the image (role="img", aria-label=title). With a
+    description (data page) the SVG itself is the image, named by <title> and
+    described by <desc>; chart_id makes their ids unique. axis_labels replace
+    the two dates under the x-axis.
     """
     if not steps:
         return Markup("")
+    if description is not None and not chart_id:
+        raise ValueError("step_chart_svg: a description needs a chart_id")
 
     width, height = 400, 200
     start = steps[0]["datum"]
@@ -306,17 +332,34 @@ def step_chart_svg(steps: list[dict], total: int, until: date, fmt: str, title: 
     path.append(f"H{x(max(until, steps[-1]['datum'])):.1f}")
 
     esc = Markup.escape
+    start_label, end_label = axis_labels or (start.strftime(fmt), until.strftime(fmt))
+    svg_box = f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="none"'
+    if description is None:
+        wrapper = f'<div class="step-chart" role="img" aria-label="{esc(title)}">'
+        svg_open = f'{svg_box} aria-hidden="true" focusable="false">'
+        svg_text = ""
+    else:
+        wrapper = '<div class="step-chart">'
+        svg_open = (
+            f'{svg_box} role="img" aria-labelledby="{chart_id}-title" '
+            f'aria-describedby="{chart_id}-desc" focusable="false">'
+        )
+        svg_text = (
+            f'<title id="{chart_id}-title">{esc(title)}</title>'
+            f'<desc id="{chart_id}-desc">{esc(description)}</desc>'
+        )
     parts = [
-        f'<div class="step-chart" role="img" aria-label="{esc(title)}">',
+        wrapper,
         f'<span class="axis-y axis-max" aria-hidden="true">{total}</span>',
         '<span class="axis-y axis-min" aria-hidden="true">0</span>',
-        f'<svg viewBox="0 0 {width} {height}" preserveAspectRatio="none" aria-hidden="true" focusable="false">',
+        svg_open,
+        svg_text,
         f'<line x1="0" y1="{height}" x2="{width}" y2="{height}"/>',
         f'<line x1="0" y1="0" x2="0" y2="{height}"/>',
         f'<path d="{"".join(path)}"/>',
         "</svg>",
-        f'<span class="axis-x" aria-hidden="true"><span>{esc(start.strftime(fmt))}</span>'
-        f"<span>{esc(until.strftime(fmt))}</span></span>",
+        f'<span class="axis-x" aria-hidden="true"><span>{esc(start_label)}</span>'
+        f"<span>{esc(end_label)}</span></span>",
         "</div>",
     ]
     return Markup("".join(parts))
@@ -775,16 +818,21 @@ def check_page(html: str, page_url: str, css_files: dict[str, str]) -> tuple[lis
     return violations, loaded
 
 
-def page_weight(html: str, loaded: list[str], landing_dir: Path) -> tuple[int, int, int]:
+def page_weight(
+    html: str, loaded: list[str], landing_dir: Path, extra: dict[str, Path] | None = None
+) -> tuple[int, int, int]:
     """(total, html, files) in bytes: the page plus every file it loads, each once.
 
     The files are counted at their source in templates/landing/, of which
-    landing.css and assets/ are copied unchanged next to the pages.
+    landing.css and assets/ are copied unchanged next to the pages. extra maps
+    further published URL paths to their source (data page: data.css).
     """
     files = 0
     for path in loaded:
         relative = unquote(path).removeprefix(LANDING_BASE_PATH) if path.startswith(LANDING_BASE_PATH) else None
         source = landing_dir / relative if relative and (relative == "landing.css" or relative.startswith("assets/")) else None
+        if source is None and extra:
+            source = extra.get(unquote(path))
         if source is None or not source.is_file():
             raise LandingDataError(f"page loads {path}, which the build does not publish")
         files += source.stat().st_size
@@ -794,10 +842,11 @@ def page_weight(html: str, loaded: list[str], landing_dir: Path) -> tuple[int, i
 
 def reserved_slugs(landing_dir: Path) -> set[str]:
     """Directory names the landing writes next to the university folders once
-    LANDING_BASE_PATH is "/at/": language subfolders, assets, guide and one
-    folder per plain page."""
+    LANDING_BASE_PATH is "/at/": language subfolders, assets, guide, the data
+    page and one folder per plain page. data is reserved on every host, so a
+    label "data" fails on test before it could reach prod."""
     pages = {path.stem for path in (landing_dir / "pages").glob("*.md")}
-    return {"assets", "guide"} | (set(LANGUAGES) - {DEFAULT_LANGUAGE}) | pages
+    return {"assets", "guide", "data"} | (set(LANGUAGES) - {DEFAULT_LANGUAGE}) | pages
 
 
 def check_reserved_labels(labels: set[str], landing_dir: Path) -> None:
@@ -808,6 +857,26 @@ def check_reserved_labels(labels: set[str], landing_dir: Path) -> None:
         raise LandingDataError(
             f"unis.csv labels collide with landing paths below /at/: {', '.join(clash)}"
         )
+
+
+def render_data_page(landing_dir: Path, out_dir: Path, **context) -> None:
+    """Render and write /at/data/ (data_page.py). Never raises: a problem
+    skips the data page with [LANDING] ERROR, the landing stays (FS21)."""
+    try:
+        try:
+            from . import data_page
+        except ImportError:
+            import data_page
+        files, log = data_page.render(landing_dir, **context)
+        for relative, text in files.items():
+            target = out_dir / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(text, encoding="utf-8")
+    except Exception as exc:
+        print(f"[LANDING] ERROR: data page skipped: {type(exc).__name__}: {exc}", file=sys.stderr)
+        return
+    for is_error, line in log:
+        print(f"[LANDING] {line}", file=sys.stderr if is_error else sys.stdout)
 
 
 def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
@@ -1037,6 +1106,21 @@ def render_landing(generator_root: Path, at_root: Path, unis_csv: Path) -> Path:
         print(f"[LANDING] Guide written: {len(guide['pages'])} pages, {len(guide['warnings'])} warnings")
         for warning in guide["warnings"]:
             print(f"[LANDING] Guide warning: {warning}")
+
+    if environment in DATA_ENVIRONMENTS:
+        accepted = sum(1 for label in counted if current.get(label) in ACCEPTED_STATUSES)
+        render_data_page(
+            landing_dir,
+            out_dir,
+            env=env,
+            strings=strings,
+            landing_urls=urls,
+            css_href=css_href,
+            css_files=css_files,
+            legal_urls=legal_urls,
+            areas={"set_up": len(counted), "accepted": accepted},
+            landing_weights={lang: weight[0] for lang, weight in weights.items()},
+        )
 
     if LANDING_BASE_PATH != site_paths.PREVIEW_PATH:
         preview_root = at_root / site_paths.PREVIEW_PATH.removeprefix("/at/")

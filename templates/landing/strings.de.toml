@@ -259,3 +259,103 @@ th-koeln = "TH Köln"
 h-brs = "Hochschule Bonn-Rhein-Sieg"
 uni-bielefeld = "Universität Bielefeld"
 hsbi = "Hochschule Bielefeld"
+
+# Kennzahlen-Seite /at/data/ (data_page.py), nur auf dev und test. {date} ist das Stand-Datum
+# des Snapshots, Text in `Backticks` wird als Code gesetzt.
+[data]
+title = "Kennzahlen"
+lead = "Diese Zahlen berichtet DataPublication.nrw ab dem Produktivstart öffentlich. Sie stammen aus der offenen Schnittstelle des Repositoriums, und jede Hochschule kann sie für ihren Bereich selbst abrufen."
+decimal_separator = ","
+thousands_separator = "."
+months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+switch_label = "Datenbasis"
+switch_snapshot = "Testdaten"
+switch_sample = "Beispieldaten"
+sample_suffix = "Beispiel"
+
+[data.notice]
+snapshot_title = "Testsystem: Zahlen illustrativ."
+snapshot_text = "Stand {date}. Enthalten sind auch Testdaten, der Demo-Bereich und Entwicklungsbereiche."
+sample_title = "Erfundene Beispielzahlen."
+sample_text = "So könnte diese Seite nach dem ersten Betriebsjahr aussehen. Fiktiver Stand {date}, keine echten Daten."
+
+[data.tiles]
+heading = "Auf einen Blick"
+datasets = "veröffentlichte Datensätze"
+files = "Dateien"
+volume = "Datenvolumen"
+downloads = "eindeutige Downloads"
+areas = "Hochschulbereiche eingerichtet"
+areas_accepted = "davon {n} abgenommen"
+
+[data.monthly]
+heading = "Veröffentlichte Datensätze je Monat"
+caption = "Veröffentlichte Datensätze, kumuliert"
+desc = "Von {first} im {first_month} auf {last} im {last_month}."
+desc_single = "{last} im {last_month}."
+table_toggle = "Werte als Tabelle"
+table_month = "Monat"
+table_count = "Datensätze"
+
+[data.subjects_chart]
+heading = "Datensätze nach Fach"
+note = "Ein Datensatz kann mehreren Fächern zugeordnet sein. Die Balken ergeben deshalb zusammen mehr als die Zahl der Datensätze."
+rest = "Weitere"
+table_toggle = "Alle Fächer als Tabelle"
+table_subject = "Fach"
+table_count = "Datensätze"
+
+# Fachvokabular von Dataverse (citation block, 14 Begriffe). Unbekannte Fächer bleiben englisch.
+[data.subjects]
+"Agricultural Sciences" = "Agrarwissenschaften"
+"Arts and Humanities" = "Kunst- und Geisteswissenschaften"
+"Astronomy and Astrophysics" = "Astronomie und Astrophysik"
+"Business and Management" = "Wirtschaft und Management"
+"Chemistry" = "Chemie"
+"Computer and Information Science" = "Informatik und Informationswissenschaft"
+"Earth and Environmental Sciences" = "Geo- und Umweltwissenschaften"
+"Engineering" = "Ingenieurwissenschaften"
+"Law" = "Rechtswissenschaft"
+"Mathematical Sciences" = "Mathematik"
+"Medicine, Health and Life Sciences" = "Medizin, Gesundheit und Lebenswissenschaften"
+"Physics" = "Physik"
+"Social Sciences" = "Sozialwissenschaften"
+"Other" = "Sonstige"
+
+[data.types]
+heading = "Dateien nach Typ"
+note = "Nach Dateiformat zusammengefasst, mit Anzahl und Volumen."
+files_one = "{n} Datei"
+files_many = "{n} Dateien"
+table_toggle = "Werte und Formate als Tabelle"
+table_group = "Gruppe"
+table_count = "Dateien"
+table_size = "Volumen"
+table_formats = "Formate"
+
+[data.type_groups]
+tables = "Tabellen"
+code = "Code"
+images = "Bilder"
+text = "Text"
+other = "Sonstige"
+
+[data.access]
+heading = "Zahlen selbst abrufen"
+lead = "Jede Hochschule kann die Zahlen ihres Bereichs selbst abrufen, ohne Konto und ohne Token."
+browse_heading = "Im Browser"
+browse_text = "Die Seite Ihres Bereichs im Repositorium zeigt links bei „Datasets“ die Zahl der veröffentlichten Datensätze, Unterbereiche eingeschlossen ({example}). Rufen Sie die Seite abgemeldet auf: Angemeldet zählen auch Entwürfe mit, die Sie sehen dürfen."
+browse_example = "Beispiel: Demo-Bereich"
+api_heading = "Über die Schnittstelle"
+api_text = "Für Berichte und Auswertungen. Ersetzen Sie `demo` durch das Kürzel Ihres Bereichs, es steht in dessen Adresse."
+formats = "Gesamtzahlen kommen als JSON. Monatsreihen und Aufschlüsselungen kommen als CSV, mit dem Header `Accept: application/json` ebenfalls als JSON. Ein unbekanntes Kürzel ergibt den Fehler 404."
+docs = "Alle Abfragen beschreibt die Dataverse-Dokumentation zur Metrics API."
+docs_url = "https://guides.dataverse.org/en/latest/api/metrics.html"
+
+[data.missing]
+heading = "Was hier (noch) fehlt"
+items = [
+  "Aufrufe, Zitationen und bereinigte Downloads nach Make Data Count kommen erst nach dem Produktivstart.",
+  "Die Zahl der Konten zeigen wir bewusst nicht. Sie mischt lokale, inaktive und Testkonten.",
+  "Die Universität Bonn und die RWTH Aachen haben eigene Repositorien. Ihre Datensätze sind hier nicht enthalten.",
+]

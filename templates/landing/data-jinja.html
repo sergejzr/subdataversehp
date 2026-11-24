@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+{#- Key figures page /at/data/ (data_page.py), dev and test only. Context: see data_page.page_context(). #}
+{%- set base = urls[default_lang] %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {#- Test or made-up numbers: never indexed, whatever the host sends. #}
+  <meta name="robots" content="noindex, nofollow">
+  <title>{{ d.title }}{{ suffix }} · {{ s.title }}</title>
+  <link rel="icon" href="{{ base }}assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="{{ base }}assets/fonts/open-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ css_href }}">
+  <link rel="stylesheet" href="{{ data_css_href }}">
+</head>
+<body class="data-page">
+  <a class="skip-link" href="#main">{{ s.skip_link }}</a>
+  {% include "_header.html" %}
+
+  <main id="main" class="band">
+    <div class="wrap">
+      <h1>{{ d.title }}</h1>
+      <p class="data-notice is-{{ view }}" role="note"><strong>{{ notice_title }}</strong> {{ notice_text }}</p>
+      {%- if switch %}
+      <nav class="data-switch" aria-label="{{ d.switch_label }}">
+        <ul>
+          {%- for item in switch %}
+          <li><a href="{{ item.href }}"{% if item.current %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+          {%- endfor %}
+        </ul>
+      </nav>
+      {%- endif %}
+      <p class="lead">{{ d.lead }}</p>
+
+      <section class="data-section" aria-labelledby="tiles-heading">
+        <h2 id="tiles-heading">{{ d.tiles.heading }}</h2>
+        <ul class="kpi-grid">
+          {%- for tile in tiles %}
+          <li class="card kpi"><span class="kpi-n">{{ tile.value }}</span> <span class="kpi-label">{{ tile.label }}</span>{% if tile.sub %} <span class="kpi-sub">{{ tile.sub }}</span>{% endif %}</li>
+          {%- endfor %}
+        </ul>
+      </section>
+
+      <section class="data-section" aria-labelledby="monthly-heading">
+        <h2 id="monthly-heading">{{ d.monthly.heading }}</h2>
+        <figure class="chart data-chart">
+          {{ monthly.chart }}
+          <figcaption>{{ d.monthly.caption }}{{ suffix }}</figcaption>
+        </figure>
+        <details class="data-table">
+          <summary>{{ d.monthly.table_toggle }}</summary>
+          <table>
+            <caption>{{ d.monthly.caption }}{{ suffix }}</caption>
+            <thead><tr><th scope="col">{{ d.monthly.table_month }}</th><th scope="col">{{ d.monthly.table_count }}</th></tr></thead>
+            <tbody>
+              {%- for row in monthly.rows %}
+              <tr><td>{{ row.label }}</td><td>{{ row.count }}</td></tr>
+              {%- endfor %}
+            </tbody>
+          </table>
+        </details>
+      </section>
+
+      <section class="data-section" aria-labelledby="subjects-heading">
+        <h2 id="subjects-heading">{{ d.subjects_chart.heading }}</h2>
+        <figure class="data-bars">
+          <ol class="bar-list">
+            {%- for bar in subjects.bars %}
+            <li{% if bar.rest %} class="is-rest"{% endif %}><span class="bar-label">{{ bar.label }}</span> <svg class="bar" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true" focusable="false"><rect width="{{ bar.pct }}" height="1"/></svg> <span class="bar-value">{{ bar.value }}</span></li>
+            {%- endfor %}
+          </ol>
+          <figcaption>{{ d.subjects_chart.note }}{{ suffix }}</figcaption>
+        </figure>
+        <details class="data-table">
+          <summary>{{ d.subjects_chart.table_toggle }}</summary>
+          <table>
+            <caption>{{ d.subjects_chart.heading }}{{ suffix }}</caption>
+            <thead><tr><th scope="col">{{ d.subjects_chart.table_subject }}</th><th scope="col">{{ d.subjects_chart.table_count }}</th></tr></thead>
+            <tbody>
+              {%- for row in subjects.table %}
+              <tr><td>{{ row.label }}</td><td>{{ row.value }}</td></tr>
+              {%- endfor %}
+            </tbody>
+          </table>
+        </details>
+      </section>
+
+      <section class="data-section" aria-labelledby="types-heading">
+        <h2 id="types-heading">{{ d.types.heading }}</h2>
+        <figure class="data-bars">
+          <ol class="bar-list is-wide-value">
+            {%- for bar in types %}
+            <li{% if bar.rest %} class="is-rest"{% endif %}><span class="bar-label">{{ bar.label }}</span> <svg class="bar" viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true" focusable="false"><rect width="{{ bar.pct }}" height="1"/></svg> <span class="bar-value">{{ bar.value }}</span></li>
+            {%- endfor %}
+          </ol>
+          <figcaption>{{ d.types.note }}{{ suffix }}</figcaption>
+        </figure>
+        <details class="data-table">
+          <summary>{{ d.types.table_toggle }}</summary>
+          <table>
+            <caption>{{ d.types.heading }}{{ suffix }}</caption>
+            <thead><tr><th scope="col">{{ d.types.table_group }}</th><th scope="col">{{ d.types.table_count }}</th><th scope="col">{{ d.types.table_size }}</th><th scope="col">{{ d.types.table_formats }}</th></tr></thead>
+            <tbody>
+              {%- for row in types %}
+              <tr><td>{{ row.label }}</td><td>{{ row.count_text }}</td><td>{{ row.size_text }}</td><td class="formats">{{ row.types }}</td></tr>
+              {%- endfor %}
+            </tbody>
+          </table>
+        </details>
+      </section>
+
+      <section id="abrufen" class="data-section" aria-labelledby="access-heading">
+        <h2 id="access-heading">{{ d.access.heading }}</h2>
+        <p class="lead">{{ d.access.lead }}</p>
+        <div class="access-grid">
+          <div class="card">
+            <h3>{{ d.access.browse_heading }}</h3>
+            <p>{{ access.browse }}</p>
+          </div>
+          <div class="card">
+            <h3>{{ d.access.api_heading }}</h3>
+            <p>{{ access.api }}</p>
+            <pre class="curl"><code>{{ access.curl }}</code></pre>
+            <p>{{ access.formats }}</p>
+            <p><a href="{{ d.access.docs_url }}" hreflang="en">{{ d.access.docs }}</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="data-section" aria-labelledby="missing-heading">
+        <h2 id="missing-heading">{{ d.missing.heading }}</h2>
+        <ul class="data-missing">
+          {%- for item in missing %}
+          <li>{{ item }}</li>
+          {%- endfor %}
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  {% include "_footer.html" %}
+</body>
+</html>

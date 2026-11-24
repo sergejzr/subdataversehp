@@ -1,0 +1,159 @@
+{
+  "counts": {
+    "datasets": 118,
+    "files": 355
+  },
+  "datasets_by_subject": [
+    {
+      "count": 43,
+      "subject": "Social Sciences"
+    },
+    {
+      "count": 34,
+      "subject": "Computer and Information Science"
+    },
+    {
+      "count": 24,
+      "subject": "Engineering"
+    },
+    {
+      "count": 22,
+      "subject": "Earth and Environmental Sciences"
+    },
+    {
+      "count": 10,
+      "subject": "Medicine, Health and Life Sciences"
+    },
+    {
+      "count": 9,
+      "subject": "Mathematical Sciences"
+    },
+    {
+      "count": 8,
+      "subject": "Agricultural Sciences"
+    },
+    {
+      "count": 8,
+      "subject": "Arts and Humanities"
+    },
+    {
+      "count": 5,
+      "subject": "Chemistry"
+    },
+    {
+      "count": 2,
+      "subject": "Business and Management"
+    },
+    {
+      "count": 2,
+      "subject": "Law"
+    },
+    {
+      "count": 1,
+      "subject": "Astronomy and Astrophysics"
+    }
+  ],
+  "datasets_monthly": [
+    {
+      "count": 5,
+      "date": "2026-07"
+    },
+    {
+      "count": 90,
+      "date": "2026-08"
+    },
+    {
+      "count": 90,
+      "date": "2026-09"
+    },
+    {
+      "count": 109,
+      "date": "2026-10"
+    },
+    {
+      "count": 118,
+      "date": "2026-11"
+    }
+  ],
+  "dataverse_version": "6.12.1",
+  "fetched_at": "2026-11-24T11:22:10+01:00",
+  "files_by_type": [
+    {
+      "contenttype": "application/octet-stream",
+      "count": 2,
+      "size": 19756918
+    },
+    {
+      "contenttype": "image/png",
+      "count": 113,
+      "size": 683660
+    },
+    {
+      "contenttype": "text/csv",
+      "count": 140,
+      "size": 1517611
+    },
+    {
+      "contenttype": "text/markdown",
+      "count": 64,
+      "size": 70670
+    },
+    {
+      "contenttype": "text/plain",
+      "count": 12,
+      "size": 65889
+    },
+    {
+      "contenttype": "text/tab-separated-values",
+      "count": 2,
+      "size": 143758
+    },
+    {
+      "contenttype": "text/x-python",
+      "count": 17,
+      "size": 23440
+    },
+    {
+      "contenttype": "type/x-r-syntax",
+      "count": 12,
+      "size": 12504
+    }
+  ],
+  "kind": "snapshot",
+  "schema": 1,
+  "server": "https://datapublication-nrw-test.hrz.uni-bonn.de",
+  "unique_downloads": [
+    {
+      "count": 0,
+      "pid": "doi:10.83693/DaPu-test.nrw/1UMFNB"
+    },
+    {
+      "count": 1,
+      "pid": "doi:10.83693/DaPu-test.nrw/7IWKJY"
+    },
+    {
+      "count": 0,
+      "pid": "doi:10.83693/DaPu-test.nrw/A5D1ON"
+    },
+    {
+      "count": 1,
+      "pid": "doi:10.83693/DaPu-test.nrw/HYX8JT"
+    },
+    {
+      "count": 0,
+      "pid": "doi:10.83693/DaPu-test.nrw/MIQDXS"
+    },
+    {
+      "count": 0,
+      "pid": "doi:10.83693/DaPu-test.nrw/PIOZVL"
+    },
+    {
+      "count": 1,
+      "pid": "doi:10.83693/DaPu-test.nrw/SIVYPQ"
+    },
+    {
+      "count": 0,
+      "pid": "doi:10.83693/DaPu-test.nrw/YNGGAS"
+    }
+  ]
+}
