@@ -267,6 +267,8 @@ title = "Kennzahlen"
 lead = "Diese Zahlen berichtet DataPublication.nrw ab dem Produktivstart öffentlich. Sie stammen aus der offenen Schnittstelle des Repositoriums, und jede Hochschule kann sie für ihren Bereich selbst abrufen."
 decimal_separator = ","
 thousands_separator = "."
+# Zeitpunkt des Abrufs im Hinweisband ({date}), Zeitzone Europe/Berlin.
+stand_format = "%d.%m.%Y, %H:%M Uhr"
 months = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 area_lead = "Zahlen des Bereichs {name}, Unterbereiche eingeschlossen. Sie stammen aus der offenen Schnittstelle des Repositoriums."
 empty = "In diesem Bereich gibt es noch keine veröffentlichten Datensätze."

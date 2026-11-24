@@ -408,6 +408,9 @@ def page_context(
     api_text = a["api_text_area"].replace("{alias}", example) if alias else a["api_text"]
 
     notice = d["notice"]
+    # Fetch time in the build's zone, as <time> with the full timestamp.
+    local = fetched.astimezone(landing.BUILD_TIMEZONE)
+    stamp = Markup('<time datetime="{}">{}</time>').format(data["fetched_at"], local.strftime(d["stand_format"]))
     title = name or d["title"]
     return {
         "view": view,
@@ -419,7 +422,7 @@ def page_context(
         "breadcrumb": breadcrumb,
         "switch": switch,
         "notice_title": notice[f"{view}_title"],
-        "notice_text": notice[f"{view}_text"].format(date=fetched.strftime(s["date_format"])),
+        "notice_text": Markup.escape(notice[f"{view}_text"]).replace("{date}", stamp),
         "tiles": tiles,
         "empty": counts["datasets"] == 0,
         "monthly": monthly,

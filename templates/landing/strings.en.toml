@@ -266,6 +266,8 @@ title = "Key figures"
 lead = "These are the figures DataPublication.nrw will report publicly once the repository is in production. They come from the repository's open interface, and every university can retrieve them for its own area."
 decimal_separator = "."
 thousands_separator = ","
+# Fetch time in the notice ({date}), time zone Europe/Berlin.
+stand_format = "%d %b %Y, %H:%M %Z"
 months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 area_lead = "Figures of the area {name}, sub-areas included. They come from the repository's open interface."
 empty = "There are no published datasets in this area yet."

@@ -8,11 +8,9 @@
   margin-bottom: 1rem;
 }
 
-/* One column for every block (notice, tiles, charts, cards), so all of them
-   end on the same line. Running text keeps its reading width (.lead, lists). */
-.data-content {
-  max-width: 60rem;
-}
+/* Blocks (notice, tiles, charts, cards) take the full column like the
+   sections of the landing; running text keeps its reading width (.lead,
+   lists), as there. */
 
 .data-section {
   margin-top: 2.5rem;
